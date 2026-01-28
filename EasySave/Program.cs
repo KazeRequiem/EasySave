@@ -1,6 +1,5 @@
-﻿using EasyLog; // Tout en haut
+﻿using EasyLog; 
 
-// Ton code de test
 Console.WriteLine("==========================================");
 Console.WriteLine("       BIENVENUE DANS EASY SAVE          ");
 Console.WriteLine("==========================================");
@@ -16,14 +15,14 @@ LogEntry testEntry = new LogEntry
 
 try
 {
-    Console.WriteLine("Tentative d'écriture du log via le Singleton...");
-    Logger.Instance.WriteLog(testEntry); // On utilise le Singleton
-    Console.WriteLine("Succès ! Le fichier log a été mis à jour.");
+    Console.WriteLine("try writing log");
+    Logger.Instance.WriteLog(testEntry); 
+    Console.WriteLine("Success");
 }
 catch (Exception ex)
 {
-    Console.WriteLine($"Erreur lors du test : {ex.Message}");
+    Console.WriteLine($"Error : {ex.Message}");
 }
 
-Console.WriteLine("\nAppuie sur une touche pour quitter...");
+Console.WriteLine("\nPress a key to leave...");
 Console.ReadKey();
