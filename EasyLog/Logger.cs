@@ -4,38 +4,71 @@ using System.Text.Json;
 
 namespace EasyLog
 {
-    public static class Logger
-
-        private static readonly string _directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
-
-    private static readonly object _lock = new object();
-
-    public static void WriteLog(LogEntry entry)
+    public sealed class Logger
     {
-        try
+        private static readonly Lazy<Logger> _instance = new(() => new Logger());
+        private readonly string _directoryPath;
+        private readonly object _lock = new object();
+
+        private Logger()
         {
-            lock (_lock)
+            // On cherche spécifiquement le dossier qui s'appelle "EasySave"
+            string rootPath = GetProjectRoot("EasySave");
+
+            _directoryPath = Path.Combine(rootPath, "Logs");
+            Console.WriteLine("Voici le chemin d'accès : " + _directoryPath);
+
+            if (!Directory.Exists(_directoryPath))
             {
-                // 1. Créer le dossier Logs dans C:\Apps\MonProjet\ s'il n'existe pas
-                if (!Directory.Exists(_directoryPath))
-                    Directory.CreateDirectory(_directoryPath);
-
-                // 2. Nom du fichier : 2023-10-27.json
-                string fileName = $"{DateTime.Now:yyyy-MM-dd}.json";
-                string filePath = Path.Combine(_directoryPath, fileName);
-
-                // 3. Sérialisation
-                string jsonString = JsonSerializer.Serialize(entry);
-
-                // 4. Écriture (Ajoute une ligne à chaque log)
-                File.AppendAllText(filePath, jsonString + Environment.NewLine);
+                Directory.CreateDirectory(_directoryPath);
             }
         }
-        catch (Exception ex)
+
+        public static Logger Instance => _instance.Value;
+
+        // Note : Ajout du paramètre 'targetFolder' ici pour corriger l'erreur CS1501
+        private string GetProjectRoot(string targetFolder)
         {
-            // Sécurité pour ne pas planter l'application si le disque est protégé
-            Console.WriteLine($"[Logger Error] {ex.Message}");
+            string? currentDir = AppDomain.CurrentDomain.BaseDirectory;
+
+            while (currentDir != null)
+            {
+                // On récupère les infos du dossier actuel
+                DirectoryInfo dirInfo = new DirectoryInfo(currentDir);
+
+                // Si le nom du dossier est celui qu'on cherche ("EasySave")
+                if (dirInfo.Name.Equals(targetFolder, StringComparison.OrdinalIgnoreCase))
+                {
+                    return currentDir;
+                }
+
+                // Sinon on remonte
+                currentDir = Path.GetDirectoryName(currentDir);
+            }
+
+            return AppDomain.CurrentDomain.BaseDirectory;
+        }
+
+        public void WriteLog(LogEntry entry)
+        {
+            try
+            {
+                lock (_lock)
+                {
+                    string fileName = $"{DateTime.Now:yyyy-MM-dd}.json";
+                    string filePath = Path.Combine(_directoryPath, fileName);
+
+                    var options = new JsonSerializerOptions { WriteIndented = true };
+                    string jsonString = JsonSerializer.Serialize(entry, options);
+
+                    File.AppendAllText(filePath, jsonString + Environment.NewLine);
+                    Console.WriteLine($"[Logger] Log écrit avec succès dans : {filePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Logger Error] : {ex.Message}");
+            }
         }
     }
-}
 }
