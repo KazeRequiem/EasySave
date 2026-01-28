@@ -72,15 +72,7 @@ namespace EasySave.Services
                 throw new ArgumentException("No job found with the specified id.");
             }
 
-            IBackupStrategy strategy = null;
-            if (job.Type == BackupType.Full)
-            {
-                strategy = new FullBackupStrategy();
-            }
-            else if (job.Type == BackupType.Differential)
-            {
-                strategy = new DifferentialBackupStrategy();
-            }
+            IBackupStrategy strategy = BackupStrategyFactory.Create(job.Type);
 
             job.State = "Active";
             SaveJobs();
