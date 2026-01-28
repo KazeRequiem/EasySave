@@ -1,4 +1,4 @@
-﻿using EasySave.Models;
+using EasySave.Models;
 using EasySave.ViewModels;
 using System;
 using System.IO;
@@ -13,14 +13,12 @@ namespace EasySave
             string jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jobs.json");
             Console.WriteLine($"📂 LE FICHIER JSON EST ICI : \n   👉 {jsonPath}\n");
 
-            // --- 2. PRÉPARATION DE L'ENVIRONNEMENT (Comme dans l'ancien code) ---
-            // On se met dans le dossier de l'application pour retrouver facilement les fichiers
+            // --- 2. PRÉPARATION DE L'ENVIRONNEMENT ---
             string projectPath = AppDomain.CurrentDomain.BaseDirectory;
             string basePath = Path.Combine(projectPath, "EasySave_Tests");
-
             string sourceDir = Path.Combine(basePath, "Source_Commune");
 
-            // On génère les fichiers s'ils n'existent pas (pour avoir un truc à copier)
+            // On génère les fichiers s'ils n'existent pas
             if (!Directory.Exists(sourceDir))
             {
                 PrepareTestFiles(sourceDir);
@@ -31,7 +29,6 @@ namespace EasySave
             Console.WriteLine($"📊 Jobs actuellement en mémoire : {viewModel.BackupJobs.Count}");
 
             // --- 4. CRÉATION D'UN NOUVEAU JOB UNIQUE ---
-            // On calcule un nom unique pour voir l'ajout dans le JSON
             int nextId = viewModel.BackupJobs.Count + 1;
             string jobName = $"Job_Auto_{nextId}";
             string destDir = Path.Combine(basePath, $"Backup_{jobName}");
@@ -44,7 +41,6 @@ namespace EasySave
             viewModel.CreateJob(jobName, sourceDir, destDir, BackupType.Full);
 
             // --- 5. EXÉCUTION ---
-            // On récupère le job qu'on vient d'ajouter (c'est le dernier de la liste)
             var newJob = viewModel.BackupJobs[viewModel.BackupJobs.Count - 1];
 
             Console.WriteLine($"\n🚀 Exécution du job ID {newJob.Id}...");
