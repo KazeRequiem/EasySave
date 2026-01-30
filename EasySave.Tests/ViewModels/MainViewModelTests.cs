@@ -11,15 +11,15 @@ namespace EasySave.Tests
     [DoNotParallelize]
     public class MainViewModelTests
     {
-        private string _jsonPath;
+        private string jsonPath;
 
         [TestInitialize]
         public void Setup()
         {
-            _jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jobs.json");
+            jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jobs.json");
             try
             {
-                if (File.Exists(_jsonPath)) File.Delete(_jsonPath);
+                if (File.Exists(jsonPath)) File.Delete(jsonPath);
             }
             catch (IOException) { }
         }
@@ -29,7 +29,7 @@ namespace EasySave.Tests
         {
             try
             {
-                if (File.Exists(_jsonPath)) File.Delete(_jsonPath);
+                if (File.Exists(jsonPath)) File.Delete(jsonPath);
             }
             catch (IOException) { }
         }
@@ -42,8 +42,8 @@ namespace EasySave.Tests
 
             viewModel.CreateJob("ValidJob", validSource, "Dest", BackupType.Full);
 
-            Assert.AreEqual(1, viewModel.BackupJobs.Count);
-            Assert.AreEqual("ValidJob", viewModel.BackupJobs[0].Name);
+            Assert.AreEqual(1, viewModel.backupJobs.Count);
+            Assert.AreEqual("ValidJob", viewModel.backupJobs[0].name);
         }
 
         [TestMethod]
@@ -54,7 +54,7 @@ namespace EasySave.Tests
 
             viewModel.CreateJob("", validSource, "Dest", BackupType.Full);
 
-            Assert.AreEqual(0, viewModel.BackupJobs.Count);
+            Assert.AreEqual(0, viewModel.backupJobs.Count);
         }
 
         [TestMethod]
@@ -65,7 +65,7 @@ namespace EasySave.Tests
 
             viewModel.CreateJob("JobName", invalidSource, "Dest", BackupType.Full);
 
-            Assert.AreEqual(0, viewModel.BackupJobs.Count);
+            Assert.AreEqual(0, viewModel.backupJobs.Count);
         }
 
         [TestMethod]
@@ -78,9 +78,9 @@ namespace EasySave.Tests
 
             viewModel.ModifyJob(1, "Modified", validSource, "NewDest", BackupType.Differential);
 
-            Assert.AreEqual("Modified", viewModel.BackupJobs[0].Name);
-            Assert.AreEqual("NewDest", viewModel.BackupJobs[0].DestinationPath);
-            Assert.AreEqual(BackupType.Differential, viewModel.BackupJobs[0].Type);
+            Assert.AreEqual("Modified", viewModel.backupJobs[0].name);
+            Assert.AreEqual("NewDest", viewModel.backupJobs[0].destinationPath);
+            Assert.AreEqual(BackupType.Differential, viewModel.backupJobs[0].type);
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@ namespace EasySave.Tests
 
             viewModel.DeleteJob(1);
 
-            Assert.AreEqual(0, viewModel.BackupJobs.Count);
+            Assert.AreEqual(0, viewModel.backupJobs.Count);
         }
 
         [TestMethod]
@@ -112,7 +112,7 @@ namespace EasySave.Tests
 
             viewModel.CreateJob("JobExecution", sourceDir, destDir, BackupType.Full);
 
-            int jobId = viewModel.BackupJobs[0].Id;
+            int jobId = viewModel.backupJobs[0].id;
 
             viewModel.ExecuteJob(jobId);
 

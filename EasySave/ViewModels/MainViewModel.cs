@@ -8,12 +8,12 @@ namespace EasySave.ViewModels
 {
     public class MainViewModel
     {
-        private BackupService _backupService;
-        public List<BackupJob> BackupJobs => _backupService.BackupJobs;
+        private BackupService backupService;
+        public List<BackupJob> backupJobs => backupService.backupJobs;
 
         public MainViewModel()
         {
-            _backupService = new BackupService();
+            backupService = new BackupService();
         }
 
         public void CreateJob(string name, string source, string dest, BackupType type)
@@ -32,7 +32,7 @@ namespace EasySave.ViewModels
 
             try
             {
-                _backupService.CreateJob(name, source, dest, type);
+                backupService.CreateJob(name, source, dest, type);
                 Console.WriteLine($"✅ Job '{name}' created");
             }
             catch (Exception ex)
@@ -45,7 +45,7 @@ namespace EasySave.ViewModels
         {
             try
             {
-                _backupService.DeleteJob(id);
+                backupService.DeleteJob(id);
                 Console.WriteLine($"✅ Job {id} deleted");
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace EasySave.ViewModels
 
             try
             {
-                _backupService.ModifyJob(id, name, source, dest, type);
+                backupService.ModifyJob(id, name, source, dest, type);
                 Console.WriteLine($"✅ Job {id} modified");
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace EasySave.ViewModels
 
             try
             {
-                _backupService.ExecuteJob(id);
+                backupService.ExecuteJob(id);
                 Console.WriteLine($"✅ Job {id} completed");
             }
             catch (Exception ex)
