@@ -8,8 +8,8 @@ namespace EasySave.Models
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public string? SourcePath { get; set; }
-        public string? DestinationPath { get; set; }
+        public string SourcePath { get; set; }
+        public string DestinationPath { get; set; }
         public BackupType Type { get; set; }
         public string? State { get; set; }
 
