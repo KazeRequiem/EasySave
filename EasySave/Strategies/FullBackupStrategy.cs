@@ -35,7 +35,6 @@ namespace EasySave.Strategies
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error copying file {file.Name}: {ex.Message}");
                 }
 
                 state.nbFilesLeftToDo--;

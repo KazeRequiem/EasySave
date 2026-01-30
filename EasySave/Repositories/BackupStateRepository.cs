@@ -41,11 +41,11 @@ namespace EasySave.Repositories
 
                 if (existingStateIndex != -1)
                 {
-                    states[existingStateIndex] = state; // Mise à jour
+                    states[existingStateIndex] = state;
                 }
                 else
                 {
-                    states.Add(state); // Création
+                    states.Add(state);
                 }
 
                 var options = new JsonSerializerOptions { WriteIndented = true };
