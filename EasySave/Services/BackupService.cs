@@ -12,11 +12,13 @@ namespace EasySave.Services
     public class BackupService
     {
         private readonly IBackupJobRepository repository;
+        private readonly BackupStateRepository stateRepository;
         public List<BackupJob> backupJobs { get; set; }
 
         public BackupService()
         {
             repository = new BackupJobRepository();
+            stateRepository = new BackupStateRepository();
             backupJobs = repository.ReadFromDisk();
         }
 
@@ -78,16 +80,31 @@ namespace EasySave.Services
 
             IBackupStrategy strategy = BackupStrategyFactory.Create(job.type);
 
+            var state = new BackupState
+            {
+                name = job.name,
+                state = "ACTIVE",
+                lastActionTimestamp = DateTime.Now
+            };
+
             job.state = "Active";
             repository.WriteToDisk(backupJobs);
 
             try
             {
-                strategy?.Execute(job.sourcePath, job.destinationPath);
+                strategy.Execute(job.sourcePath, job.destinationPath, state, stateRepository);
+                state.state = "END";
+                state.nbFilesLeftToDo = 0;
+                state.progression = 100;
+                state.sourceFilePath = job.sourcePath;
+                state.targetFilePath = job.destinationPath;
+                stateRepository.UpdateState(state);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[Error] {ex.Message}"); 
+                state.state = "ERROR";
+                stateRepository.UpdateState(state);
+                throw;
             }
             finally
             {
