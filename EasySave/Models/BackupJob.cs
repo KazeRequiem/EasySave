@@ -6,25 +6,25 @@ namespace EasySave.Models
 {
      public class BackupJob
     {
-        public int Id { get; set; }
-        public string? Name { get; set; }
-        public string SourcePath { get; set; }
-        public string DestinationPath { get; set; }
-        public BackupType Type { get; set; }
-        public string? State { get; set; }
+        public int id { get; set; }
+        public string? name { get; set; }
+        public string sourcePath { get; set; }
+        public string destinationPath { get; set; }
+        public BackupType type { get; set; }
+        public string? state { get; set; }
 
 
         public BackupJob()
         {
         }
-        public BackupJob(int id, string name, string source, string dest, BackupType type)
+        public BackupJob(int newId, string newName, string newSource, string newDest, BackupType newType)
         {
-            Id = id;
-            Name = name;
-            SourcePath = source;
-            DestinationPath = dest;
-            Type = type;
-            State = "Inactive"; //default state
+            id = newId;
+            name = newName;
+            sourcePath = newSource;
+            destinationPath = newDest;
+            type = newType;
+            state = "Inactive"; //default state
         }
     }
 }

@@ -26,10 +26,10 @@ namespace EasySave
 
             // --- 3. DÉMARRAGE DU VIEWMODEL ---
             var viewModel = new MainViewModel();
-            Console.WriteLine($"📊 Jobs actuellement en mémoire : {viewModel.BackupJobs.Count}");
+            Console.WriteLine($"📊 Jobs actuellement en mémoire : {viewModel.backupJobs.Count}");
 
             // --- 4. CRÉATION D'UN NOUVEAU JOB UNIQUE ---
-            int nextId = viewModel.BackupJobs.Count + 1;
+            int nextId = viewModel.backupJobs.Count + 1;
             string jobName = $"Job_Auto_{nextId}";
             string destDir = Path.Combine(basePath, $"Backup_{jobName}");
 
@@ -41,15 +41,15 @@ namespace EasySave
             viewModel.CreateJob(jobName, sourceDir, destDir, BackupType.Full);
 
             // --- 5. EXÉCUTION ---
-            var newJob = viewModel.BackupJobs[viewModel.BackupJobs.Count - 1];
+            var newJob = viewModel.backupJobs[viewModel.backupJobs.Count - 1];
 
-            Console.WriteLine($"\n🚀 Exécution du job ID {newJob.Id}...");
-            viewModel.ExecuteJob(newJob.Id);
+            Console.WriteLine($"\n🚀 Exécution du job ID {newJob.id}...");
+            viewModel.ExecuteJob(newJob.id);
 
             // --- 6. RÉSULTAT ---
             Console.WriteLine($"\n✅ TERMINÉ !");
             Console.WriteLine($"   Job ajouté au fichier JSON.");
-            Console.WriteLine($"   Tu devrais avoir {viewModel.BackupJobs.Count} jobs dans le fichier.");
+            Console.WriteLine($"   Tu devrais avoir {viewModel.backupJobs.Count} jobs dans le fichier.");
             Console.WriteLine("   Appuie sur une touche pour quitter.");
             Console.ReadKey();
         }
