@@ -40,8 +40,8 @@ namespace EasySave.Tests
             var service = new BackupService();
             service.CreateJob("Job1", "Source", "Dest", BackupType.Full);
 
-            Assert.AreEqual(1, service.BackupJobs.Count);
-            Assert.AreEqual("Job1", service.BackupJobs[0].Name);
+            Assert.AreEqual(1, service.backupJobs.Count);
+            Assert.AreEqual("Job1", service.backupJobs[0].name);
         }
 
         [TestMethod]
@@ -77,11 +77,11 @@ namespace EasySave.Tests
 
             service.DeleteJob(2);
 
-            Assert.AreEqual(2, service.BackupJobs.Count);
-            Assert.AreEqual("Job1", service.BackupJobs[0].Name);
-            Assert.AreEqual(1, service.BackupJobs[0].Id);
-            Assert.AreEqual("Job3", service.BackupJobs[1].Name);
-            Assert.AreEqual(2, service.BackupJobs[1].Id);
+            Assert.AreEqual(2, service.backupJobs.Count);
+            Assert.AreEqual("Job1", service.backupJobs[0].name);
+            Assert.AreEqual(1, service.backupJobs[0].id);
+            Assert.AreEqual("Job3", service.backupJobs[1].name);
+            Assert.AreEqual(2, service.backupJobs[1].id);
         }
 
         [TestMethod]
@@ -107,17 +107,17 @@ namespace EasySave.Tests
 
             service.ModifyJob(1, "UpdatedName", "SourceB", "DestB", BackupType.Differential);
 
-            var job = service.BackupJobs.FirstOrDefault(j => j.Id == 1);
+            var job = service.backupJobs.FirstOrDefault(j => j.id == 1);
             Assert.IsNotNull(job);
-            Assert.AreEqual("UpdatedName", job.Name);
-            Assert.AreEqual("SourceB", job.SourcePath);
-            Assert.AreEqual(BackupType.Differential, job.Type);
+            Assert.AreEqual("UpdatedName", job.name);
+            Assert.AreEqual("SourceB", job.sourcePath);
+            Assert.AreEqual(BackupType.Differential, job.type);
 
             var service2 = new BackupService();
-            var persistedJob = service2.BackupJobs.FirstOrDefault(j => j.Id == 1);
+            var persistedJob = service2.backupJobs.FirstOrDefault(j => j.id == 1);
 
             Assert.IsNotNull(persistedJob);
-            Assert.AreEqual("UpdatedName", persistedJob.Name);
+            Assert.AreEqual("UpdatedName", persistedJob.name);
         }
 
         [TestMethod]
@@ -143,8 +143,8 @@ namespace EasySave.Tests
 
             var service2 = new BackupService();
 
-            Assert.AreEqual(1, service2.BackupJobs.Count);
-            Assert.AreEqual("PersistentJob", service2.BackupJobs[0].Name);
+            Assert.AreEqual(1, service2.backupJobs.Count);
+            Assert.AreEqual("PersistentJob", service2.backupJobs[0].name);
         }
     }
 }

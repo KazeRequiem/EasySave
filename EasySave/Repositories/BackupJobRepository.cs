@@ -34,7 +34,7 @@ namespace EasySave.Repositories
             lock (_lock)
             {
                 var options = new JsonSerializerOptions { WriteIndented = true };
-                 string json = JsonSerializer.Serialize(jobs, options);
+                string json = JsonSerializer.Serialize(jobs, options);
                 File.WriteAllText(filePath, json);
             }
         }
