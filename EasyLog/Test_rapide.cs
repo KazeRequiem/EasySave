@@ -12,7 +12,9 @@ namespace EasyLog
                 SourcePath = "C:\\SourceTest",
                 DestinationPath = "D:\\DestTest",
                 SizeFile = 500,
-                TimeTransfer = 10
+                TimeTransfer = 10,
+                OperationName = "Modifier nom ",
+                Status = "Fin"
             };
 
             Logger.Instance.WriteLog(testLog);
