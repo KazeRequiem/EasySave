@@ -14,10 +14,8 @@
 
         public long SizeFile { get; set; }
 
-        public long TimeTransfer { get; set; }
+        public double TimeTransfer { get; set; }
 
-        public string Status { get; set; }
-
-        public string Succes_Error { get; set; }
+        public string Success_Error { get; set; }
     }
 }
