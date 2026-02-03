@@ -39,7 +39,7 @@ namespace EasySave.Views
                     }
                 }
 
-                Console.WriteLine("\n(Utilisez les flèches Haut/Bas pour naviguer et Entrée pour valider)");
+                Console.WriteLine($"\n({Strings.NavigationHelp})");
 
                 key = Console.ReadKey(true).Key;
 
@@ -72,7 +72,7 @@ namespace EasySave.Views
 
             while (keepRunning)
             {
-                int choice = ShowInteractiveMenu("EASYSAVE - MAIN MENU", mainOptions);
+                int choice = ShowInteractiveMenu(Strings.MainMenuTitle, mainOptions);
                 Console.Clear();
 
                 switch (choice)
@@ -87,7 +87,7 @@ namespace EasySave.Views
 
                 if (keepRunning)
                 {
-                    Console.WriteLine("\nAppuyez sur une touche pour revenir au menu...");
+                    Console.WriteLine($"\n{Strings.PressAnyKey}");
                     Console.ReadKey(true);
                 }
             }
@@ -95,19 +95,19 @@ namespace EasySave.Views
 
         private void CreateJobView()
         {
-            Console.WriteLine("--- CRÉER UN NOUVEAU TRAVAIL ---");
+            Console.WriteLine($"--- {Strings.TitleCreate} ---");
 
-            Console.Write("Nom du travail : ");
+            Console.Write($"{Strings.PromptJobName} ");
             string name = Console.ReadLine();
 
-            Console.Write("Chemin Source (ex: C:\\DossierA) : ");
+            Console.Write($"{Strings.PromptSource} ");
             string source = Console.ReadLine();
 
-            Console.Write("Chemin Destination (ex: D:\\DossierB) : ");
+            Console.Write($"{Strings.PromptDest} ");
             string dest = Console.ReadLine();
 
-            string[] typeOptions = { "Complète (Full)", "Différentielle (Differential)" };
-            int typeChoice = ShowInteractiveMenu("Choisissez le type de sauvegarde :", typeOptions);
+            string[] typeOptions = { Strings.TypeFull, Strings.TypeDiff };
+            int typeChoice = ShowInteractiveMenu(Strings.PromptType, typeOptions);
             BackupType type = (typeChoice == 0) ? BackupType.Full : BackupType.Differential;
 
             Console.Clear();
@@ -117,42 +117,41 @@ namespace EasySave.Views
         private void ModifyJobView()
         {
             ListJobsView();
-            Console.Write("\nID du travail à modifier : ");
+            Console.Write($"\n{Strings.PromptModifyId} ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
                 var job = viewModel.backupJobs.FirstOrDefault(j => j.id == id);
                 if (job != null)
                 {
-                    Console.WriteLine($"Modification de : {job.name} (Laissez vide pour ne pas changer)");
+                    Console.WriteLine(string.Format(Strings.TitleModify, job.name));
 
-                    Console.Write($"Nouveau nom [{job.name}] : ");
+                    Console.Write(string.Format(Strings.PromptNewName, job.name));
                     string newName = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(newName)) newName = job.name;
 
-                    Console.Write($"Nouvelle Source [{job.sourcePath}] : ");
+                    Console.Write(string.Format(Strings.PromptNewSource, job.sourcePath));
                     string newSource = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(newSource)) newSource = job.sourcePath;
 
-                    Console.Write($"Nouvelle Destination [{job.destinationPath}] : ");
+                    Console.Write(string.Format(Strings.PromptNewDest, job.destinationPath));
                     string newDest = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(newDest)) newDest = job.destinationPath;
 
-                    // Sous-menu pour changer le type
-                    string[] typeOptions = { "Complète (Full)", "Différentielle (Differential)" };
-                    int typeChoice = ShowInteractiveMenu($"Nouveau type [Actuel: {job.type}] :", typeOptions);
+                    string[] typeOptions = { Strings.TypeFull, Strings.TypeDiff };
+                    int typeChoice = ShowInteractiveMenu(string.Format(Strings.PromptNewType, job.type), typeOptions);
                     BackupType newType = (typeChoice == 0) ? BackupType.Full : BackupType.Differential;
 
                     Console.Clear();
                     viewModel.ModifyJob(id, newName, newSource, newDest, newType);
                 }
-                else Console.WriteLine("❌ ID introuvable.");
+                else Console.WriteLine($"❌ {Strings.ErrorIdNotFound}");
             }
         }
 
         private void DeleteJobView()
         {
             ListJobsView();
-            Console.Write("\nID du travail à supprimer : ");
+            Console.Write($"\n{Strings.PromptDeleteId} ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
                 viewModel.DeleteJob(id);
@@ -161,15 +160,15 @@ namespace EasySave.Views
 
         private void ListJobsView()
         {
-            Console.WriteLine("--- LISTE DES TRAVAUX ---");
+            Console.WriteLine($"--- {Strings.TitleList} ---");
             if (viewModel.backupJobs.Count == 0)
             {
-                Console.WriteLine("Aucun travail enregistré.");
+                Console.WriteLine(Strings.ListEmpty);
                 return;
             }
 
             Console.WriteLine("------------------------------------------------");
-            Console.WriteLine("ID | Nom             | Type    | Source -> Destination");
+            Console.WriteLine(Strings.ListHeader);
             Console.WriteLine("------------------------------------------------");
             foreach (var job in viewModel.backupJobs)
             {
@@ -181,7 +180,7 @@ namespace EasySave.Views
         private void ExecuteJobView()
         {
             ListJobsView();
-            Console.Write("\nEntrez l'ID du travail à exécuter : ");
+            Console.Write($"\n{Strings.PromptExecuteId} ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
                 viewModel.ExecuteJob(id);

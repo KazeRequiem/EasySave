@@ -120,6 +120,18 @@
   <data name="AskChoice" xml:space="preserve">
     <value>Please enter your choice:</value>
   </data>
+  <data name="ErrorIdNotFound" xml:space="preserve">
+    <value>ID not found.</value>
+  </data>
+  <data name="ListEmpty" xml:space="preserve">
+    <value>No jobs registered yet.</value>
+  </data>
+  <data name="ListHeader" xml:space="preserve">
+    <value>ID | Name | Type | Source -&gt; Destination</value>
+  </data>
+  <data name="MainMenuTitle" xml:space="preserve">
+    <value>EASYSAVE - MAIN MENU</value>
+  </data>
   <data name="MenuExit" xml:space="preserve">
     <value>6. Exit</value>
   </data>
@@ -140,5 +152,59 @@
   </data>
   <data name="MenuTitle" xml:space="preserve">
     <value>EasySave - Main Menu</value>
+  </data>
+  <data name="NavigationHelp" xml:space="preserve">
+    <value>Use Up/Down arrows to navigate and Enter to confirm.</value>
+  </data>
+  <data name="PressAnyKey" xml:space="preserve">
+    <value>Press any key to return to the menu...</value>
+  </data>
+  <data name="PromptDeleteId" xml:space="preserve">
+    <value>ID of the job to delete:</value>
+  </data>
+  <data name="PromptDest" xml:space="preserve">
+    <value>Destination path (e.g., D:\Folder):</value>
+  </data>
+  <data name="PromptExecuteId" xml:space="preserve">
+    <value>Enter the ID of the job to execute:</value>
+  </data>
+  <data name="PromptJobName" xml:space="preserve">
+    <value>Job name:</value>
+  </data>
+  <data name="PromptModifyId" xml:space="preserve">
+    <value>ID of the job to modify:</value>
+  </data>
+  <data name="PromptNewDest" xml:space="preserve">
+    <value>New destination [{0}]:</value>
+  </data>
+  <data name="PromptNewName" xml:space="preserve">
+    <value>New name [{0}]:</value>
+  </data>
+  <data name="PromptNewSource" xml:space="preserve">
+    <value>New source [{0}]:</value>
+  </data>
+  <data name="PromptNewType" xml:space="preserve">
+    <value>New type [Current: {0}]:</value>
+  </data>
+  <data name="PromptSource" xml:space="preserve">
+    <value>Source path (e.g., C:\Folder):</value>
+  </data>
+  <data name="PromptType" xml:space="preserve">
+    <value>Choose backup type:</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>CREATE A NEW BACKUP JOB</value>
+  </data>
+  <data name="TitleList" xml:space="preserve">
+    <value>BACKUP JOBS LIST</value>
+  </data>
+  <data name="TitleModify" xml:space="preserve">
+    <value>Modifying: {0} (Leave empty to keep current value)</value>
+  </data>
+  <data name="TypeDiff" xml:space="preserve">
+    <value>Differential Backup</value>
+  </data>
+  <data name="TypeFull" xml:space="preserve">
+    <value>Full Backup</value>
   </data>
 </root>
