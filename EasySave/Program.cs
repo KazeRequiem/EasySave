@@ -12,7 +12,6 @@ namespace EasySave
         {
             var viewModel = new MainViewModel();
 
-            // 2. Instanciation de la Vue (en lui passant le ViewModel)
             var view = new MainView(viewModel);
 
             SetupLanguage();
