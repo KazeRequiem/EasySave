@@ -19,7 +19,6 @@ namespace EasySave.Services
         private readonly IBackupJobRepository repository;
         private readonly BackupStateRepository stateRepository;
         public List<BackupJob> backupJobs { get; set; }
-
         public BackupService()
         {
             repository = new BackupJobRepository();
@@ -37,18 +36,14 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsError = GetDirectorySize(source);
-                
                 LogAction("Create Job : " + name, source, destination, backupType.ToString(), tailleOctetsError, timeError, "[Error] You can't create more than 5 jobs.");
                 throw new InvalidOperationException("[Error] You can't create more than 5 jobs.");
-
             }
-
             var newJob = new BackupJob(id, name, source, destination, backupType);
             backupJobs.Add(newJob);
             repository.WriteToDisk(backupJobs);
             double timeSuccess = chrono.Elapsed.TotalMilliseconds;
             long tailleOctetsSuccess = GetDirectorySize(source);
-            Console.WriteLine("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH" + source);
             LogAction("Create Job : " + newJob.name, newJob.sourcePath, newJob.destinationPath, newJob.type.ToString(), tailleOctetsSuccess, timeSuccess, "[Success] Job Create.");
         }
 
