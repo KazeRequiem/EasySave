@@ -181,9 +181,25 @@ namespace EasySave.Views
         {
             ListJobsView();
             Console.Write($"\n{Strings.PromptExecuteId} ");
-            if (int.TryParse(Console.ReadLine(), out int id))
+
+            string input = Console.ReadLine()?.Trim().ToLower();
+
+            if (input == "all")
+            {
+                Console.WriteLine("\nLancement de tous les travaux...");
+
+                foreach (var job in viewModel.backupJobs)
+                {
+                    viewModel.ExecuteJob(job.id);
+                }
+            }
+            else if (int.TryParse(input, out int id))
             {
                 viewModel.ExecuteJob(id);
+            }
+            else
+            {
+                Console.WriteLine("Entrée invalide.");
             }
         }
     }

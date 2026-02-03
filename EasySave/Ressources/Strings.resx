@@ -120,18 +120,6 @@
   <data name="AskChoice" xml:space="preserve">
     <value>Please enter your choice:</value>
   </data>
-  <data name="ErrorIdNotFound" xml:space="preserve">
-    <value>ID not found.</value>
-  </data>
-  <data name="ListEmpty" xml:space="preserve">
-    <value>No jobs registered yet.</value>
-  </data>
-  <data name="ListHeader" xml:space="preserve">
-    <value>ID | Name | Type | Source -&gt; Destination</value>
-  </data>
-  <data name="MainMenuTitle" xml:space="preserve">
-    <value>EASYSAVE - MAIN MENU</value>
-  </data>
   <data name="MenuExit" xml:space="preserve">
     <value>6. Exit</value>
   </data>
@@ -147,11 +135,20 @@
   <data name="MenuOption4" xml:space="preserve">
     <value>4. List backup jobs</value>
   </data>
-  <data name="MenuOption5" xml:space="preserve">
-    <value>5. Execute backup job</value>
-  </data>
   <data name="MenuTitle" xml:space="preserve">
     <value>EasySave - Main Menu</value>
+  </data>
+  <data name="ErrorIdNotFound" xml:space="preserve">
+    <value>ID not found.</value>
+  </data>
+  <data name="ListEmpty" xml:space="preserve">
+    <value>No jobs registered yet.</value>
+  </data>
+  <data name="ListHeader" xml:space="preserve">
+    <value>ID | Name | Type | Source -&gt; Destination</value>
+  </data>
+  <data name="MainMenuTitle" xml:space="preserve">
+    <value>EASYSAVE - MAIN MENU</value>
   </data>
   <data name="NavigationHelp" xml:space="preserve">
     <value>Use Up/Down arrows to navigate and Enter to confirm.</value>
@@ -206,5 +203,8 @@
   </data>
   <data name="TypeFull" xml:space="preserve">
     <value>Full Backup</value>
+  </data>
+  <data name="MenuOption5" xml:space="preserve">
+    <value>5. Execute backup job</value>
   </data>
 </root>
