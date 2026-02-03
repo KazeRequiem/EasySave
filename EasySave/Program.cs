@@ -9,6 +9,9 @@ namespace EasySave
     {
         static void Main(string[] args)
         {
+
+            //FileInfo infoErreur = new FileInfo(destination);
+            //long tailleOctetsErreur = infoErreur.Length;
             // --- 1. AFFICHAGE DU CHEMIN JSON (Pour que tu saches où regarder) ---
             string jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jobs.json");
             Console.WriteLine($"📂 LE FICHIER JSON EST ICI : \n   👉 {jsonPath}\n");
