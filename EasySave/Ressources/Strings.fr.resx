@@ -120,18 +120,6 @@
   <data name="AskChoice" xml:space="preserve">
     <value>Entrer votre choix:</value>
   </data>
-  <data name="ErrorIdNotFound" xml:space="preserve">
-    <value>ID introuvable.</value>
-  </data>
-  <data name="ListEmpty" xml:space="preserve">
-    <value>Aucun travail enregistré.</value>
-  </data>
-  <data name="ListHeader" xml:space="preserve">
-    <value>ID | Nom | Type | Source -&gt; Destination</value>
-  </data>
-  <data name="MainMenuTitle" xml:space="preserve">
-    <value>EASYSAVE - MENU PRINCIPAL</value>
-  </data>
   <data name="MenuExit" xml:space="preserve">
     <value>6. Quitter</value>
   </data>
@@ -147,11 +135,20 @@
   <data name="MenuOption4" xml:space="preserve">
     <value>4. Lister les travaux de sauvegarde</value>
   </data>
-  <data name="MenuOption5" xml:space="preserve">
-    <value>5. Exécuter un travail de sauvegarde</value>
-  </data>
   <data name="MenuTitle" xml:space="preserve">
     <value>EasySave - Menu Principale</value>
+  </data>
+  <data name="ErrorIdNotFound" xml:space="preserve">
+    <value>ID introuvable.</value>
+  </data>
+  <data name="ListEmpty" xml:space="preserve">
+    <value>Aucun travail enregistré.</value>
+  </data>
+  <data name="ListHeader" xml:space="preserve">
+    <value>ID | Nom | Type | Source -&gt; Destination</value>
+  </data>
+  <data name="MainMenuTitle" xml:space="preserve">
+    <value>EASYSAVE - MENU PRINCIPAL</value>
   </data>
   <data name="NavigationHelp" xml:space="preserve">
     <value>Utilisez les flèches Haut/Bas pour naviguer et Entrée pour valider.</value>
@@ -166,7 +163,7 @@
     <value>Chemin Destination (ex: D:\Dossier) :</value>
   </data>
   <data name="PromptExecuteId" xml:space="preserve">
-    <value>Entrez l'ID du travail à exécuter :</value>
+    <value>Entrez l'ID du travail à exécuter (all pour tout exécuter) :</value>
   </data>
   <data name="PromptJobName" xml:space="preserve">
     <value>Nom du travail :</value>
@@ -206,5 +203,8 @@
   </data>
   <data name="TypeFull" xml:space="preserve">
     <value>Complète (Full)</value>
+  </data>
+  <data name="MenuOption5" xml:space="preserve">
+    <value>5. Exécuter un travail de sauvegarde</value>
   </data>
 </root>
