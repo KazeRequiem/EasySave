@@ -71,7 +71,7 @@ namespace EasySave
             Console.Clear();
             Console.WriteLine("1. English (Default)");
             Console.WriteLine("2. Français");
-            Console.Write("Choice (en/fr) : ");
+            Console.Write("Language (en/fr) : ");
 
             string choice = Console.ReadLine()?.ToLower();
 
