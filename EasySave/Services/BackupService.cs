@@ -137,7 +137,6 @@ namespace EasySave.Services
                 stateRepository.UpdateState(state);
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
-                Console.WriteLine(timeSuccess.ToString());
                 long tailleOctetsSuccess = GetDirectorySize(job.destinationPath);
                 LogAction("ExecuteJob : " + job.name, job.sourcePath, job.destinationPath, "None", tailleOctetsSuccess, timeSuccess, "[Success] Job Executed.");
             }

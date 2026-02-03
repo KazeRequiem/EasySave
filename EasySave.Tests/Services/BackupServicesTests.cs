@@ -11,15 +11,15 @@ namespace EasySave.Tests
     [DoNotParallelize]
     public class BackupServiceTests
     {
-        private string _jsonPath;
+        private string jsonPath;
 
         [TestInitialize]
         public void Setup()
         {
-            _jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jobs.json");
+            jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jobs.json");
             try
             {
-                if (File.Exists(_jsonPath)) File.Delete(_jsonPath);
+                if (File.Exists(jsonPath)) File.Delete(jsonPath);
             }
             catch (IOException) { }
         }
@@ -29,7 +29,7 @@ namespace EasySave.Tests
         {
             try
             {
-                if (File.Exists(_jsonPath)) File.Delete(_jsonPath);
+                if (File.Exists(jsonPath)) File.Delete(jsonPath);
             }
             catch (IOException) { }
         }
