@@ -163,7 +163,7 @@
     <value>Destination path (e.g., D:\Folder):</value>
   </data>
   <data name="PromptExecuteId" xml:space="preserve">
-    <value>Enter the ID of the job to execute:</value>
+    <value>Enter the ID of the job to execute (all pour tout exécuter) :</value>
   </data>
   <data name="PromptJobName" xml:space="preserve">
     <value>Job name:</value>

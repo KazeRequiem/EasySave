@@ -205,7 +205,7 @@ namespace EasySave.Ressources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Enter the ID of the job to execute:.
+        ///   Recherche une chaîne localisée semblable à Enter the ID of the job to execute (all pour tout exécuter) :.
         /// </summary>
         public static string PromptExecuteId {
             get {
