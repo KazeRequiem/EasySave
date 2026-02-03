@@ -12,7 +12,7 @@ namespace EasySave.Views
 
         public MainView(MainViewModel viewModel)
         {
-            viewModel = viewModel;
+            this.viewModel = viewModel;
         }
 
         private int ShowInteractiveMenu(string title, string[] options)
@@ -93,7 +93,6 @@ namespace EasySave.Views
             }
         }
 
-        // --- 1. CRÉATION (CORRIGÉE AVEC INPUTS) ---
         private void CreateJobView()
         {
             Console.WriteLine("--- CRÉER UN NOUVEAU TRAVAIL ---");
@@ -107,7 +106,6 @@ namespace EasySave.Views
             Console.Write("Chemin Destination (ex: D:\\DossierB) : ");
             string dest = Console.ReadLine();
 
-            // Sous-menu interactif pour le type de sauvegarde
             string[] typeOptions = { "Complète (Full)", "Différentielle (Differential)" };
             int typeChoice = ShowInteractiveMenu("Choisissez le type de sauvegarde :", typeOptions);
             BackupType type = (typeChoice == 0) ? BackupType.Full : BackupType.Differential;
