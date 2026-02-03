@@ -8,11 +8,11 @@ namespace EasySave.Views
 {
     public class MainView
     {
-        private MainViewModel _viewModel;
+        private MainViewModel viewModel;
 
         public MainView(MainViewModel viewModel)
         {
-            _viewModel = viewModel;
+            viewModel = viewModel;
         }
 
         private int ShowInteractiveMenu(string title, string[] options)
@@ -113,7 +113,7 @@ namespace EasySave.Views
             BackupType type = (typeChoice == 0) ? BackupType.Full : BackupType.Differential;
 
             Console.Clear();
-            _viewModel.CreateJob(name, source, dest, type);
+            viewModel.CreateJob(name, source, dest, type);
         }
 
         private void ModifyJobView()
@@ -122,7 +122,7 @@ namespace EasySave.Views
             Console.Write("\nID du travail à modifier : ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                var job = _viewModel.backupJobs.FirstOrDefault(j => j.id == id);
+                var job = viewModel.backupJobs.FirstOrDefault(j => j.id == id);
                 if (job != null)
                 {
                     Console.WriteLine($"Modification de : {job.name} (Laissez vide pour ne pas changer)");
@@ -145,7 +145,7 @@ namespace EasySave.Views
                     BackupType newType = (typeChoice == 0) ? BackupType.Full : BackupType.Differential;
 
                     Console.Clear();
-                    _viewModel.ModifyJob(id, newName, newSource, newDest, newType);
+                    viewModel.ModifyJob(id, newName, newSource, newDest, newType);
                 }
                 else Console.WriteLine("❌ ID introuvable.");
             }
@@ -157,14 +157,14 @@ namespace EasySave.Views
             Console.Write("\nID du travail à supprimer : ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                _viewModel.DeleteJob(id);
+                viewModel.DeleteJob(id);
             }
         }
 
         private void ListJobsView()
         {
             Console.WriteLine("--- LISTE DES TRAVAUX ---");
-            if (_viewModel.backupJobs.Count == 0)
+            if (viewModel.backupJobs.Count == 0)
             {
                 Console.WriteLine("Aucun travail enregistré.");
                 return;
@@ -173,7 +173,7 @@ namespace EasySave.Views
             Console.WriteLine("------------------------------------------------");
             Console.WriteLine("ID | Nom             | Type    | Source -> Destination");
             Console.WriteLine("------------------------------------------------");
-            foreach (var job in _viewModel.backupJobs)
+            foreach (var job in viewModel.backupJobs)
             {
                 Console.WriteLine($"{job.id}  | {job.name,-15} | {job.type,-7} | {job.sourcePath} -> {job.destinationPath}");
             }
@@ -186,7 +186,7 @@ namespace EasySave.Views
             Console.Write("\nEntrez l'ID du travail à exécuter : ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                _viewModel.ExecuteJob(id);
+                viewModel.ExecuteJob(id);
             }
         }
     }
