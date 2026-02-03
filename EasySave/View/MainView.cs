@@ -1,6 +1,6 @@
 ﻿using EasySave.Models;
 using EasySave.ViewModels;
-using EasySave.Ressources; // Lien vers tes traductions
+using EasySave.Ressources;
 using System;
 using System.Linq;
 
@@ -39,7 +39,6 @@ namespace EasySave.Views
                     }
                 }
 
-                // Texte de navigation traduit
                 Console.WriteLine($"\n({Strings.NavigationHelp})");
 
                 key = Console.ReadKey(true).Key;
@@ -88,7 +87,6 @@ namespace EasySave.Views
 
                 if (keepRunning)
                 {
-                    // Texte "Appuyez sur une touche..." traduit
                     Console.WriteLine($"\n{Strings.PressAnyKey}");
                     Console.ReadKey(true);
                 }
