@@ -144,7 +144,7 @@ namespace EasySave.Views
                     Console.Clear();
                     viewModel.ModifyJob(id, newName, newSource, newDest, newType);
                 }
-                else Console.WriteLine($"❌ {Strings.ErrorIdNotFound}");
+                else Console.WriteLine($"{Strings.ErrorIdNotFound}");
             }
         }
 
@@ -186,7 +186,6 @@ namespace EasySave.Views
 
             if (input == "all")
             {
-                Console.WriteLine("\nLancement de tous les travaux...");
 
                 foreach (var job in viewModel.backupJobs)
                 {
