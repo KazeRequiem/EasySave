@@ -16,7 +16,7 @@ namespace EasyLog
             string rootPath = GetProjectRoot("EasySave");
 
             _directoryPath = Path.Combine(rootPath, "Logs");
-            Console.WriteLine("Voici le chemin d'accès : " + _directoryPath);
+            //Console.WriteLine("Voici le chemin d'accès : " + _directoryPath);
 
             if (!Directory.Exists(_directoryPath))
             {
@@ -26,23 +26,22 @@ namespace EasyLog
 
         public static Logger Instance => _instance.Value;
 
-        // Note : Ajout du paramètre 'targetFolder' ici pour corriger l'erreur CS1501
         private string GetProjectRoot(string targetFolder)
         {
             string? currentDir = AppDomain.CurrentDomain.BaseDirectory;
 
             while (currentDir != null)
             {
-                // On récupère les infos du dossier actuel
+                
                 DirectoryInfo dirInfo = new DirectoryInfo(currentDir);
 
-                // Si le nom du dossier est celui qu'on cherche ("EasySave")
+                
                 if (dirInfo.Name.Equals(targetFolder, StringComparison.OrdinalIgnoreCase))
                 {
                     return currentDir;
                 }
 
-                // Sinon on remonte
+                
                 currentDir = Path.GetDirectoryName(currentDir);
             }
 
@@ -62,7 +61,7 @@ namespace EasyLog
                     string jsonString = JsonSerializer.Serialize(entry, options);
 
                     File.AppendAllText(filePath, jsonString + Environment.NewLine);
-                    Console.WriteLine($"[Logger] Log écrit avec succès dans : {filePath}");
+                    //Console.WriteLine($"[Logger] Log écrit avec succès dans : {filePath}");
                 }
             }
             catch (Exception ex)

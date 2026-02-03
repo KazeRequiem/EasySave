@@ -157,7 +157,7 @@ namespace EasySave.Services
                 repository.WriteToDisk(backupJobs);
             }
         }
-        private void LogAction(string operation, string name, string source, string destination, long size, double time, string SuccessOrError)
+        public void LogAction(string operation, string name, string source, string destination, long size, double time, string SuccessOrError)
         {
             LogEntry logEntry = new LogEntry
             {
@@ -173,7 +173,6 @@ namespace EasySave.Services
             try
             {
                 Logger.Instance.WriteLog(logEntry);
-                Console.WriteLine($"Daily log : {operation} Success");
             }
             catch (Exception ex)
             {
