@@ -14,7 +14,7 @@ namespace EasyLog
 
         public string operationName { get; set; }
 
-        public required string nameSave { get; set; }
+        public required string savetype { get; set; }
 
         public required string sourcePath { get; set; }
 

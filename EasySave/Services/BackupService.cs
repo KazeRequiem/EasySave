@@ -200,7 +200,7 @@ namespace EasySave.Services
             LogEntry logEntry = new LogEntry
             {
                 operationName = operation,
-                nameSave = name,
+                savetype = name,
                 sourcePath = source,
                 destinationPath = destination,
                 sizeFile = size,
