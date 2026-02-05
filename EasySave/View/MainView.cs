@@ -6,6 +6,13 @@ using System.Linq;
 
 namespace EasySave.Views
 {
+    /// <summary>
+    /// Main view of the EasySave application.
+    /// 
+    /// This class manages the console-based user interface,
+    /// displays interactive menus, and forwards user actions
+    /// to the corresponding ViewModel methods.
+    /// </summary>
     public class MainView
     {
         private MainViewModel viewModel;
@@ -15,6 +22,12 @@ namespace EasySave.Views
             this.viewModel = viewModel;
         }
 
+        /// <summary>
+        /// Displays an interactive menu in the console and allows
+        /// the user to navigate using the keyboard.
+        /// 
+        /// Returns the index of the selected menu option.
+        /// </summary>
         private int ShowInteractiveMenu(string title, string[] options)
         {
             int selectedIndex = 0;
@@ -57,15 +70,21 @@ namespace EasySave.Views
             return selectedIndex;
         }
 
+        /// <summary>
+        /// Starts the main application loop.
+        /// 
+        /// Displays the main menu and handles user navigation
+        /// until the user chooses to exit the application.
+        /// </summary>
         public void Start()
         {
             string[] mainOptions = {
-                Strings.MenuOption1, // Create
-                Strings.MenuOption2, // Modify
-                Strings.MenuOption3, // Delete
-                Strings.MenuOption4, // List
-                Strings.MenuOption5, // Execute
-                Strings.MenuExit     // Exit
+                Strings.MenuOption1,
+                Strings.MenuOption2,
+                Strings.MenuOption3,
+                Strings.MenuOption4,
+                Strings.MenuOption5,
+                Strings.MenuExit
             };
 
             bool keepRunning = true;
@@ -93,6 +112,12 @@ namespace EasySave.Views
             }
         }
 
+        /// <summary>
+        /// Displays the interface for creating a new backup job.
+        /// 
+        /// Prompts the user for all required parameters and
+        /// delegates job creation to the ViewModel.
+        /// </summary>
         private void CreateJobView()
         {
             Console.WriteLine($"--- {Strings.TitleCreate} ---");
@@ -114,6 +139,12 @@ namespace EasySave.Views
             viewModel.CreateJob(name, source, dest, type);
         }
 
+        /// <summary>
+        /// Displays the interface for modifying an existing backup job.
+        /// 
+        /// Allows the user to update job properties while keeping
+        /// current values if no input is provided.
+        /// </summary>
         private void ModifyJobView()
         {
             ListJobsView();
@@ -148,6 +179,12 @@ namespace EasySave.Views
             }
         }
 
+        /// <summary>
+        /// Displays the interface for deleting a backup job.
+        /// 
+        /// Prompts the user for the job ID and delegates
+        /// the deletion to the ViewModel.
+        /// </summary>
         private void DeleteJobView()
         {
             ListJobsView();
@@ -158,6 +195,12 @@ namespace EasySave.Views
             }
         }
 
+        /// <summary>
+        /// Displays the list of existing backup jobs.
+        /// 
+        /// Shows job details such as ID, name, type,
+        /// source path and destination path.
+        /// </summary>
         private void ListJobsView()
         {
             Console.WriteLine($"--- {Strings.TitleList} ---");
@@ -177,6 +220,12 @@ namespace EasySave.Views
             Console.WriteLine("------------------------------------------------");
         }
 
+        /// <summary>
+        /// Displays the interface for executing backup jobs.
+        /// 
+        /// Allows execution of a single job by ID
+        /// or all jobs at once.
+        /// </summary>
         private void ExecuteJobView()
         {
             ListJobsView();
@@ -186,7 +235,6 @@ namespace EasySave.Views
 
             if (input == "all")
             {
-
                 foreach (var job in viewModel.backupJobs)
                 {
                     viewModel.ExecuteJob(job.id);

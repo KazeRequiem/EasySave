@@ -7,8 +7,28 @@ using System.Linq;
 
 namespace EasySave.Strategies
 {
+    /// <summary>
+    /// Implements the differential backup strategy.
+    /// 
+    /// This strategy copies only files that are new or have been modified
+    /// since the last backup (based on the destination file existence and
+    /// last write time comparison).
+    /// 
+    /// It updates the backup state throughout the process
+    /// (progression, current file paths, remaining files, timestamps)
+    /// via the provided state repository.
+    /// </summary>
     public class DifferentialBackupStrategy : IBackupStrategy
     {
+        /// <summary>
+        /// Executes a differential backup operation from the source path to the destination path.
+        /// 
+        /// Only files that do not exist in the destination, or whose last write time
+        /// is more recent than the destination version, are copied.
+        /// 
+        /// The backup state is initialized before copying and updated after each copied file
+        /// to reflect progress and current activity.
+        /// </summary>
         public void Execute(string sourcePath, string destinationPath, BackupState state, BackupStateRepository stateRepo)
         {
             var sourceDir = new DirectoryInfo(sourcePath);

@@ -7,6 +7,13 @@ using System.Xml.Linq;
 
 namespace EasySave.ViewModels
 {
+    /// <summary>
+    /// ViewModel responsible for handling user actions
+    /// and connecting the user interface to the backup service.
+    /// 
+    /// This class validates user inputs and delegates
+    /// backup operations to the underlying service layer.
+    /// </summary>
     public class MainViewModel
     {
         private BackupService backupService;
@@ -17,12 +24,18 @@ namespace EasySave.ViewModels
             backupService = new BackupService();
         }
 
+        /// <summary>
+        /// Creates a new backup job after validating user inputs.
+        /// 
+        /// Errors are displayed to the user and logged when
+        /// invalid parameters or system failures occur.
+        /// </summary>
         public void CreateJob(string name, string source, string dest, BackupType type)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
                 Console.WriteLine("Error : The name of the job can't be empty.");
-                backupService.LogAction("Create Job : "+name, "None", source, dest, 0, 0, "[Error] The name of the job can't be empty");
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The name of the job can't be empty");
                 return;
             }
 
@@ -30,7 +43,6 @@ namespace EasySave.ViewModels
             {
                 Console.WriteLine("Error : The source folder doesn't exist.");
                 backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder doesn't exist");
-
                 return;
             }
 
@@ -41,11 +53,16 @@ namespace EasySave.ViewModels
             }
             catch (Exception ex)
             {
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] System Error : "+ex.Message);
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] System Error : " + ex.Message);
                 Console.WriteLine($"System Error : {ex.Message}");
             }
         }
 
+        /// <summary>
+        /// Deletes an existing backup job identified by its ID.
+        /// 
+        /// Any errors during deletion are displayed and logged.
+        /// </summary>
         public void DeleteJob(int id)
         {
             try
@@ -60,12 +77,18 @@ namespace EasySave.ViewModels
             }
         }
 
+        /// <summary>
+        /// Modifies an existing backup job after validating input data.
+        /// 
+        /// If the source directory is invalid or an error occurs,
+        /// the operation is aborted and logged.
+        /// </summary>
         public void ModifyJob(int id, string name, string source, string dest, BackupType type)
         {
             if (!Directory.Exists(source))
             {
                 Console.WriteLine("Error : The source folder could not be found.");
-                backupService.LogAction("Create Job : " + name,"None" , source, dest, 0, 0, "[Error] The source folder could not be found");
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder could not be found");
                 return;
             }
 
@@ -77,9 +100,16 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error : {ex.Message}");
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] "+ ex.Message);
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Executes a backup job identified by its ID.
+        /// 
+        /// Progress and execution errors are reported to the user
+        /// and logged through the service layer.
+        /// </summary>
         public void ExecuteJob(int id)
         {
             Console.WriteLine($"Job launch {id} in progress...");

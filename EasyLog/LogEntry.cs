@@ -1,5 +1,12 @@
 ﻿namespace EasyLog
 {
+    /// <summary>
+    /// Represents a log entry recorded by the logging system.
+    /// 
+    /// This model stores detailed information about an operation,
+    /// including timestamps, file paths, transferred size,
+    /// execution time, and success or error status.
+    /// </summary>
     public class LogEntry
     {
         public string Time { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");

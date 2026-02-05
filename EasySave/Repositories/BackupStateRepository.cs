@@ -7,6 +7,13 @@ using System.Text.Json;
 
 namespace EasySave.Repositories
 {
+    /// <summary>
+    /// Repository responsible for persisting and managing backup states.
+    /// 
+    /// This class handles reading and writing backup execution states
+    /// to a JSON file in a thread-safe manner.
+    /// It allows tracking the progress and status of running backups.
+    /// </summary>
     public class BackupStateRepository
     {
         private readonly string filePath;
@@ -17,6 +24,12 @@ namespace EasySave.Repositories
             filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "state.json");
         }
 
+        /// <summary>
+        /// Reads all backup states from persistent storage.
+        /// 
+        /// If the state file does not exist or cannot be read,
+        /// an empty list is returned.
+        /// </summary>
         public List<BackupState> ReadStates()
         {
             lock (_lock)
@@ -31,6 +44,12 @@ namespace EasySave.Repositories
             }
         }
 
+        /// <summary>
+        /// Creates or updates a backup state in persistent storage.
+        /// 
+        /// If a state with the same name already exists, it is updated.
+        /// Otherwise, a new state entry is added.
+        /// </summary>
         public void UpdateState(BackupState state)
         {
             lock (_lock)
@@ -41,11 +60,11 @@ namespace EasySave.Repositories
 
                 if (existingStateIndex != -1)
                 {
-                    states[existingStateIndex] = state; // Mise à jour
+                    states[existingStateIndex] = state;
                 }
                 else
                 {
-                    states.Add(state); // Création
+                    states.Add(state);
                 }
 
                 var options = new JsonSerializerOptions { WriteIndented = true };

@@ -4,6 +4,16 @@ using System.Text.Json;
 
 namespace EasyLog
 {
+    /// <summary>
+    /// Provides a centralized logging system for the application.
+    /// 
+    /// This class implements a thread-safe Singleton pattern
+    /// to ensure a single logging instance is used throughout
+    /// the application lifecycle.
+    /// 
+    /// Logs are written in JSON format and stored in a dedicated
+    /// directory, with one file per day.
+    /// </summary>
     public sealed class Logger
     {
         private static readonly Lazy<Logger> _instance = new(() => new Logger());
@@ -12,11 +22,8 @@ namespace EasyLog
 
         private Logger()
         {
-            // On cherche spécifiquement le dossier qui s'appelle "EasySave"
             string rootPath = GetProjectRoot("EasySave");
-
             _directoryPath = Path.Combine(rootPath, "Logs");
-            //Console.WriteLine("Voici le chemin d'accès : " + _directoryPath);
 
             if (!Directory.Exists(_directoryPath))
             {
@@ -24,30 +31,46 @@ namespace EasyLog
             }
         }
 
+        /// <summary>
+        /// Gets the single instance of the logger.
+        /// 
+        /// Ensures lazy and thread-safe initialization.
+        /// </summary>
         public static Logger Instance => _instance.Value;
 
+        /// <summary>
+        /// Locates the root directory of the project based on a target folder name.
+        /// 
+        /// Traverses parent directories until the specified folder is found.
+        /// If not found, falls back to the application base directory.
+        /// </summary>
         private string GetProjectRoot(string targetFolder)
         {
             string? currentDir = AppDomain.CurrentDomain.BaseDirectory;
 
             while (currentDir != null)
             {
-                
                 DirectoryInfo dirInfo = new DirectoryInfo(currentDir);
 
-                
                 if (dirInfo.Name.Equals(targetFolder, StringComparison.OrdinalIgnoreCase))
                 {
                     return currentDir;
                 }
 
-                
                 currentDir = Path.GetDirectoryName(currentDir);
             }
 
             return AppDomain.CurrentDomain.BaseDirectory;
         }
 
+        /// <summary>
+        /// Writes a log entry to the daily log file.
+        /// 
+        /// Log entries are serialized in JSON format
+        /// and appended to a file named with the current date.
+        /// 
+        /// This operation is thread-safe.
+        /// </summary>
         public void WriteLog(LogEntry entry)
         {
             try
@@ -61,7 +84,6 @@ namespace EasyLog
                     string jsonString = JsonSerializer.Serialize(entry, options);
 
                     File.AppendAllText(filePath, jsonString + Environment.NewLine);
-                    //Console.WriteLine($"[Logger] Log écrit avec succès dans : {filePath}");
                 }
             }
             catch (Exception ex)

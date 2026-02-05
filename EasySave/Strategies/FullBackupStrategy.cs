@@ -3,8 +3,27 @@ using EasySave.Repositories;
 
 namespace EasySave.Strategies
 {
+    /// <summary>
+    /// Implements the full backup strategy.
+    /// 
+    /// This strategy copies every file from the source directory
+    /// to the destination directory, including all subdirectories.
+    /// 
+    /// It updates the backup state throughout the process
+    /// (progression, current file paths, remaining files, timestamps)
+    /// via the provided state repository.
+    /// </summary>
     public class FullBackupStrategy : IBackupStrategy
     {
+        /// <summary>
+        /// Executes a full backup operation from the source path to the destination path.
+        /// 
+        /// All files found in the source directory (recursively) are copied to the destination,
+        /// preserving the relative directory structure.
+        /// 
+        /// The backup state is initialized before copying and updated after each file
+        /// to reflect progress and current activity.
+        /// </summary>
         public void Execute(string sourcePath, string destinationPath, BackupState state, BackupStateRepository stateRepo)
         {
             var sourceDir = new DirectoryInfo(sourcePath);
