@@ -11,14 +11,23 @@ using System.Xml.Linq;
 using System.Diagnostics;
 using System.Threading;
 
-
 namespace EasySave.Services
 {
+    /// <summary>
+    /// Service responsible for managing backup jobs.
+    /// 
+    /// This class handles:
+    /// - creation, modification and deletion of backup jobs,
+    /// - execution of backup jobs using the appropriate strategy,
+    /// - job state updates and persistence,
+    /// - logging of all backup-related operations.
+    /// </summary>
     public class BackupService
     {
         private readonly IBackupJobRepository repository;
         private readonly BackupStateRepository stateRepository;
         public List<BackupJob> backupJobs { get; set; }
+
         public BackupService()
         {
             repository = new BackupJobRepository();
@@ -26,6 +35,12 @@ namespace EasySave.Services
             backupJobs = repository.ReadFromDisk();
         }
 
+        /// <summary>
+        /// Creates a new backup job and persists it to disk.
+        /// 
+        /// A maximum of five backup jobs is allowed.
+        /// If this limit is exceeded, an exception is thrown and logged.
+        /// </summary>
         public void CreateJob(string name, string source, string destination, BackupType backupType)
         {
             Stopwatch chrono = new Stopwatch();
@@ -47,6 +62,11 @@ namespace EasySave.Services
             LogAction("Create Job : " + newJob.name, newJob.sourcePath, newJob.destinationPath, newJob.type.ToString(), tailleOctetsSuccess, timeSuccess, "[Success] Job Create.");
         }
 
+        /// <summary>
+        /// Modifies an existing backup job identified by its ID.
+        /// 
+        /// If the job does not exist, an exception is thrown and logged.
+        /// </summary>
         public void ModifyJob(int id, string name, string source, string destination, BackupType backupType)
         {
             Stopwatch chrono = new Stopwatch();
@@ -74,6 +94,12 @@ namespace EasySave.Services
             }
         }
 
+        /// <summary>
+        /// Deletes a backup job identified by its ID.
+        /// 
+        /// The remaining jobs are reindexed after deletion.
+        /// If the job does not exist, an exception is thrown.
+        /// </summary>
         public void DeleteJob(int id)
         {
             Stopwatch chrono = new Stopwatch();
@@ -101,6 +127,12 @@ namespace EasySave.Services
             }
         }
 
+        /// <summary>
+        /// Executes a backup job identified by its ID.
+        /// 
+        /// The appropriate backup strategy is selected based on the job type.
+        /// Job state is updated during execution and logged accordingly.
+        /// </summary>
         public void ExecuteJob(int id)
         {
             Stopwatch chrono = new Stopwatch();
@@ -156,6 +188,13 @@ namespace EasySave.Services
                 repository.WriteToDisk(backupJobs);
             }
         }
+
+        /// <summary>
+        /// Logs a backup-related operation into the logging system.
+        /// 
+        /// This method centralizes logging for both successful
+        /// and failed operations.
+        /// </summary>
         public void LogAction(string operation, string name, string source, string destination, long size, double time, string SuccessOrError)
         {
             LogEntry logEntry = new LogEntry
@@ -178,10 +217,15 @@ namespace EasySave.Services
                 Console.WriteLine($"Daily log : Error during {operation} : {ex.Message}");
             }
         }
+
+        /// <summary>
+        /// Calculates the total size of a directory in bytes.
+        /// 
+        /// Returns zero if the directory does not exist.
+        /// </summary>
         private long GetDirectorySize(string path)
         {
             if (!Directory.Exists(path)) return 0;
-
             long size = 0;
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             foreach (var fileInfo in directoryInfo.GetFiles("*", SearchOption.AllDirectories))
@@ -190,6 +234,5 @@ namespace EasySave.Services
             }
             return size;
         }
-
     }
 }
