@@ -51,7 +51,7 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsError = GetDirectorySize(source);
-                LogAction("Create Job : " + name, source, destination, backupType.ToString(), tailleOctetsError, timeError, "[Error] You can't create more than 5 jobs.");
+                LogAction("Create Job : " + name, backupType.ToString(), source, destination, tailleOctetsError, timeError, "[Error] You can't create more than 5 jobs.");
                 throw new InvalidOperationException("[Error] You can't create more than 5 jobs.");
             }
             var newJob = new BackupJob(id, name, source, destination, backupType);
@@ -59,7 +59,7 @@ namespace EasySave.Services
             repository.WriteToDisk(backupJobs);
             double timeSuccess = chrono.Elapsed.TotalMilliseconds;
             long tailleOctetsSuccess = GetDirectorySize(source);
-            LogAction("Create Job : " + newJob.name, newJob.sourcePath, newJob.destinationPath, newJob.type.ToString(), tailleOctetsSuccess, timeSuccess, "[Success] Job Create.");
+            LogAction("Create Job : " + newJob.name, newJob.type.ToString(), newJob.sourcePath, newJob.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Create.");
         }
 
         /// <summary>
@@ -82,14 +82,14 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsSuccess = GetDirectorySize(source);
-                LogAction("Create Job : " + name, source, destination, backupType.ToString(), tailleOctetsSuccess, timeSuccess, "[Success].");
+                LogAction("Create Job : " + name, backupType.ToString(), source, destination, tailleOctetsSuccess, timeSuccess, "[Success].");
             }
             else
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsError = GetDirectorySize(source);
-                LogAction("Create Job : " + name, source, destination, backupType.ToString(), tailleOctetsError, timeError, "[Error] No job found with the specified id.");
+                LogAction("Create Job : " + name, backupType.ToString(),source, destination,tailleOctetsError, timeError, "[Error] No job found with the specified id.");
                 throw new ArgumentException("No job found with the specified id.");
             }
         }
@@ -116,7 +116,7 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsSuccess = GetDirectorySize(job.destinationPath);
-                LogAction("DeleteJob : " + job.name, job.sourcePath, job.destinationPath, "None", tailleOctetsSuccess, timeSuccess, "[Success] Job Deleted.");
+                LogAction("DeleteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Deleted.");
             }
             else
             {
@@ -170,7 +170,7 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsSuccess = GetDirectorySize(job.destinationPath);
-                LogAction("ExecuteJob : " + job.name, job.sourcePath, job.destinationPath, "None", tailleOctetsSuccess, timeSuccess, "[Success] Job Executed.");
+                LogAction("ExecuteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Executed.");
             }
             catch (Exception ex)
             {
@@ -179,7 +179,7 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsError = GetDirectorySize(job.destinationPath);
-                LogAction("ExecuteJob : " + job.name, job.sourcePath, job.destinationPath, "None", tailleOctetsError, timeError, "[Error] Failed to execute.");
+                LogAction("ExecuteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsError, timeError, "[Error] Failed to execute.");
                 throw;
             }
             finally
