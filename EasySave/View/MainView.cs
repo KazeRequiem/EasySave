@@ -1,6 +1,6 @@
 ﻿using EasySave.Models;
 using EasySave.ViewModels;
-using EasySave.Ressources;
+using EasySave.Resources;
 using System;
 using System.Linq;
 
