@@ -1,4 +1,5 @@
-﻿namespace EasyLog
+﻿
+namespace EasyLog
 {
     /// <summary>
     /// Represents a log entry recorded by the logging system.
@@ -9,20 +10,20 @@
     /// </summary>
     public class LogEntry
     {
-        public string Time { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        public string time { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-        public string OperationName { get; set; }
+        public string operationName { get; set; }
 
-        public required string NameSave { get; set; }
+        public required string nameSave { get; set; }
 
-        public required string SourcePath { get; set; }
+        public required string sourcePath { get; set; }
 
-        public required string DestinationPath { get; set; }
+        public required string destinationPath { get; set; }
 
-        public long SizeFile { get; set; }
+        public long sizeFile { get; set; }
 
-        public double TimeTransfer { get; set; }
+        public double timeTransfer { get; set; }
 
-        public string Success_Error { get; set; }
+        public string success_Error { get; set; }
     }
 }

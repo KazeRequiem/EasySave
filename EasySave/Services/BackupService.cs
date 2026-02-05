@@ -195,17 +195,17 @@ namespace EasySave.Services
         /// This method centralizes logging for both successful
         /// and failed operations.
         /// </summary>
-        public void LogAction(string operation, string name, string source, string destination, long size, double time, string SuccessOrError)
+        public void LogAction(string operation, string name, string source, string destination, long size, double time, string successOrError)
         {
             LogEntry logEntry = new LogEntry
             {
-                OperationName = operation,
-                NameSave = name,
-                SourcePath = source,
-                DestinationPath = destination,
-                SizeFile = size,
-                TimeTransfer = time,
-                Success_Error = SuccessOrError
+                operationName = operation,
+                nameSave = name,
+                sourcePath = source,
+                destinationPath = destination,
+                sizeFile = size,
+                timeTransfer = time,
+                success_Error = successOrError
             };
 
             try
