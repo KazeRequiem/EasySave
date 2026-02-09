@@ -26,6 +26,7 @@ namespace EasySave.Services
     {
         private readonly IBackupJobRepository repository;
         private readonly BackupStateRepository stateRepository;
+        private readonly IProcessChecker processChecker;
         public List<BackupJob> backupJobs { get; set; }
 
         public BackupService()
@@ -33,6 +34,7 @@ namespace EasySave.Services
             repository = new BackupJobRepository();
             stateRepository = new BackupStateRepository();
             backupJobs = repository.ReadFromDisk();
+            processChecker = new ProcessChecker();
         }
 
         /// <summary>
@@ -144,6 +146,16 @@ namespace EasySave.Services
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, "[Error] No job found.");
                 throw new ArgumentException("No job found with the specified id.");
+            }
+
+            string processName = "CalculatorApp";
+
+            if (processChecker.IsProcessRunning(processName))
+            {
+                chrono.Stop();
+                double timeError = chrono.Elapsed.TotalMilliseconds;
+                LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, "[Error] Other process detected while running.");
+                throw new ArgumentException("Other process detected while running.");
             }
 
             IBackupStrategy strategy = BackupStrategyFactory.Create(job.type);
