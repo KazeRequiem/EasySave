@@ -48,6 +48,14 @@ namespace EasySave.Services
             Stopwatch chrono = new Stopwatch();
             chrono.Start();
             int id = backupJobs.Count + 1;
+            if (backupJobs.Count >= 5)
+            {
+                chrono.Stop();
+                double timeError = chrono.Elapsed.TotalMilliseconds;
+                long tailleOctetsError = GetDirectorySize(source);
+                LogAction("Create Job : " + name, backupType.ToString(), source, destination, tailleOctetsError, timeError, "[Error] You can't create more than 5 jobs.");
+                throw new InvalidOperationException("[Error] You can't create more than 5 jobs.");
+            }
             var newJob = new BackupJob(id, name, source, destination, backupType);
             backupJobs.Add(newJob);
             repository.WriteToDisk(backupJobs);
