@@ -1,0 +1,34 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:EasySave.Models;assembly=EasySave"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="EasySave.UI.MainWindow"
+        Title="EasySave 2.0 (Avalonia)">
+
+    <Grid RowDefinitions="Auto, *, Auto" Margin="20">
+        
+        <TextBlock Text="Gestion des Sauvegardes" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <ListBox x:Name="JobsList" Grid.Row="1" Background="#F0F0F0">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="models:BackupJob">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="{Binding id}" FontWeight="Bold" Width="30"/>
+                        <TextBlock Text="{Binding name}" Width="150"/>
+                        <TextBlock Text="{Binding type}" Width="80"/>
+                        <TextBlock Text="{Binding sourcePath}" FontStyle="Italic"/>
+                        <TextBlock Text="->" />
+                        <TextBlock Text="{Binding destinationPath}" FontStyle="Italic"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10" Margin="0,20,0,0" HorizontalAlignment="Center">
+            <Button Content="▶ Exécuter" Click="OnExecuteClick"/>
+            <Button Content="➕ Créer Test" Click="OnCreateClick"/>
+        </StackPanel>
+    </Grid>
+</Window>
