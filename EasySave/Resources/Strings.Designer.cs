@@ -79,6 +79,15 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Leave.
+        /// </summary>
+        public static string Leave {
+            get {
+                return ResourceManager.GetString("Leave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à No jobs registered yet..
         /// </summary>
         public static string ListEmpty {
@@ -106,7 +115,7 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à 6. Exit.
+        ///   Recherche une chaîne localisée semblable à 7. Exit.
         /// </summary>
         public static string MenuExit {
             get {
@@ -156,6 +165,15 @@ namespace EasySave.Resources {
         public static string MenuOption5 {
             get {
                 return ResourceManager.GetString("MenuOption5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à 6. Settings.
+        /// </summary>
+        public static string MenuOption6 {
+            get {
+                return ResourceManager.GetString("MenuOption6", resourceCulture);
             }
         }
         
@@ -282,6 +300,78 @@ namespace EasySave.Resources {
         public static string PromptType {
             get {
                 return ResourceManager.GetString("PromptType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Leave setting menu.
+        /// </summary>
+        public static string SettingMenuExit {
+            get {
+                return ResourceManager.GetString("SettingMenuExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Setting MENU.
+        /// </summary>
+        public static string SettingMenuTitle {
+            get {
+                return ResourceManager.GetString("SettingMenuTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Path of CryptoSoft.
+        /// </summary>
+        public static string SettingOption1 {
+            get {
+                return ResourceManager.GetString("SettingOption1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Crypto Key.
+        /// </summary>
+        public static string SettingOption2 {
+            get {
+                return ResourceManager.GetString("SettingOption2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add extensions to encrypt.
+        /// </summary>
+        public static string SettingOption3 {
+            get {
+                return ResourceManager.GetString("SettingOption3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove extensions to encrypt.
+        /// </summary>
+        public static string SettingOption4 {
+            get {
+                return ResourceManager.GetString("SettingOption4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Type of log (Json or XML).
+        /// </summary>
+        public static string SettingOption5 {
+            get {
+                return ResourceManager.GetString("SettingOption5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Application blocked.
+        /// </summary>
+        public static string SettingOption6 {
+            get {
+                return ResourceManager.GetString("SettingOption6", resourceCulture);
             }
         }
         

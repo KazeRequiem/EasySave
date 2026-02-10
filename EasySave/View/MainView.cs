@@ -1,6 +1,7 @@
 ﻿using EasySave.Models;
-using EasySave.ViewModels;
 using EasySave.Resources;
+using EasySave.Services;
+using EasySave.ViewModels;
 using System;
 using System.Linq;
 
@@ -84,6 +85,7 @@ namespace EasySave.Views
                 Strings.MenuOption3,
                 Strings.MenuOption4,
                 Strings.MenuOption5,
+                Strings.MenuOption6,
                 Strings.MenuExit
             };
 
@@ -101,7 +103,8 @@ namespace EasySave.Views
                     case 2: DeleteJobView(); break;
                     case 3: ListJobsView(); break;
                     case 4: ExecuteJobView(); break;
-                    case 5: keepRunning = false; break;
+                    case 5: EditSetting(); break;
+                    case 6: keepRunning = false; break;
                 }
 
                 if (keepRunning)
@@ -249,5 +252,124 @@ namespace EasySave.Views
                 Console.WriteLine("Entrée invalide.");
             }
         }
+
+        private void EditSetting()
+        {
+            string[] settingOption = {
+                Strings.SettingOption1,
+                Strings.SettingOption2,
+                Strings.SettingOption3,
+                Strings.SettingOption4,
+                Strings.SettingOption5,
+                Strings.SettingOption6,
+                Strings.SettingMenuExit
+            };
+
+            bool keepRunningsetting = true;
+
+            while (keepRunningsetting)
+            {
+                int choice = ShowInteractiveMenu(Strings.SettingMenuTitle, settingOption);
+                Console.Clear();
+
+                switch (choice)
+                {
+                    case 0: SettingUpdateCryptPath(); break;
+                    case 1: SettingUpdateCryptKey(); break;
+                    case 2: SettingAddEncryptionExtension(); break;
+                    case 3: SettingRemoveEncryptionExtension(); break;
+                    case 4: SettingUpdateLogType(); break;
+                    case 5: SettingUpdateApplicationSoftware(); break;
+                    case 6: keepRunningsetting = false; break;
+                }
+
+                if (keepRunningsetting)
+                {
+                    Console.WriteLine($"\n{Strings.PressAnyKey}");
+                    Console.ReadKey(true);
+                }
+
+            }
+        }
+        private void SettingUpdateCryptPath()
+        {
+            Console.WriteLine("Enter your new path for the CryptoSoft");
+            string pathCryptKey = Console.ReadLine();
+            //UpdateCryptPath(pathCryptKey);
+        }
+
+        private void SettingUpdateCryptKey()
+        {
+            Console.WriteLine("Enter your Crypto Key");
+            string cryptKey= Console.ReadLine();
+            //UpdateCryptKey(CryptKey);
+        }
+        private void SettingAddEncryptionExtension()
+        {
+            Console.WriteLine("Enter the Extension you to crypt");
+            string addExtension = Console.ReadLine();
+            //UpdateCryptKey(AddExtension);
+        }
+        private void SettingRemoveEncryptionExtension()
+        {
+            Console.WriteLine("Enter the extension you want to remove");
+            string removeExtension = Console.ReadLine();
+            //UpdateCryptKey(removeExtension);
+        }
+        private void SettingUpdateLogType()
+        {
+            Console.WriteLine("In what format would you like your daily reports to be presented ? (XML or Json)");
+            string[] settingOptionlog = {
+                "Json",
+                "XML",
+                Strings.Leave
+
+            };
+
+            bool keepRunningsettinglog = true;
+
+            while (keepRunningsettinglog)
+            {
+                int choice = ShowInteractiveMenu("LOG", settingOptionlog);
+                Console.Clear();
+
+                switch (choice)
+
+                {
+                    case 0:
+                        SettingUpdateLogTypeChange("Json");
+                        keepRunningsettinglog = false; 
+                        break;
+                    case 1:
+                        SettingUpdateLogTypeChange("XML");
+                        keepRunningsettinglog = false; 
+                        break;
+                    case 2:
+                        keepRunningsettinglog = false;
+                        break;
+                }
+            }
+
+                if (keepRunningsettinglog)
+                {
+                    Console.WriteLine($"\n{Strings.PressAnyKey}");
+                    Console.ReadKey(true);
+                }
+
+        }
+        private void SettingUpdateLogTypeChange(string logtype)
+        {
+            //UpdateLogType(logtype);
+
+        }
+
+        private void SettingUpdateApplicationSoftware()
+        {
+            Console.WriteLine("Enter the name of the application you wish to block");
+            string softwareName=Console.ReadLine();
+            //UpdateApplicationSoftware(softwareName);
+
+        }
     }
 }
+
