@@ -26,8 +26,10 @@ namespace EasySave.Services
     {
         private readonly IBackupJobRepository repository;
         private readonly BackupStateRepository stateRepository;
+        private readonly BackupSettingsRepository settingsRepository;
         private readonly IProcessChecker processChecker;
         public List<BackupJob> backupJobs { get; set; }
+        private Settings settings;
 
         public BackupService()
         {
@@ -35,6 +37,8 @@ namespace EasySave.Services
             stateRepository = new BackupStateRepository();
             backupJobs = repository.ReadFromDisk();
             processChecker = new ProcessChecker();
+            settingsRepository = new BackupSettingsRepository();
+            settings = settingsRepository.ReadSettings();
         }
 
         /// <summary>
@@ -83,7 +87,7 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsError = GetDirectorySize(source);
-                LogAction("Create Job : " + name, backupType.ToString(),source, destination,tailleOctetsError, timeError, "[Error] No job found with the specified id.");
+                LogAction("Create Job : " + name, backupType.ToString(), source, destination, tailleOctetsError, timeError, "[Error] No job found with the specified id.");
                 throw new ArgumentException("No job found with the specified id.");
             }
         }
@@ -140,9 +144,7 @@ namespace EasySave.Services
                 throw new ArgumentException("No job found with the specified id.");
             }
 
-            string processName = "CalculatorApp";
-
-            if (processChecker.IsProcessRunning(processName))
+            if (processChecker.IsProcessRunning(settings.applicationSoftware))
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
@@ -237,6 +239,22 @@ namespace EasySave.Services
                 size += fileInfo.Length;
             }
             return size;
+        }
+
+        public void UpdateConfig(string cryptoSoftPath, string cryptoKey, List<string> extensionsToEncrypt, BackupLogType logType, string applicationSoftware)
+        {
+            settings.cryptoSoftPath = cryptoSoftPath;
+            settings.cryptoKey = cryptoKey;
+            settings.extensionsToEncrypt = extensionsToEncrypt;
+            settings.logType = logType;
+            settings.applicationSoftware = applicationSoftware;
+            settingsRepository.WriteSettings(settings);
+        }
+
+        public void AddExe(string exe)
+        {
+            settings.extensionsToEncrypt.Add(exe);
+            settingsRepository.WriteSettings(settings);
         }
     }
 }
