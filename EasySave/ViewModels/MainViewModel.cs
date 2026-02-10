@@ -22,6 +22,7 @@ namespace EasySave.ViewModels
         private Settings settings;
         private BackupService backupService;
         public List<BackupJob> backupJobs => backupService.backupJobs;
+        public Settings CurrentSettings => backupService.GetSettings();
 
         public MainViewModel()
         {
@@ -146,6 +147,56 @@ namespace EasySave.ViewModels
                 Console.WriteLine($"Error during copying : {ex.Message}");
                 backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message, settings.logType);
             }
+        }
+
+        public void UpdateApplicationSoftware(string softwareName)
+        {
+            if (string.IsNullOrWhiteSpace(softwareName))
+            {
+                Console.WriteLine("Error : The name of the software can't be empty.");
+                return;
+            }
+
+            backupService.SetApplicationSoftware(softwareName);
+            Console.WriteLine($"SoftwareName changed : {softwareName}");
+        }
+
+        public void UpdateLogType(BackupLogType logType)
+        {
+            backupService.SetLogType(logType);
+            Console.WriteLine($"Log Type changed : {logType}");
+        }
+
+        public void UpdateCryptKey(string key)
+        {
+            backupService.SetCryptoKey(key);
+            Console.WriteLine($"Key changed : {key}");
+        }
+
+        public void UpdateCryptPath(string path)
+        {
+            backupService.SetCryptoPath(path);
+            Console.WriteLine($"Path changed : {path}");
+        }
+
+        public void AddEncryptionExtension(string extension)
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                Console.WriteLine("Error : Invalid Extension .");
+                return;
+            }
+
+            backupService.AddExtensionToEncrypt(extension);
+            Console.WriteLine($"Extension '{extension}' added to the list.");
+        }
+
+        public void RemoveEncryptionExtension(string extension)
+        {
+            if (string.IsNullOrWhiteSpace(extension)) return;
+
+            backupService.RemoveExtensionToEncrypt(extension);
+            Console.WriteLine($"Extension '{extension}' deleted.");
         }
     }
 }

@@ -144,7 +144,7 @@ namespace EasySave.Services
                 throw new ArgumentException("No job found with the specified id.");
             }
 
-            if (processChecker.IsProcessRunning(settings.applicationSoftware))
+            if (!string.IsNullOrWhiteSpace(settings.applicationSoftware) && processChecker.IsProcessRunning(settings.applicationSoftware))
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
@@ -195,6 +195,64 @@ namespace EasySave.Services
             }
         }
 
+        public void SetApplicationSoftware(string softwareName)
+        {
+            if (!softwareName.EndsWith(".exe"))
+            {
+                softwareName += ".exe";
+            }
+
+            settings.applicationSoftware = softwareName;
+            settingsRepository.WriteSettings(settings);
+        }
+
+        public void SetLogType(BackupLogType type)
+        {
+            settings.logType = type;
+            settingsRepository.WriteSettings(settings);
+        }
+
+        public void SetCryptoKey(string key)
+        {
+            settings.cryptoKey = key;
+            settingsRepository.WriteSettings(settings);
+        }
+
+        public void SetCryptoPath(string path)
+        {
+            settings.cryptoSoftPath = path;
+            settingsRepository.WriteSettings(settings);
+        }
+
+        public void AddExtensionToEncrypt(string extension)
+        {
+            if (!extension.StartsWith("."))
+                extension = "." + extension;
+
+            if (!settings.extensionsToEncrypt.Contains(extension))
+            {
+                settings.extensionsToEncrypt.Add(extension);
+                settingsRepository.WriteSettings(settings);
+            }
+        }
+
+        public void RemoveExtensionToEncrypt(string extension)
+        {
+            if (!extension.StartsWith("."))
+                extension = "." + extension;
+
+            if (settings.extensionsToEncrypt.Contains(extension))
+            {
+                settings.extensionsToEncrypt.Remove(extension);
+                settingsRepository.WriteSettings(settings);
+            }
+        }
+
+        public Settings GetSettings()
+        {
+            return settings;
+        }
+
         /// <summary>
         /// Logs a backup-related operation into the logging system.
         /// 
@@ -214,7 +272,6 @@ namespace EasySave.Services
                 success_Error = successOrError,
                 formatJsonOrXml = logType
             };
-
             try
             {
                 Logger.Instance.WriteLog(logEntry);
@@ -240,22 +297,6 @@ namespace EasySave.Services
                 size += fileInfo.Length;
             }
             return size;
-        }
-
-        public void UpdateConfig(string cryptoSoftPath, string cryptoKey, List<string> extensionsToEncrypt, LogFormat logType, string applicationSoftware)
-        {
-            settings.cryptoSoftPath = cryptoSoftPath;
-            settings.cryptoKey = cryptoKey;
-            settings.extensionsToEncrypt = extensionsToEncrypt;
-            settings.logType = logType;
-            settings.applicationSoftware = applicationSoftware;
-            settingsRepository.WriteSettings(settings);
-        }
-
-        public void AddExe(string exe)
-        {
-            settings.extensionsToEncrypt.Add(exe);
-            settingsRepository.WriteSettings(settings);
         }
     }
 }
