@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Text.Json;
+using System.Xml.Linq;
+
 
 namespace EasyLog
 {
@@ -77,13 +79,32 @@ namespace EasyLog
             {
                 lock (_lock)
                 {
-                    string fileName = $"{DateTime.Now:yyyy-MM-dd}.json";
+                    string extension = entry.formatJsonOrXml == LogFormat.Json ? "json" : "xml";
+                    string fileName = $"{DateTime.Now:yyyy-MM-dd}.{extension}";
                     string filePath = Path.Combine(_directoryPath, fileName);
 
-                    var options = new JsonSerializerOptions { WriteIndented = true };
-                    string jsonString = JsonSerializer.Serialize(entry, options);
-
-                    File.AppendAllText(filePath, jsonString + Environment.NewLine);
+                    if (entry.formatJsonOrXml == LogFormat.Json)
+                    {
+                        var options = new JsonSerializerOptions { WriteIndented = true };
+                        string jsonString = JsonSerializer.Serialize(entry, options);
+                        File.AppendAllText(filePath, jsonString + Environment.NewLine);
+                    }
+                    else if (entry.formatJsonOrXml == LogFormat.Xml)
+                    {
+                        XDocument doc = File.Exists(filePath) ? XDocument.Load(filePath) : new XDocument(new XElement("Logs"));
+                        XElement newEntry = new XElement("LogEntry",
+                            new XElement("time", entry.time),
+                            new XElement("operationName", entry.operationName),
+                            new XElement("savetype", entry.savetype),
+                            new XElement("sourcePath", entry.sourcePath),
+                            new XElement("destinationPath", entry.destinationPath),
+                            new XElement("sizeFile", entry.sizeFile),
+                            new XElement("timeTransfer", entry.timeTransfer),
+                            new XElement("success_Error", entry.success_Error)
+                        );
+                        doc.Root?.Add(newEntry);
+                        doc.Save(filePath);
+                    }
                 }
             }
             catch (Exception ex)

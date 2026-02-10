@@ -57,7 +57,7 @@ namespace EasySave.Services
             repository.WriteToDisk(backupJobs);
             double timeSuccess = chrono.Elapsed.TotalMilliseconds;
             long tailleOctetsSuccess = GetDirectorySize(source);
-            LogAction("Create Job : " + newJob.name, newJob.type.ToString(), newJob.sourcePath, newJob.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Create.");
+            LogAction("Create Job : " + newJob.name, newJob.type.ToString(), newJob.sourcePath, newJob.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Create.", LogFormat.Xml);
         }
 
         /// <summary>
@@ -80,14 +80,14 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsSuccess = GetDirectorySize(source);
-                LogAction("Create Job : " + name, backupType.ToString(), source, destination, tailleOctetsSuccess, timeSuccess, "[Success].");
+                LogAction("Create Job : " + name, backupType.ToString(), source, destination, tailleOctetsSuccess, timeSuccess, "[Success].", LogFormat.Xml);
             }
             else
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsError = GetDirectorySize(source);
-                LogAction("Create Job : " + name, backupType.ToString(), source, destination, tailleOctetsError, timeError, "[Error] No job found with the specified id.");
+                LogAction("Create Job : " + name, backupType.ToString(),source, destination,tailleOctetsError, timeError, "[Error] No job found with the specified id.", LogFormat.Xml);
                 throw new ArgumentException("No job found with the specified id.");
             }
         }
@@ -114,13 +114,13 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsSuccess = GetDirectorySize(job.destinationPath);
-                LogAction("DeleteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Deleted.");
+                LogAction("DeleteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Deleted.", LogFormat.Xml);
             }
             else
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
-                LogAction("DeleteJob : " + id, "None", "None", "None", 0, timeError, "[Error] No job found.");
+                LogAction("DeleteJob : " + id, "None", "None", "None", 0, timeError, "[Error] No job found.", LogFormat.Xml);
                 throw new ArgumentException("No job found with the specified id.");
             }
         }
@@ -140,7 +140,7 @@ namespace EasySave.Services
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
-                LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, "[Error] No job found.");
+                LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, "[Error] No job found.", LogFormat.Xml);
                 throw new ArgumentException("No job found with the specified id.");
             }
 
@@ -148,7 +148,7 @@ namespace EasySave.Services
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
-                LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, "[Error] Other process detected while running.");
+                LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, "[Error] Other process detected while running.", LogFormat.Xml);
                 throw new ArgumentException("Other process detected while running.");
             }
 
@@ -176,7 +176,7 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsSuccess = GetDirectorySize(job.destinationPath);
-                LogAction("ExecuteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Executed.");
+                LogAction("ExecuteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Executed.", LogFormat.Xml);
             }
             catch (Exception ex)
             {
@@ -185,7 +185,7 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsError = GetDirectorySize(job.destinationPath);
-                LogAction("ExecuteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsError, timeError, "[Error] Failed to execute.");
+                LogAction("ExecuteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsError, timeError, "[Error] Failed to execute.", LogFormat.Xml);
                 throw;
             }
             finally
@@ -201,7 +201,7 @@ namespace EasySave.Services
         /// This method centralizes logging for both successful
         /// and failed operations.
         /// </summary>
-        public void LogAction(string operation, string name, string source, string destination, long size, double time, string successOrError)
+        public void LogAction(string operation, string name, string source, string destination, long size, double time, string successOrError, LogFormat format )
         {
             LogEntry logEntry = new LogEntry
             {
@@ -211,7 +211,8 @@ namespace EasySave.Services
                 destinationPath = destination,
                 sizeFile = size,
                 timeTransfer = time,
-                success_Error = successOrError
+                success_Error = successOrError,
+                formatJsonOrXml = format
             };
 
             try
