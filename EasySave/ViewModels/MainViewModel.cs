@@ -1,4 +1,5 @@
-﻿using EasySave.Models;
+﻿using EasyLog;
+using EasySave.Models;
 using EasySave.Services;
 using System;
 using System.Collections.Generic;
@@ -35,14 +36,14 @@ namespace EasySave.ViewModels
             if (string.IsNullOrWhiteSpace(name))
             {
                 Console.WriteLine("Error : The name of the job can't be empty.");
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The name of the job can't be empty");
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The name of the job can't be empty", LogFormat.Xml);
                 return;
             }
 
             if (!Directory.Exists(source))
             {
                 Console.WriteLine("Error : The source folder doesn't exist.");
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder doesn't exist");
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder doesn't exist", LogFormat.Xml);
                 return;
             }
 
@@ -53,7 +54,7 @@ namespace EasySave.ViewModels
             }
             catch (Exception ex)
             {
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] System Error : " + ex.Message);
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] System Error : " + ex.Message, LogFormat.Xml);
                 Console.WriteLine($"System Error : {ex.Message}");
             }
         }
@@ -73,7 +74,7 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error : {ex.Message}");
-                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] System Error : " + ex.Message);
+                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] System Error : " + ex.Message, LogFormat.Xml);
             }
         }
 
@@ -88,7 +89,7 @@ namespace EasySave.ViewModels
             if (!Directory.Exists(source))
             {
                 Console.WriteLine("Error : The source folder could not be found.");
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder could not be found");
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder could not be found", LogFormat.Xml);
                 return;
             }
 
@@ -100,7 +101,7 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error : {ex.Message}");
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] " + ex.Message);
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] " + ex.Message, LogFormat.Xml);
             }
         }
 
@@ -122,7 +123,7 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during copying : {ex.Message}");
-                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message);
+                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message, LogFormat.Xml);
             }
         }
     }
