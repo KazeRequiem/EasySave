@@ -1,6 +1,7 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EasySave.ViewModels;
 using EasySave.Models;
+using EasySave.Repositories;
+using EasySave.ViewModels;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Linq;
@@ -121,6 +122,29 @@ namespace EasySave.Tests
 
             if (Directory.Exists(sourceDir)) Directory.Delete(sourceDir, true);
             if (Directory.Exists(destDir)) Directory.Delete(destDir, true);
+        }
+
+        [TestMethod]
+        public void ConfigureSettings_ShouldUpdateSettings_WhenDataIsValid()
+        {
+            var viewModel = new MainViewModel();
+            string expectedKey = "MySecretKey";
+            string expectedApp = "Notepad.exe";
+            string expectedExe = ".txt";
+            var expectedLogType = BackupLogType.xml;
+
+            viewModel.UpdateCryptKey(expectedKey);
+            viewModel.UpdateApplicationSoftware(expectedApp);
+            viewModel.AddEncryptionExtension(expectedExe);
+            viewModel.UpdateLogType(expectedLogType);
+
+            var repo = new BackupSettingsRepository();
+            var settings = repo.ReadSettings();
+
+            Assert.AreEqual(expectedKey, settings.cryptoKey);
+            Assert.AreEqual(expectedApp, settings.applicationSoftware);
+            Assert.AreEqual(expectedLogType, settings.logType);
+            Assert.IsTrue(settings.extensionsToEncrypt.Contains(".txt"));
         }
     }
 }
