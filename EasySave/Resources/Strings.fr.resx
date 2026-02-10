@@ -121,7 +121,7 @@
     <value>Entrer votre choix:</value>
   </data>
   <data name="MenuExit" xml:space="preserve">
-    <value>6. Quitter</value>
+    <value>7. Quitter</value>
   </data>
   <data name="MenuOption1" xml:space="preserve">
     <value>1. Créer un travail de sauvegarde</value>
@@ -206,5 +206,35 @@
   </data>
   <data name="MenuOption5" xml:space="preserve">
     <value>5. Exécuter un travail de sauvegarde</value>
+  </data>
+  <data name="MenuOption6" xml:space="preserve">
+    <value>6. Parametre</value>
+  </data>
+  <data name="SettingMenuTitle" xml:space="preserve">
+    <value>Menu Parametre</value>
+  </data>
+  <data name="SettingOption1" xml:space="preserve">
+    <value>Chemin accès à CryptoSoft</value>
+  </data>
+  <data name="SettingOption2" xml:space="preserve">
+    <value>Clé de cryptographie</value>
+  </data>
+  <data name="SettingOption3" xml:space="preserve">
+    <value>Ajouter une extensions à crypter</value>
+  </data>
+  <data name="SettingOption6" xml:space="preserve">
+    <value>Application bloqué </value>
+  </data>
+  <data name="SettingMenuExit" xml:space="preserve">
+    <value>Quitter la vue paramètre </value>
+  </data>
+  <data name="SettingOption5" xml:space="preserve">
+    <value>Type de log (Json ou XML)</value>
+  </data>
+  <data name="SettingOption4" xml:space="preserve">
+    <value>Retirer une extensions à crypter</value>
+  </data>
+  <data name="Leave" xml:space="preserve">
+    <value>Quitter</value>
   </data>
 </root>

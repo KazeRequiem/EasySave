@@ -1,23 +1,24 @@
-﻿using System.Collections.Generic;
+﻿    using EasyLog;
+    using System.Collections.Generic;
 
 
-namespace EasySave.Models
-{
-    public class Settings
+    namespace EasySave.Models
     {
-        public string cryptoSoftPath { get; set; }
-        public string cryptoKey { get; set; }
-        public List<string> extensionsToEncrypt { get; set; }
-        public BackupLogType logType { get; set; }
-        public string applicationSoftware { get; set; }
-
-        public Settings()
+        public class Settings
         {
-            cryptoSoftPath = "";
-            cryptoKey = "";
-            extensionsToEncrypt = new List<string>();
-            logType = BackupLogType.json;
-            applicationSoftware = "";
+            public string cryptoSoftPath { get; set; }
+            public string cryptoKey { get; set; }
+            public List<string> extensionsToEncrypt { get; set; }
+            public LogFormat logType { get; set; }
+            public string applicationSoftware { get; set; }
+
+            public Settings()
+            {
+                cryptoSoftPath = "";
+                cryptoKey = "";
+                extensionsToEncrypt = new List<string>();
+                logType = LogFormat.Json;
+                applicationSoftware = "";
+            }
         }
     }
-}

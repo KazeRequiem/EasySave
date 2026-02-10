@@ -57,7 +57,7 @@ namespace EasySave.Services
             repository.WriteToDisk(backupJobs);
             double timeSuccess = chrono.Elapsed.TotalMilliseconds;
             long tailleOctetsSuccess = GetDirectorySize(source);
-            LogAction("Create Job : " + newJob.name, newJob.type.ToString(), newJob.sourcePath, newJob.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Create.", LogFormat.Xml);
+            LogAction("Create Job : " + newJob.name, newJob.type.ToString(), newJob.sourcePath, newJob.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Create.", settings.logType);
         }
 
         /// <summary>
@@ -80,14 +80,14 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsSuccess = GetDirectorySize(source);
-                LogAction("Create Job : " + name, backupType.ToString(), source, destination, tailleOctetsSuccess, timeSuccess, "[Success].", LogFormat.Xml);
+                LogAction("Create Job : " + name, backupType.ToString(), source, destination, tailleOctetsSuccess, timeSuccess, "[Success].", settings.logType);
             }
             else
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsError = GetDirectorySize(source);
-                LogAction("Create Job : " + name, backupType.ToString(),source, destination,tailleOctetsError, timeError, "[Error] No job found with the specified id.", LogFormat.Xml);
+                LogAction("Create Job : " + name, backupType.ToString(),source, destination,tailleOctetsError, timeError, "[Error] No job found with the specified id.", settings.logType);
                 throw new ArgumentException("No job found with the specified id.");
             }
         }
@@ -114,13 +114,13 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsSuccess = GetDirectorySize(job.destinationPath);
-                LogAction("DeleteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Deleted.", LogFormat.Xml);
+                LogAction("DeleteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Deleted.", settings.logType);
             }
             else
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
-                LogAction("DeleteJob : " + id, "None", "None", "None", 0, timeError, "[Error] No job found.", LogFormat.Xml);
+                LogAction("DeleteJob : " + id, "None", "None", "None", 0, timeError, "[Error] No job found.", settings.logType);
                 throw new ArgumentException("No job found with the specified id.");
             }
         }
@@ -140,7 +140,7 @@ namespace EasySave.Services
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
-                LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, "[Error] No job found.", LogFormat.Xml);
+                LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, "[Error] No job found.", settings.logType);
                 throw new ArgumentException("No job found with the specified id.");
             }
 
@@ -148,7 +148,7 @@ namespace EasySave.Services
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
-                LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, "[Error] Other process detected while running.", LogFormat.Xml);
+                LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, "[Error] Other process detected while running.", settings.logType);
                 throw new ArgumentException("Other process detected while running.");
             }
 
@@ -176,7 +176,7 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsSuccess = GetDirectorySize(job.destinationPath);
-                LogAction("ExecuteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Executed.", LogFormat.Xml);
+                LogAction("ExecuteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsSuccess, timeSuccess, "[Success] Job Executed.", settings.logType);
             }
             catch (Exception ex)
             {
@@ -185,7 +185,7 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsError = GetDirectorySize(job.destinationPath);
-                LogAction("ExecuteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsError, timeError, "[Error] Failed to execute.", LogFormat.Xml);
+                LogAction("ExecuteJob : " + job.name, "None", job.sourcePath, job.destinationPath, tailleOctetsError, timeError, "[Error] Failed to execute.", settings.logType);
                 throw;
             }
             finally
@@ -201,7 +201,7 @@ namespace EasySave.Services
         /// This method centralizes logging for both successful
         /// and failed operations.
         /// </summary>
-        public void LogAction(string operation, string name, string source, string destination, long size, double time, string successOrError, LogFormat format )
+        public void LogAction(string operation, string name, string source, string destination, long size, double time, string successOrError, LogFormat logType)
         {
             LogEntry logEntry = new LogEntry
             {
@@ -212,7 +212,7 @@ namespace EasySave.Services
                 sizeFile = size,
                 timeTransfer = time,
                 success_Error = successOrError,
-                formatJsonOrXml = format
+                formatJsonOrXml = logType
             };
 
             try
@@ -242,7 +242,7 @@ namespace EasySave.Services
             return size;
         }
 
-        public void UpdateConfig(string cryptoSoftPath, string cryptoKey, List<string> extensionsToEncrypt, BackupLogType logType, string applicationSoftware)
+        public void UpdateConfig(string cryptoSoftPath, string cryptoKey, List<string> extensionsToEncrypt, LogFormat logType, string applicationSoftware)
         {
             settings.cryptoSoftPath = cryptoSoftPath;
             settings.cryptoKey = cryptoKey;
