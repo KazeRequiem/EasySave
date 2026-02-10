@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using EasyLog;
 
 namespace EasySave.Tests
 {
@@ -142,7 +143,7 @@ namespace EasySave.Tests
             var settings = repo.ReadSettings();
 
             Assert.IsNotNull(settings);
-            Assert.AreEqual(BackupLogType.json, settings.logType);
+            Assert.AreEqual(LogFormat.Json, settings.logType);
             Assert.AreEqual("", settings.cryptoSoftPath);
         }
     }

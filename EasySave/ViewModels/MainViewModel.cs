@@ -42,14 +42,14 @@ namespace EasySave.ViewModels
             if (string.IsNullOrWhiteSpace(name))
             {
                 Console.WriteLine("Error : The name of the job can't be empty.");
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The name of the job can't be empty", settings.logType);
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The name of the job can't be empty");
                 return;
             }
 
             if (!Directory.Exists(source))
             {
                 Console.WriteLine("Error : The source folder doesn't exist.");
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder doesn't exist", settings.logType);
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder doesn't exist");
                 return;
             }
 
@@ -60,7 +60,7 @@ namespace EasySave.ViewModels
             }
             catch (Exception ex)
             {
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] System Error : " + ex.Message, settings.logType);
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] System Error : " + ex.Message);
                 Console.WriteLine($"System Error : {ex.Message}");
             }
         }
@@ -80,7 +80,7 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error : {ex.Message}");
-                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] System Error : " + ex.Message, settings.logType);
+                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] System Error : " + ex.Message);
             }
         }
 
@@ -95,7 +95,7 @@ namespace EasySave.ViewModels
             if (!Directory.Exists(source))
             {
                 Console.WriteLine("Error : The source folder could not be found.");
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder could not be found", settings.logType);
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder could not be found");
                 return;
             }
 
@@ -107,7 +107,7 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error : {ex.Message}");
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] " + ex.Message, settings.logType);
+                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] " + ex.Message);
             }
         }
 
@@ -129,7 +129,7 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during copying : {ex.Message}");
-                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message, settings.logType);
+                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message);
             }
         }
 
@@ -145,7 +145,7 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during copying : {ex.Message}");
-                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message, settings.logType);
+                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message);
             }
         }
 
@@ -163,7 +163,7 @@ namespace EasySave.ViewModels
 
         public void UpdateLogType(string logType)
         {
-            if (logType == "Json")
+            if (logType.ToLower() == "json")
             {
                 backupService.SetLogType(LogFormat.Json);
                 Console.WriteLine($"Log Type changed : {LogFormat.Json}");

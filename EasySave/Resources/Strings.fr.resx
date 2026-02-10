@@ -208,22 +208,22 @@
     <value>5. Exécuter un travail de sauvegarde</value>
   </data>
   <data name="MenuOption6" xml:space="preserve">
-    <value>6. Parametre</value>
+    <value>6. Paramètres</value>
   </data>
   <data name="SettingMenuTitle" xml:space="preserve">
-    <value>Menu Parametre</value>
+    <value>Paramètres</value>
   </data>
   <data name="SettingOption1" xml:space="preserve">
-    <value>Chemin accès à CryptoSoft</value>
+    <value>Chemin d'accès à CryptoSoft</value>
   </data>
   <data name="SettingOption2" xml:space="preserve">
-    <value>Clé de cryptographie</value>
+    <value>Clé de chiffrage</value>
   </data>
   <data name="SettingOption3" xml:space="preserve">
-    <value>Ajouter une extensions à crypter</value>
+    <value>Ajouter une extension à chiffrer</value>
   </data>
   <data name="SettingOption6" xml:space="preserve">
-    <value>Application bloqué </value>
+    <value>Application bloquée</value>
   </data>
   <data name="SettingMenuExit" xml:space="preserve">
     <value>Quitter la vue paramètre </value>
@@ -232,7 +232,7 @@
     <value>Type de log (Json ou XML)</value>
   </data>
   <data name="SettingOption4" xml:space="preserve">
-    <value>Retirer une extensions à crypter</value>
+    <value>Retirer une extension à chiffrer</value>
   </data>
   <data name="Leave" xml:space="preserve">
     <value>Quitter</value>

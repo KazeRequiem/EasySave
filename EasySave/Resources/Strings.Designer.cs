@@ -313,7 +313,7 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Setting MENU.
+        ///   Recherche une chaîne localisée semblable à Settings.
         /// </summary>
         public static string SettingMenuTitle {
             get {

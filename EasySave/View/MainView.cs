@@ -308,13 +308,13 @@ namespace EasySave.Views
         {
             Console.WriteLine("Enter the Extension you to crypt");
             string addExtension = Console.ReadLine();
-            viewModel.UpdateCryptKey(addExtension);
+            viewModel.AddEncryptionExtension(addExtension);
         }
         private void SettingRemoveEncryptionExtension()
         {
             Console.WriteLine("Enter the extension you want to remove");
             string removeExtension = Console.ReadLine();
-            viewModel.UpdateCryptKey(removeExtension);
+            viewModel.RemoveEncryptionExtension(removeExtension);
         }
         private void SettingUpdateLogType()
         {
