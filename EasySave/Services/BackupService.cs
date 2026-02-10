@@ -206,9 +206,9 @@ namespace EasySave.Services
             settingsRepository.WriteSettings(settings);
         }
 
-        public void SetLogType(BackupLogType type)
+        public void SetLogType(LogFormat typelog)
         {
-            settings.logType = type;
+            settings.logType = typelog;
             settingsRepository.WriteSettings(settings);
         }
 

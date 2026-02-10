@@ -161,10 +161,19 @@ namespace EasySave.ViewModels
             Console.WriteLine($"SoftwareName changed : {softwareName}");
         }
 
-        public void UpdateLogType(BackupLogType logType)
+        public void UpdateLogType(string logType)
         {
-            backupService.SetLogType(logType);
-            Console.WriteLine($"Log Type changed : {logType}");
+            if (logType == "Json")
+            {
+                backupService.SetLogType(LogFormat.Json);
+                Console.WriteLine($"Log Type changed : {LogFormat.Json}");
+            }
+            else
+            {
+                backupService.SetLogType(LogFormat.Xml);
+                Console.WriteLine($"Log Type changed : {LogFormat.Xml}");
+            }
+
         }
 
         public void UpdateCryptKey(string key)

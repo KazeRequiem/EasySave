@@ -295,26 +295,26 @@ namespace EasySave.Views
         {
             Console.WriteLine("Enter your new path for the CryptoSoft");
             string pathCryptKey = Console.ReadLine();
-            //UpdateCryptPath(pathCryptKey);
+            viewModel.UpdateCryptPath(pathCryptKey);
         }
 
         private void SettingUpdateCryptKey()
         {
             Console.WriteLine("Enter your Crypto Key");
             string cryptKey= Console.ReadLine();
-            //UpdateCryptKey(CryptKey);
+            viewModel.UpdateCryptKey(cryptKey);
         }
         private void SettingAddEncryptionExtension()
         {
             Console.WriteLine("Enter the Extension you to crypt");
             string addExtension = Console.ReadLine();
-            //UpdateCryptKey(AddExtension);
+            viewModel.UpdateCryptKey(addExtension);
         }
         private void SettingRemoveEncryptionExtension()
         {
             Console.WriteLine("Enter the extension you want to remove");
             string removeExtension = Console.ReadLine();
-            //UpdateCryptKey(removeExtension);
+            viewModel.UpdateCryptKey(removeExtension);
         }
         private void SettingUpdateLogType()
         {
@@ -359,7 +359,7 @@ namespace EasySave.Views
         }
         private void SettingUpdateLogTypeChange(string logtype)
         {
-            //UpdateLogType(logtype);
+            viewModel.UpdateLogType(logtype);
 
         }
 
@@ -367,7 +367,7 @@ namespace EasySave.Views
         {
             Console.WriteLine("Enter the name of the application you wish to block");
             string softwareName=Console.ReadLine();
-            //UpdateApplicationSoftware(softwareName);
+            viewModel.UpdateApplicationSoftware(softwareName);
 
         }
     }
