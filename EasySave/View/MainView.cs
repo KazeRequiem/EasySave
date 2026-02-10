@@ -360,7 +360,7 @@ namespace EasySave.Views
         private void SettingUpdateLogTypeChange(string logtype)
         {
             //UpdateLogType(logtype);
-            Console.WriteLine("test");
+
         }
 
         private void SettingUpdateApplicationSoftware()
