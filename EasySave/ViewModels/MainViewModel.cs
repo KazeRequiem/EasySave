@@ -219,5 +219,10 @@ namespace EasySave.ViewModels
             Console.WriteLine($"Extension '{extension}' deleted.");
             backupService.LogAction("Remove Encryption Extension : " + extension, "None", "None", "None", 0, 0, "[Success] Extension is removed");
         }
+        public Settings GetCurrentSetting()
+        {
+            return settings;
+        }
+
     }
 }

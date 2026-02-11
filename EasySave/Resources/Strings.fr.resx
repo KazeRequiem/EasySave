@@ -258,4 +258,22 @@
   <data name="InvalidInput" xml:space="preserve">
     <value>Entrée invalide</value>
   </data>
+  <data name="CurrentSetting" xml:space="preserve">
+    <value>Paramètre actuel</value>
+  </data>
+  <data name="ListcryptoKey" xml:space="preserve">
+    <value>Clé de chiffrage : </value>
+  </data>
+  <data name="ListExtensionsToEncrypt" xml:space="preserve">
+    <value>Exntension Chiffrée :  </value>
+  </data>
+  <data name="ListApplicationSoftware" xml:space="preserve">
+    <value>Application Bloquée : </value>
+  </data>
+  <data name="ListCryptoSoftPath" xml:space="preserve">
+    <value>Chemin d'accès CryptoSoft : </value>
+  </data>
+  <data name="ListLogType" xml:space="preserve">
+    <value>Type de log : </value>
+  </data>
 </root>
