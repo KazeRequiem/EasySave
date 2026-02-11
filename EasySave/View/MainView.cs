@@ -66,7 +66,7 @@ namespace EasySave.Views
                         Console.Write($"  [{ext}]  |"); 
                     }
                     Console.WriteLine($"\n{ Strings.ListApplicationSoftware}{ viewModel.GetCurrentSetting().applicationSoftware}\n{ Strings.ListCryptoSoftPath}{ viewModel.GetCurrentSetting().cryptoSoftPath}\n{ Strings.ListLogType}{ viewModel.GetCurrentSetting().logType}");
-                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine("-----------------------");
                 }
                 Console.WriteLine($"\n({Strings.NavigationHelp})");
 

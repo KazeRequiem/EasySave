@@ -221,6 +221,7 @@ namespace EasySave.ViewModels
         }
         public Settings GetCurrentSetting()
         {
+            settings = backupService.GetSettings();
             return settings;
         }
 
