@@ -249,7 +249,7 @@ namespace EasySave.Views
             }
             else
             {
-                Console.WriteLine("Entrée invalide.");
+                Console.WriteLine(Strings.InvalidInput);
             }
         }
 
@@ -293,32 +293,32 @@ namespace EasySave.Views
         }
         private void SettingUpdateCryptPath()
         {
-            Console.WriteLine("Enter your new path for the CryptoSoft");
+            Console.WriteLine(Strings.CryptoSoftPath);
             string pathCryptKey = Console.ReadLine();
-            //UpdateCryptPath(pathCryptKey);
+            viewModel.UpdateCryptPath(pathCryptKey);
         }
 
         private void SettingUpdateCryptKey()
         {
-            Console.WriteLine("Enter your Crypto Key");
+            Console.WriteLine(Strings.CryptoKey);
             string cryptKey= Console.ReadLine();
-            //UpdateCryptKey(CryptKey);
+            viewModel.UpdateCryptKey(cryptKey);
         }
         private void SettingAddEncryptionExtension()
         {
-            Console.WriteLine("Enter the Extension you to crypt");
+            Console.WriteLine(Strings.ExtensionCryptAdd);
             string addExtension = Console.ReadLine();
-            //UpdateCryptKey(AddExtension);
+            viewModel.AddEncryptionExtension(addExtension);
         }
         private void SettingRemoveEncryptionExtension()
         {
-            Console.WriteLine("Enter the extension you want to remove");
+            Console.WriteLine(Strings.ExtensionCryptRemove);
             string removeExtension = Console.ReadLine();
-            //UpdateCryptKey(removeExtension);
+            viewModel.RemoveEncryptionExtension(removeExtension);
         }
         private void SettingUpdateLogType()
         {
-            Console.WriteLine("In what format would you like your daily reports to be presented ? (XML or Json)");
+            Console.WriteLine(Strings.LogFormat);
             string[] settingOptionlog = {
                 "Json",
                 "XML",
@@ -359,15 +359,15 @@ namespace EasySave.Views
         }
         private void SettingUpdateLogTypeChange(string logtype)
         {
-            //UpdateLogType(logtype);
+            viewModel.UpdateLogType(logtype);
 
         }
 
         private void SettingUpdateApplicationSoftware()
         {
-            Console.WriteLine("Enter the name of the application you wish to block");
+            Console.WriteLine(Strings.AppBlock);
             string softwareName=Console.ReadLine();
-            //UpdateApplicationSoftware(softwareName);
+            viewModel.UpdateApplicationSoftware(softwareName);
 
         }
     }

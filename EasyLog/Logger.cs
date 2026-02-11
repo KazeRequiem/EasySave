@@ -79,7 +79,7 @@ namespace EasyLog
             {
                 lock (_lock)
                 {
-                    string extension = entry.formatJsonOrXml == LogFormat.Json ? "json" : "xml";
+                    string extension = entry.formatJsonOrXml == LogFormat.Json ? "Json" : "Xml";
                     string fileName = $"{DateTime.Now:yyyy-MM-dd}.{extension}";
                     string filePath = Path.Combine(_directoryPath, fileName);
 

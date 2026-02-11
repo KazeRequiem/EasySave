@@ -1,3 +1,4 @@
+using EasyLog;
 using EasySave.Models;
 using EasySave.Repositories;
 using EasySave.ViewModels;
@@ -131,12 +132,12 @@ namespace EasySave.Tests
             string expectedKey = "MySecretKey";
             string expectedApp = "Notepad.exe";
             string expectedExe = ".txt";
-            var expectedLogType = BackupLogType.xml;
+            LogFormat expectedLogType = LogFormat.Json;
 
             viewModel.UpdateCryptKey(expectedKey);
             viewModel.UpdateApplicationSoftware(expectedApp);
             viewModel.AddEncryptionExtension(expectedExe);
-            viewModel.UpdateLogType(expectedLogType);
+            viewModel.UpdateLogType("Json");
 
             var repo = new BackupSettingsRepository();
             var settings = repo.ReadSettings();
