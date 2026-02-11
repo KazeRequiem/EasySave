@@ -1,6 +1,10 @@
 using System;
 using System.IO;
 using System.Text.Json;
+using EasyLog;
+using System.Net.Http; 
+using System.Text;     
+using System.Threading.Tasks;
 
 namespace EasyLog
 {
@@ -79,17 +83,37 @@ namespace EasyLog
                 {
                     string fileName = $"{DateTime.Now:yyyy-MM-dd}.json";
                     string filePath = Path.Combine(_directoryPath, fileName);
-
                     var options = new JsonSerializerOptions { WriteIndented = true };
                     string jsonString = JsonSerializer.Serialize(entry, options);
-
                     File.AppendAllText(filePath, jsonString + Environment.NewLine);
                 }
+                _ = SendToDocker(entry);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"[Logger Error] : {ex.Message}");
             }
         }
+        private async Task SendToDocker(LogEntry entry)
+        {
+            try
+            {
+                using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(2) };
+                var json = JsonSerializer.Serialize(entry);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("http://10.162.129.111:5000/api/logs", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("[Docker Remote] Log envoyé au serveur central.");
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("[Docker Warning] Serveur distant injoignable. Backup local uniquement.");
+            }
+        }
     }
 }
+
+
