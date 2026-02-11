@@ -80,7 +80,7 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error : {ex.Message}");
-                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] System Error : " + ex.Message);
+                backupService.LogAction("Delete Job : " + id, "None", "None", "None", 0, 0, "[Error] System Error : " + ex.Message);
             }
         }
 
@@ -95,7 +95,7 @@ namespace EasySave.ViewModels
             if (!Directory.Exists(source))
             {
                 Console.WriteLine("Error : The source folder could not be found.");
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder could not be found");
+                backupService.LogAction("Modify Job : " + name, "None", source, dest, 0, 0, "[Error] The source folder could not be found");
                 return;
             }
 
@@ -107,7 +107,7 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error : {ex.Message}");
-                backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] " + ex.Message);
+                backupService.LogAction("Modify Job : " + name, "None", source, dest, 0, 0, "[Error] " + ex.Message);
             }
         }
 
@@ -129,7 +129,7 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during copying : {ex.Message}");
-                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message);
+                backupService.LogAction("Execute Job : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message);
             }
         }
 
@@ -145,7 +145,7 @@ namespace EasySave.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during copying : {ex.Message}");
-                backupService.LogAction("Create Job : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message);
+                backupService.LogAction("Edit Setting : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message);
             }
         }
 
@@ -154,22 +154,26 @@ namespace EasySave.ViewModels
             if (string.IsNullOrWhiteSpace(softwareName))
             {
                 Console.WriteLine("Error : The name of the software can't be empty.");
+                backupService.LogAction("Update Application Software : " + softwareName, "None", "None", "None", 0, 0, "[Error] softwareName error");
                 return;
             }
 
             backupService.SetApplicationSoftware(softwareName);
             Console.WriteLine($"SoftwareName changed : {softwareName}");
+            backupService.LogAction("Update Application Software : " + softwareName, "None", "None", "None", 0, 0, "[Success]");
         }
 
         public void UpdateLogType(string logType)
         {
             if (logType.ToLower() == "json")
             {
+                backupService.LogAction("UpdateLogType : " + logType, "None", "None", "None", 0, 0, "[Succes] log = Json");
                 backupService.SetLogType(LogFormat.Json);
                 Console.WriteLine($"Log Type changed : {LogFormat.Json}");
             }
             else
             {
+                backupService.LogAction("UpdateLogType : " + logType, "None", "None", "None", 0, 0, "[Succes] log = XML");
                 backupService.SetLogType(LogFormat.Xml);
                 Console.WriteLine($"Log Type changed : {LogFormat.Xml}");
             }
@@ -179,6 +183,7 @@ namespace EasySave.ViewModels
         public void UpdateCryptKey(string key)
         {
             backupService.SetCryptoKey(key);
+            backupService.LogAction("Update Crypt Key : " + key, "None", "None", "None", 0, 0, "[Succes] New crypt key");
             Console.WriteLine($"Key changed : {key}");
         }
 
@@ -186,6 +191,7 @@ namespace EasySave.ViewModels
         {
             backupService.SetCryptoPath(path);
             Console.WriteLine($"Path changed : {path}");
+            backupService.LogAction("Update Crypt Path : " + path, "None", "None", "None", 0, 0, "[Succes] New crypto path");
         }
 
         public void AddEncryptionExtension(string extension)
@@ -193,19 +199,25 @@ namespace EasySave.ViewModels
             if (string.IsNullOrWhiteSpace(extension))
             {
                 Console.WriteLine("Error : Invalid Extension .");
+                backupService.LogAction("Add Encryption Extension : " + extension, "None", "None", "None", 0, 0, "[Error] New extension is empty");
                 return;
             }
-
+            backupService.LogAction("Add Encryption Extension : " + extension, "None", "None", "None", 0, 0, "[Success] New extension");
             backupService.AddExtensionToEncrypt(extension);
             Console.WriteLine($"Extension '{extension}' added to the list.");
         }
 
         public void RemoveEncryptionExtension(string extension)
         {
-            if (string.IsNullOrWhiteSpace(extension)) return;
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                backupService.LogAction("Remove Encryption Extension : " + extension, "None", "None", "None", 0, 0, "[Error] Extension is empty");
+                return;
+            }
 
             backupService.RemoveExtensionToEncrypt(extension);
             Console.WriteLine($"Extension '{extension}' deleted.");
+            backupService.LogAction("Remove Encryption Extension : " + extension, "None", "None", "None", 0, 0, "[Success] Extension is removed");
         }
     }
 }

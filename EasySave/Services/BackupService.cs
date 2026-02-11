@@ -80,14 +80,14 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsSuccess = GetDirectorySize(source);
-                LogAction("Create Job : " + name, backupType.ToString(), source, destination, tailleOctetsSuccess, timeSuccess, "[Success].");
+                LogAction("ModifyJob : " + name, backupType.ToString(), source, destination, tailleOctetsSuccess, timeSuccess, "[Success].");
             }
             else
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsError = GetDirectorySize(source);
-                LogAction("Create Job : " + name, backupType.ToString(),source, destination,tailleOctetsError, timeError, "[Error] No job found with the specified id.");
+                LogAction("Modify Job : " + name, backupType.ToString(),source, destination,tailleOctetsError, timeError, "[Error] No job found with the specified id.");
                 throw new ArgumentException("No job found with the specified id.");
             }
         }

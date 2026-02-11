@@ -61,6 +61,15 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enter the name of the application you wish to block.
+        /// </summary>
+        public static string AppBlock {
+            get {
+                return ResourceManager.GetString("AppBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Please enter your choice:.
         /// </summary>
         public static string AskChoice {
@@ -70,11 +79,56 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enter your Crypto Key.
+        /// </summary>
+        public static string CryptoKey {
+            get {
+                return ResourceManager.GetString("CryptoKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enter your new path for the CryptoSoft.
+        /// </summary>
+        public static string CryptoSoftPath {
+            get {
+                return ResourceManager.GetString("CryptoSoftPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à ID not found..
         /// </summary>
         public static string ErrorIdNotFound {
             get {
                 return ResourceManager.GetString("ErrorIdNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enter the extensions you want to crypt.
+        /// </summary>
+        public static string ExtensionCryptAdd {
+            get {
+                return ResourceManager.GetString("ExtensionCryptAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove the extensions you want to crypt.
+        /// </summary>
+        public static string ExtensionCryptRemove {
+            get {
+                return ResourceManager.GetString("ExtensionCryptRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à invalid input.
+        /// </summary>
+        public static string InvalidInput {
+            get {
+                return ResourceManager.GetString("InvalidInput", resourceCulture);
             }
         }
         
@@ -102,6 +156,15 @@ namespace EasySave.Resources {
         public static string ListHeader {
             get {
                 return ResourceManager.GetString("ListHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à In what format would you like your daily reports to be presented ? (XML or Json).
+        /// </summary>
+        public static string LogFormat {
+            get {
+                return ResourceManager.GetString("LogFormat", resourceCulture);
             }
         }
         

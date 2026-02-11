@@ -237,4 +237,25 @@
   <data name="Leave" xml:space="preserve">
     <value>Leave</value>
   </data>
+  <data name="CryptoSoftPath" xml:space="preserve">
+    <value>Enter your new path for the CryptoSoft</value>
+  </data>
+  <data name="CryptoKey" xml:space="preserve">
+    <value>Enter your Crypto Key</value>
+  </data>
+  <data name="ExtensionCryptAdd" xml:space="preserve">
+    <value>Enter the extensions you want to crypt</value>
+  </data>
+  <data name="ExtensionCryptRemove" xml:space="preserve">
+    <value>Remove the extensions you want to crypt</value>
+  </data>
+  <data name="LogFormat" xml:space="preserve">
+    <value>In what format would you like your daily reports to be presented ? (XML or Json)</value>
+  </data>
+  <data name="AppBlock" xml:space="preserve">
+    <value>Enter the name of the application you wish to block</value>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>invalid input</value>
+  </data>
 </root>
