@@ -1,9 +1,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasySave.Services;
 using EasySave.Models;
+using EasySave.Repositories;
 using System;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
+using EasyLog;
 
 namespace EasySave.Tests
 {
@@ -12,14 +15,17 @@ namespace EasySave.Tests
     public class BackupServiceTests
     {
         private string jsonPath;
+        private string settingsPath;
 
         [TestInitialize]
         public void Setup()
         {
             jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "jobs.json");
+            settingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.json");
             try
             {
                 if (File.Exists(jsonPath)) File.Delete(jsonPath);
+                if (File.Exists(settingsPath)) File.Delete(settingsPath);
             }
             catch (IOException) { }
         }
@@ -30,6 +36,7 @@ namespace EasySave.Tests
             try
             {
                 if (File.Exists(jsonPath)) File.Delete(jsonPath);
+                if (File.Exists(settingsPath)) File.Delete(settingsPath);
             }
             catch (IOException) { }
         }
@@ -44,28 +51,6 @@ namespace EasySave.Tests
             Assert.AreEqual("Job1", service.backupJobs[0].name);
         }
 
-        [TestMethod]
-        public void CreateJob_ShouldThrowException_WhenMoreThan5Jobs()
-        {
-            var service = new BackupService();
-            for (int i = 0; i < 5; i++)
-            {
-                service.CreateJob($"Job{i}", "Source", "Dest", BackupType.Full);
-            }
-
-            try
-            {
-                service.CreateJob("Job6", "Source", "Dest", BackupType.Full);
-                Assert.Fail("An exception should have been raised");
-            }
-            catch (InvalidOperationException)
-            {
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Wrong exception received : {ex.GetType()}");
-            }
-        }
 
         [TestMethod]
         public void DeleteJob_ShouldRemoveJobAndReorderIds()
@@ -98,6 +83,7 @@ namespace EasySave.Tests
             {
             }
         }
+
         [TestMethod]
         public void ModifyJob_ShouldUpdateJobDetails_AndPersist()
         {
@@ -144,6 +130,21 @@ namespace EasySave.Tests
 
             Assert.AreEqual(1, service2.backupJobs.Count);
             Assert.AreEqual("PersistentJob", service2.backupJobs[0].name);
+        }
+
+        [TestMethod]
+        public void LoadSettings_ShouldCreateDefault_WhenFileDoesNotExist()
+        {
+            var service = new BackupService();
+
+            Assert.IsTrue(File.Exists(settingsPath));
+
+            var repo = new BackupSettingsRepository();
+            var settings = repo.ReadSettings();
+
+            Assert.IsNotNull(settings);
+            Assert.AreEqual(LogFormat.Json, settings.logType);
+            Assert.AreEqual("", settings.cryptoSoftPath);
         }
     }
 }

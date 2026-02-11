@@ -61,6 +61,15 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enter the name of the application you wish to block.
+        /// </summary>
+        public static string AppBlock {
+            get {
+                return ResourceManager.GetString("AppBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Please enter your choice:.
         /// </summary>
         public static string AskChoice {
@@ -70,11 +79,65 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enter your Crypto Key.
+        /// </summary>
+        public static string CryptoKey {
+            get {
+                return ResourceManager.GetString("CryptoKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enter your new path for the CryptoSoft.
+        /// </summary>
+        public static string CryptoSoftPath {
+            get {
+                return ResourceManager.GetString("CryptoSoftPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à ID not found..
         /// </summary>
         public static string ErrorIdNotFound {
             get {
                 return ResourceManager.GetString("ErrorIdNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enter the extensions you want to crypt.
+        /// </summary>
+        public static string ExtensionCryptAdd {
+            get {
+                return ResourceManager.GetString("ExtensionCryptAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove the extensions you want to crypt.
+        /// </summary>
+        public static string ExtensionCryptRemove {
+            get {
+                return ResourceManager.GetString("ExtensionCryptRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à invalid input.
+        /// </summary>
+        public static string InvalidInput {
+            get {
+                return ResourceManager.GetString("InvalidInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Leave.
+        /// </summary>
+        public static string Leave {
+            get {
+                return ResourceManager.GetString("Leave", resourceCulture);
             }
         }
         
@@ -97,6 +160,15 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à In what format would you like your daily reports to be presented ? (XML or Json).
+        /// </summary>
+        public static string LogFormat {
+            get {
+                return ResourceManager.GetString("LogFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à EASYSAVE - MAIN MENU.
         /// </summary>
         public static string MainMenuTitle {
@@ -106,7 +178,7 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à 6. Exit.
+        ///   Recherche une chaîne localisée semblable à 7. Exit.
         /// </summary>
         public static string MenuExit {
             get {
@@ -156,6 +228,15 @@ namespace EasySave.Resources {
         public static string MenuOption5 {
             get {
                 return ResourceManager.GetString("MenuOption5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à 6. Settings.
+        /// </summary>
+        public static string MenuOption6 {
+            get {
+                return ResourceManager.GetString("MenuOption6", resourceCulture);
             }
         }
         
@@ -282,6 +363,78 @@ namespace EasySave.Resources {
         public static string PromptType {
             get {
                 return ResourceManager.GetString("PromptType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Leave setting menu.
+        /// </summary>
+        public static string SettingMenuExit {
+            get {
+                return ResourceManager.GetString("SettingMenuExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Settings.
+        /// </summary>
+        public static string SettingMenuTitle {
+            get {
+                return ResourceManager.GetString("SettingMenuTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Path of CryptoSoft.
+        /// </summary>
+        public static string SettingOption1 {
+            get {
+                return ResourceManager.GetString("SettingOption1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Crypto Key.
+        /// </summary>
+        public static string SettingOption2 {
+            get {
+                return ResourceManager.GetString("SettingOption2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add extensions to encrypt.
+        /// </summary>
+        public static string SettingOption3 {
+            get {
+                return ResourceManager.GetString("SettingOption3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove extensions to encrypt.
+        /// </summary>
+        public static string SettingOption4 {
+            get {
+                return ResourceManager.GetString("SettingOption4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Type of log (Json or XML).
+        /// </summary>
+        public static string SettingOption5 {
+            get {
+                return ResourceManager.GetString("SettingOption5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Application blocked.
+        /// </summary>
+        public static string SettingOption6 {
+            get {
+                return ResourceManager.GetString("SettingOption6", resourceCulture);
             }
         }
         

@@ -26,8 +26,10 @@ namespace EasySave.Services
     {
         private readonly IBackupJobRepository repository;
         private readonly BackupStateRepository stateRepository;
+        private readonly BackupSettingsRepository settingsRepository;
         private readonly IProcessChecker processChecker;
         public List<BackupJob> backupJobs { get; set; }
+        private Settings settings;
 
         public BackupService()
         {
@@ -35,6 +37,8 @@ namespace EasySave.Services
             stateRepository = new BackupStateRepository();
             backupJobs = repository.ReadFromDisk();
             processChecker = new ProcessChecker();
+            settingsRepository = new BackupSettingsRepository();
+            settings = settingsRepository.ReadSettings();
         }
 
         /// <summary>
@@ -76,14 +80,14 @@ namespace EasySave.Services
                 chrono.Stop();
                 double timeSuccess = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsSuccess = GetDirectorySize(source);
-                LogAction("Create Job : " + name, backupType.ToString(), source, destination, tailleOctetsSuccess, timeSuccess, "[Success].");
+                LogAction("ModifyJob : " + name, backupType.ToString(), source, destination, tailleOctetsSuccess, timeSuccess, "[Success].");
             }
             else
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 long tailleOctetsError = GetDirectorySize(source);
-                LogAction("Create Job : " + name, backupType.ToString(),source, destination,tailleOctetsError, timeError, "[Error] No job found with the specified id.");
+                LogAction("Modify Job : " + name, backupType.ToString(),source, destination,tailleOctetsError, timeError, "[Error] No job found with the specified id.");
                 throw new ArgumentException("No job found with the specified id.");
             }
         }
@@ -140,9 +144,7 @@ namespace EasySave.Services
                 throw new ArgumentException("No job found with the specified id.");
             }
 
-            string processName = "CalculatorApp";
-
-            if (processChecker.IsProcessRunning(processName))
+            if (!string.IsNullOrWhiteSpace(settings.applicationSoftware) && processChecker.IsProcessRunning(settings.applicationSoftware))
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
@@ -193,6 +195,64 @@ namespace EasySave.Services
             }
         }
 
+        public void SetApplicationSoftware(string softwareName)
+        {
+            if (!softwareName.EndsWith(".exe"))
+            {
+                softwareName += ".exe";
+            }
+
+            settings.applicationSoftware = softwareName;
+            settingsRepository.WriteSettings(settings);
+        }
+
+        public void SetLogType(LogFormat typelog)
+        {
+            settings.logType = typelog;
+            settingsRepository.WriteSettings(settings);
+        }
+
+        public void SetCryptoKey(string key)
+        {
+            settings.cryptoKey = key;
+            settingsRepository.WriteSettings(settings);
+        }
+
+        public void SetCryptoPath(string path)
+        {
+            settings.cryptoSoftPath = path;
+            settingsRepository.WriteSettings(settings);
+        }
+
+        public void AddExtensionToEncrypt(string extension)
+        {
+            if (!extension.StartsWith("."))
+                extension = "." + extension;
+
+            if (!settings.extensionsToEncrypt.Contains(extension))
+            {
+                settings.extensionsToEncrypt.Add(extension);
+                settingsRepository.WriteSettings(settings);
+            }
+        }
+
+        public void RemoveExtensionToEncrypt(string extension)
+        {
+            if (!extension.StartsWith("."))
+                extension = "." + extension;
+
+            if (settings.extensionsToEncrypt.Contains(extension))
+            {
+                settings.extensionsToEncrypt.Remove(extension);
+                settingsRepository.WriteSettings(settings);
+            }
+        }
+
+        public Settings GetSettings()
+        {
+            return settings;
+        }
+
         /// <summary>
         /// Logs a backup-related operation into the logging system.
         /// 
@@ -201,6 +261,7 @@ namespace EasySave.Services
         /// </summary>
         public void LogAction(string operation, string name, string source, string destination, long size, double time, string successOrError)
         {
+            LogFormat formatToUse = settings.logType == LogFormat.Xml ? LogFormat.Xml : LogFormat.Json;
             LogEntry logEntry = new LogEntry
             {
                 operationName = operation,
@@ -209,9 +270,9 @@ namespace EasySave.Services
                 destinationPath = destination,
                 sizeFile = size,
                 timeTransfer = time,
-                success_Error = successOrError
+                success_Error = successOrError,
+                formatJsonOrXml = formatToUse
             };
-
             try
             {
                 Logger.Instance.WriteLog(logEntry);

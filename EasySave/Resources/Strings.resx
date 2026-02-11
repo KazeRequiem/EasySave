@@ -121,7 +121,7 @@
     <value>Please enter your choice:</value>
   </data>
   <data name="MenuExit" xml:space="preserve">
-    <value>6. Exit</value>
+    <value>7. Exit</value>
   </data>
   <data name="MenuOption1" xml:space="preserve">
     <value>1. Create backup job</value>
@@ -206,5 +206,56 @@
   </data>
   <data name="MenuOption5" xml:space="preserve">
     <value>5. Execute backup job</value>
+  </data>
+  <data name="MenuOption6" xml:space="preserve">
+    <value>6. Settings</value>
+  </data>
+  <data name="SettingMenuTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingOption1" xml:space="preserve">
+    <value>Path of CryptoSoft</value>
+  </data>
+  <data name="SettingOption2" xml:space="preserve">
+    <value>Crypto Key</value>
+  </data>
+  <data name="SettingOption3" xml:space="preserve">
+    <value>Add extensions to encrypt</value>
+  </data>
+  <data name="SettingOption6" xml:space="preserve">
+    <value>Application blocked</value>
+  </data>
+  <data name="SettingMenuExit" xml:space="preserve">
+    <value>Leave setting menu</value>
+  </data>
+  <data name="SettingOption5" xml:space="preserve">
+    <value>Type of log (Json or XML)</value>
+  </data>
+  <data name="SettingOption4" xml:space="preserve">
+    <value>Remove extensions to encrypt</value>
+  </data>
+  <data name="Leave" xml:space="preserve">
+    <value>Leave</value>
+  </data>
+  <data name="CryptoSoftPath" xml:space="preserve">
+    <value>Enter your new path for the CryptoSoft</value>
+  </data>
+  <data name="CryptoKey" xml:space="preserve">
+    <value>Enter your Crypto Key</value>
+  </data>
+  <data name="ExtensionCryptAdd" xml:space="preserve">
+    <value>Enter the extensions you want to crypt</value>
+  </data>
+  <data name="ExtensionCryptRemove" xml:space="preserve">
+    <value>Remove the extensions you want to crypt</value>
+  </data>
+  <data name="LogFormat" xml:space="preserve">
+    <value>In what format would you like your daily reports to be presented ? (XML or Json)</value>
+  </data>
+  <data name="AppBlock" xml:space="preserve">
+    <value>Enter the name of the application you wish to block</value>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>invalid input</value>
   </data>
 </root>

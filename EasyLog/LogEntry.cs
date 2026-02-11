@@ -25,5 +25,7 @@ namespace EasyLog
         public double timeTransfer { get; set; }
 
         public string success_Error { get; set; }
+
+        public LogFormat formatJsonOrXml { get; set; }
     }
 }
