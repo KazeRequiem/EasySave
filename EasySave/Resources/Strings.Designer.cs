@@ -61,272 +61,110 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please enter your choice:.
+        ///   Recherche une chaîne localisée semblable à ➕ Create.
         /// </summary>
-        public static string AskChoice {
+        public static string BtnCreate {
             get {
-                return ResourceManager.GetString("AskChoice", resourceCulture);
+                return ResourceManager.GetString("BtnCreate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à ID not found..
+        ///   Recherche une chaîne localisée semblable à 🗑️ Delete.
         /// </summary>
-        public static string ErrorIdNotFound {
+        public static string BtnDelete {
             get {
-                return ResourceManager.GetString("ErrorIdNotFound", resourceCulture);
+                return ResourceManager.GetString("BtnDelete", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à No jobs registered yet..
+        ///   Recherche une chaîne localisée semblable à ✏️ Edit.
         /// </summary>
-        public static string ListEmpty {
+        public static string BtnModify {
             get {
-                return ResourceManager.GetString("ListEmpty", resourceCulture);
+                return ResourceManager.GetString("BtnModify", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à ID | Name | Type | Source -&gt; Destination.
+        ///   Recherche une chaîne localisée semblable à 🚀 Run ALL jobs.
         /// </summary>
-        public static string ListHeader {
+        public static string ExecuteAll {
             get {
-                return ResourceManager.GetString("ListHeader", resourceCulture);
+                return ResourceManager.GetString("ExecuteAll", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à EASYSAVE - MAIN MENU.
+        ///   Recherche une chaîne localisée semblable à ▶️ Run this job.
         /// </summary>
-        public static string MainMenuTitle {
+        public static string ExecuteOne {
             get {
-                return ResourceManager.GetString("MainMenuTitle", resourceCulture);
+                return ResourceManager.GetString("ExecuteOne", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à 6. Exit.
+        ///   Recherche une chaîne localisée semblable à Execute Backup Jobs.
         /// </summary>
-        public static string MenuExit {
+        public static string ExecuteTitle {
             get {
-                return ResourceManager.GetString("MenuExit", resourceCulture);
+                return ResourceManager.GetString("ExecuteTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à 1. Create backup job.
+        ///   Recherche une chaîne localisée semblable à Destination Path.
         /// </summary>
-        public static string MenuOption1 {
+        public static string HeaderDest {
             get {
-                return ResourceManager.GetString("MenuOption1", resourceCulture);
+                return ResourceManager.GetString("HeaderDest", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à 2. Modify backup job.
+        ///   Recherche une chaîne localisée semblable à ID.
         /// </summary>
-        public static string MenuOption2 {
+        public static string HeaderID {
             get {
-                return ResourceManager.GetString("MenuOption2", resourceCulture);
+                return ResourceManager.GetString("HeaderID", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à 3. Delete backup job.
+        ///   Recherche une chaîne localisée semblable à Name.
         /// </summary>
-        public static string MenuOption3 {
+        public static string HeaderName {
             get {
-                return ResourceManager.GetString("MenuOption3", resourceCulture);
+                return ResourceManager.GetString("HeaderName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à 4. List backup jobs.
+        ///   Recherche une chaîne localisée semblable à Source Path.
         /// </summary>
-        public static string MenuOption4 {
+        public static string HeaderSource {
             get {
-                return ResourceManager.GetString("MenuOption4", resourceCulture);
+                return ResourceManager.GetString("HeaderSource", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à 5. Execute backup job.
+        ///   Recherche une chaîne localisée semblable à Type.
         /// </summary>
-        public static string MenuOption5 {
+        public static string HeaderType {
             get {
-                return ResourceManager.GetString("MenuOption5", resourceCulture);
+                return ResourceManager.GetString("HeaderType", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à EasySave - Main Menu.
+        ///   Recherche une chaîne localisée semblable à Backup Jobs Management.
         /// </summary>
-        public static string MenuTitle {
+        public static string JobTitle {
             get {
-                return ResourceManager.GetString("MenuTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Use Up/Down arrows to navigate and Enter to confirm..
-        /// </summary>
-        public static string NavigationHelp {
-            get {
-                return ResourceManager.GetString("NavigationHelp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Press any key to return to the menu....
-        /// </summary>
-        public static string PressAnyKey {
-            get {
-                return ResourceManager.GetString("PressAnyKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à ID of the job to delete:.
-        /// </summary>
-        public static string PromptDeleteId {
-            get {
-                return ResourceManager.GetString("PromptDeleteId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Destination path (e.g., D:\Folder):.
-        /// </summary>
-        public static string PromptDest {
-            get {
-                return ResourceManager.GetString("PromptDest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Enter the ID of the job to execute (all pour tout exécuter) :.
-        /// </summary>
-        public static string PromptExecuteId {
-            get {
-                return ResourceManager.GetString("PromptExecuteId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Job name:.
-        /// </summary>
-        public static string PromptJobName {
-            get {
-                return ResourceManager.GetString("PromptJobName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à ID of the job to modify:.
-        /// </summary>
-        public static string PromptModifyId {
-            get {
-                return ResourceManager.GetString("PromptModifyId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à New destination [{0}]:.
-        /// </summary>
-        public static string PromptNewDest {
-            get {
-                return ResourceManager.GetString("PromptNewDest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à New name [{0}]:.
-        /// </summary>
-        public static string PromptNewName {
-            get {
-                return ResourceManager.GetString("PromptNewName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à New source [{0}]:.
-        /// </summary>
-        public static string PromptNewSource {
-            get {
-                return ResourceManager.GetString("PromptNewSource", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à New type [Current: {0}]:.
-        /// </summary>
-        public static string PromptNewType {
-            get {
-                return ResourceManager.GetString("PromptNewType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Source path (e.g., C:\Folder):.
-        /// </summary>
-        public static string PromptSource {
-            get {
-                return ResourceManager.GetString("PromptSource", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Choose backup type:.
-        /// </summary>
-        public static string PromptType {
-            get {
-                return ResourceManager.GetString("PromptType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à CREATE A NEW BACKUP JOB.
-        /// </summary>
-        public static string TitleCreate {
-            get {
-                return ResourceManager.GetString("TitleCreate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à BACKUP JOBS LIST.
-        /// </summary>
-        public static string TitleList {
-            get {
-                return ResourceManager.GetString("TitleList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Modifying: {0} (Leave empty to keep current value).
-        /// </summary>
-        public static string TitleModify {
-            get {
-                return ResourceManager.GetString("TitleModify", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Differential Backup.
-        /// </summary>
-        public static string TypeDiff {
-            get {
-                return ResourceManager.GetString("TypeDiff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Full Backup.
-        /// </summary>
-        public static string TypeFull {
-            get {
-                return ResourceManager.GetString("TypeFull", resourceCulture);
+                return ResourceManager.GetString("JobTitle", resourceCulture);
             }
         }
     }

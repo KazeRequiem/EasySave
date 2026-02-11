@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="EasySave.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="White">
+    <StackPanel Margin="30">
+        <TextBlock Text="Paramètres Généraux" FontSize="22" FontWeight="SemiBold" Margin="0,0,0,20"/>
+
+        <GroupBox Header="Logiciel Métier (Interdiction de sauvegarde)" Margin="0,0,0,15" Padding="10">
+            <StackPanel>
+                <TextBlock Text="Nom du processus à surveiller (ex: Calculator.exe) :" Margin="0,0,0,5"/>
+                <TextBox x:Name="TxtBusinessSoft" Height="30" Padding="5"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Cryptage CryptoSoft" Margin="0,0,0,15" Padding="10">
+            <StackPanel>
+                <TextBlock Text="Extensions à crypter (séparées par des virgules, ex: .txt,.json) :" Margin="0,0,0,5"/>
+                <TextBox x:Name="TxtExtensions" Height="30" Padding="5"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Langue / Language" Margin="0,0,0,15" Padding="10">
+            <ComboBox HorizontalAlignment="Left" Width="200" Height="30">
+                <ComboBoxItem Content="Français"/>
+                <ComboBoxItem Content="English"/>
+            </ComboBox>
+        </GroupBox>
+
+        <Button Content="💾 Enregistrer les paramètres" HorizontalAlignment="Left" Width="200" Height="35" Background="#007ACC" Foreground="White" Margin="0,10,0,0"/>
+    </StackPanel>
+</UserControl>
