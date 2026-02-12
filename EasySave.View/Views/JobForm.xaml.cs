@@ -1,5 +1,5 @@
 ﻿using EasySave.Models;
-using EasySave.View.Resources; // Important pour accéder aux Strings
+using EasySave.View.Resources;
 using System.Windows;
 
 namespace EasySave.View.Views

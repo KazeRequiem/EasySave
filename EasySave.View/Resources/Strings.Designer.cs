@@ -421,6 +421,15 @@ namespace EasySave.View.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Séparez les extensions par des virgules..
+        /// </summary>
+        public static string SettingsInfo {
+            get {
+                return ResourceManager.GetString("SettingsInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Paramètres.
         /// </summary>
         public static string SettingsTitle {

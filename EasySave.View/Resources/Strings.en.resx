@@ -240,4 +240,7 @@
   <data name="BtnValidate" xml:space="preserve">
     <value>Validate</value>
   </data>
+  <data name="SettingsInfo" xml:space="preserve">
+    <value>Separate the extensions with commas.</value>
+  </data>
 </root>
