@@ -61,15 +61,39 @@ namespace EasySave.View.Views
             try
             {
                 viewModel.UpdateApplicationSoftware(TxtBusinessSoft.Text);
+
                 viewModel.UpdateCryptPath(TxtCryptoPath.Text);
                 viewModel.UpdateCryptKey(TxtCryptoKey.Text);
                 string selectedLog = (CmbLogType.SelectedIndex == 0) ? "json" : "xml";
                 viewModel.UpdateLogType(selectedLog);
-                var extensions = TxtExtensions.Text.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var ext in extensions)
+
+                var rawExtensions = TxtExtensions.Text.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var newExtensionsList = new List<string>();
+
+                foreach (var ext in rawExtensions)
                 {
-                    viewModel.AddEncryptionExtension(ext.Trim());
+                    string cleanExt = ext.Trim();
+                    if (!string.IsNullOrWhiteSpace(cleanExt))
+                    {
+                        if (!cleanExt.StartsWith(".")) cleanExt = "." + cleanExt;
+                        newExtensionsList.Add(cleanExt);
+                    }
                 }
+                var currentSavedExtensions = new List<string>(viewModel.CurrentSettings.extensionsToEncrypt);
+
+                foreach (var existingExt in currentSavedExtensions)
+                {
+                    if (!newExtensionsList.Contains(existingExt))
+                    {
+                        viewModel.RemoveEncryptionExtension(existingExt);
+                    }
+                }
+
+                foreach (var newExt in newExtensionsList)
+                {
+                    viewModel.AddEncryptionExtension(newExt);
+                }
+
                 MessageBox.Show(Strings.MsgParamsSaved, Strings.MsgSuccess, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)

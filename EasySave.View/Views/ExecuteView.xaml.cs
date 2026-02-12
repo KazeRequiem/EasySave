@@ -16,8 +16,24 @@ namespace EasySave.View.Views
         {
             InitializeComponent();
             this.viewModel = sharedModel;
+
             CmbJobs.ItemsSource = viewModel.backupJobs;
             CmbJobs.DisplayMemberPath = "name";
+            this.Loaded += ExecuteView_Loaded;
+        }
+
+        private void ExecuteView_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CmbJobs.ItemsSource = null;
+                CmbJobs.ItemsSource = viewModel.backupJobs;
+                CmbJobs.DisplayMemberPath = "name";
+            }
+            catch (Exception ex)    
+            {
+                MessageBox.Show("Erreur chargement liste : " + ex.Message);
+            }
         }
 
         private async void BtnRunOne_Click(object sender, RoutedEventArgs e)
@@ -25,14 +41,31 @@ namespace EasySave.View.Views
             if (CmbJobs.SelectedItem is BackupJob selectedJob)
             {
                 PbProgress.IsIndeterminate = true;
+                PbProgress.Value = 0;
+
                 try
                 {
                     await Task.Run(() => viewModel.ExecuteJob(selectedJob.id));
+
                     MessageBox.Show(Strings.MsgJobDone, Strings.MsgSuccess, MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (ArgumentException ex) when (string.Equals(ex.Message, "Other process detected while running.", StringComparison.Ordinal))
+                {
+                    MessageBox.Show(
+                        "Impossible de lancer la sauvegarde : Le logiciel métier est en cours d'exécution.\nVeuillez le fermer et réessayer.",
+                        Strings.MsgWarning,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning
+                    );
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        $"Une erreur est survenue lors de l'exécution :\n{ex.Message}",
+                        Strings.MsgError,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
                 finally
                 {
@@ -68,9 +101,13 @@ namespace EasySave.View.Views
 
                 MessageBox.Show(Strings.MsgJobDone, Strings.MsgSuccess, MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            catch (ArgumentException ex) when (ex.Message.Contains("Other process detected"))
+            {
+                MessageBox.Show("Sauvegarde interrompue : Logiciel métier détecté.", Strings.MsgWarning, MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Erreur lors de l'exécution globale :\n{ex.Message}", Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

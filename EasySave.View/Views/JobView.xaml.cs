@@ -20,8 +20,15 @@ namespace EasySave.View.Views
 
         private void ChargerDonnees()
         {
-            DgdJobs.ItemsSource = null;
-            DgdJobs.ItemsSource = viewModel.backupJobs;
+            try
+            {
+                DgdJobs.ItemsSource = null;
+                DgdJobs.ItemsSource = viewModel.backupJobs;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur affichage liste : " + ex.Message);
+            }
         }
 
         private void BtnCreate_Click(object sender, RoutedEventArgs e)
@@ -36,7 +43,7 @@ namespace EasySave.View.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Impossible de créer le travail :\n{ex.Message}", Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -55,7 +62,7 @@ namespace EasySave.View.Views
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Impossible de modifier le travail :\n{ex.Message}", Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -79,7 +86,7 @@ namespace EasySave.View.Views
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Impossible de supprimer :\n{ex.Message}", Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
