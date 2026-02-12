@@ -29,7 +29,7 @@ namespace EasySave.Strategies
         /// The backup state is initialized before copying and updated after each file
         /// to reflect progress and current activity.
         /// </summary>
-        public void Execute(string sourcePath, string destinationPath, BackupState state, BackupStateRepository stateRepo)
+        public double Execute(string sourcePath, string destinationPath, BackupState state, BackupStateRepository stateRepo)
         {
             var settingsRepo = new BackupSettingsRepository();
             Settings settings = settingsRepo.ReadSettings();
@@ -47,6 +47,8 @@ namespace EasySave.Strategies
             state.progression = 0;
             state.state = "ACTIVE";
             stateRepo.UpdateState(state);
+
+            double encryptionTime = 0;
 
             foreach (var file in allFiles)
             {
@@ -68,14 +70,15 @@ namespace EasySave.Strategies
                 {
                     File.Copy(file.FullName, destFile, true);
 
-                    int encryptionTime = 0;
+                    
                     if (ShouldEncrypt(file.Extension, extensionsToEncrypt, cryptoPath))
                     {
                         encryptionTime = RunCryptoSoft(destFile, cryptoPath, cryptoKey);
                     }
-                    if (encryptionTime < 0)
+                    if (encryptionTime <= 0)
                     {
                         encryptionTime = -1;
+                        
                     }
                 }
                 catch (Exception ex)
@@ -97,6 +100,7 @@ namespace EasySave.Strategies
 
                 stateRepo.UpdateState(state);
             }
+            return encryptionTime;
         }
 
         /// <summary>
