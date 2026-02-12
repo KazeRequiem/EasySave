@@ -68,10 +68,14 @@ namespace EasySave.Strategies
                 {
                     File.Copy(file.FullName, destFile, true);
 
-
+                    int encryptionTime = 0;
                     if (ShouldEncrypt(file.Extension, extensionsToEncrypt, cryptoPath))
                     {
-                        RunCryptoSoft(destFile, cryptoPath, cryptoKey);
+                        encryptionTime = RunCryptoSoft(destFile, cryptoPath, cryptoKey);
+                    }
+                    if (encryptionTime < 0)
+                    {
+                        encryptionTime = -1;
                     }
                 }
                 catch (Exception ex)
@@ -121,7 +125,7 @@ namespace EasySave.Strategies
                 
                 p.Start();
                 p.WaitForExit();
-                
+
                 return p.ExitCode;
             }
             catch (Exception ex)
