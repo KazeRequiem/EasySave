@@ -62,6 +62,7 @@ namespace EasySave.ViewModels
             {
                 backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, "[Error] System Error : " + ex.Message);
                 Console.WriteLine($"System Error : {ex.Message}");
+                throw;
             }
         }
 
@@ -81,6 +82,7 @@ namespace EasySave.ViewModels
             {
                 Console.WriteLine($"Error : {ex.Message}");
                 backupService.LogAction("Delete Job : " + id, "None", "None", "None", 0, 0, "[Error] System Error : " + ex.Message);
+                throw;
             }
         }
 
@@ -108,6 +110,7 @@ namespace EasySave.ViewModels
             {
                 Console.WriteLine($"Error : {ex.Message}");
                 backupService.LogAction("Modify Job : " + name, "None", source, dest, 0, 0, "[Error] " + ex.Message);
+                throw;
             }
         }
 
@@ -130,6 +133,7 @@ namespace EasySave.ViewModels
             {
                 Console.WriteLine($"Error during copying : {ex.Message}");
                 backupService.LogAction("Execute Job : " + id, "None", "None", "None", 0, 0, "[Error] " + ex.Message);
+                throw;
             }
         }
 
