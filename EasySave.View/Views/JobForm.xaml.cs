@@ -24,7 +24,6 @@ namespace EasySave.View.Views
         {
             if (string.IsNullOrWhiteSpace(TxtName.Text) || string.IsNullOrWhiteSpace(TxtSource.Text) || string.IsNullOrWhiteSpace(TxtDest.Text))
             {
-                // Utilisation de la ressource traduite
                 MessageBox.Show(Strings.MsgEmptyFields, Strings.MsgWarning, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }

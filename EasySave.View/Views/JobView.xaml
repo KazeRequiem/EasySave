@@ -29,11 +29,11 @@
         <DataGrid x:Name="DgdJobs" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" 
                   BorderThickness="1" BorderBrush="#DDD" Background="WhiteSmoke">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderID}" Width="50" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderName}" Width="150" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderSource}" Width="*" Binding="{Binding SourcePath}"/>
-                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderDest}" Width="*" Binding="{Binding DestinationPath}"/>
-                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderType}" Width="100" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderID}" Width="50" Binding="{Binding id}"/>
+                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderName}" Width="150" Binding="{Binding name}"/>
+                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderSource}" Width="*" Binding="{Binding sourcePath}"/>
+                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderDest}" Width="*" Binding="{Binding destinationPath}"/>
+                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderType}" Width="100" Binding="{Binding type}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
