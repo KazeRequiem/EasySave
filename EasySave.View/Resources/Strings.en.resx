@@ -117,166 +117,157 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AskChoice" xml:space="preserve">
-    <value>Entrer votre choix:</value>
+  <data name="AppTitle" xml:space="preserve">
+    <value>EasySave 3.0</value>
   </data>
-  <data name="MenuExit" xml:space="preserve">
-    <value>7. Quitter</value>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>New</value>
   </data>
-  <data name="MenuOption1" xml:space="preserve">
-    <value>1. Créer un travail de sauvegarde</value>
+  <data name="JobTitle" xml:space="preserve">
+    <value>Works Management</value>
   </data>
-  <data name="MenuOption2" xml:space="preserve">
-    <value>2. Modifier un travail de sauvegarde</value>
+  <data name="MenuExecute" xml:space="preserve">
+    <value>🚀 Launch</value>
   </data>
-  <data name="MenuOption3" xml:space="preserve">
-    <value>3. Supprimer un travail de sauvegarde</value>
+  <data name="MenuJobs" xml:space="preserve">
+    <value>📂 Saves</value>
   </data>
-  <data name="MenuOption4" xml:space="preserve">
-    <value>4. Lister les travaux de sauvegarde</value>
+  <data name="MenuSettings" xml:space="preserve">
+    <value>⚙️ Settings</value>
   </data>
-  <data name="MenuTitle" xml:space="preserve">
-    <value>EasySave - Menu Principale</value>
+  <data name="BtnModify" xml:space="preserve">
+    <value>Edit</value>
   </data>
-  <data name="ErrorIdNotFound" xml:space="preserve">
-    <value>ID introuvable.</value>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>Delete</value>
   </data>
-  <data name="ListEmpty" xml:space="preserve">
-    <value>Aucun travail enregistré.</value>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Name</value>
   </data>
-  <data name="ListHeader" xml:space="preserve">
-    <value>ID | Nom | Type | Source -&gt; Destination</value>
+  <data name="HeaderDest" xml:space="preserve">
+    <value>Destination</value>
   </data>
-  <data name="MainMenuTitle" xml:space="preserve">
-    <value>EASYSAVE - MENU PRINCIPAL</value>
+  <data name="HeaderSource" xml:space="preserve">
+    <value>Source</value>
   </data>
-  <data name="NavigationHelp" xml:space="preserve">
-    <value>Utilisez les flèches Haut/Bas pour naviguer et Entrée pour valider.</value>
+  <data name="HeaderType" xml:space="preserve">
+    <value>Type</value>
   </data>
-  <data name="PressAnyKey" xml:space="preserve">
-    <value>Appuyez sur une touche pour revenir au menu...</value>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Settings</value>
   </data>
-  <data name="PromptDeleteId" xml:space="preserve">
-    <value>ID du travail à supprimer :</value>
+  <data name="GroupGeneral" xml:space="preserve">
+    <value>General (Logs &amp; Business)</value>
   </data>
-  <data name="PromptDest" xml:space="preserve">
-    <value>Chemin Destination (ex: D:\Dossier) :</value>
+  <data name="LabelLogType" xml:space="preserve">
+    <value>Log File Type:</value>
   </data>
-  <data name="PromptExecuteId" xml:space="preserve">
-    <value>Entrez l'ID du travail à exécuter (all pour tout exécuter) :</value>
+  <data name="LabelBusiness" xml:space="preserve">
+    <value>Business Software (Blocking):</value>
   </data>
-  <data name="PromptJobName" xml:space="preserve">
-    <value>Nom du travail :</value>
+  <data name="GroupCrypto" xml:space="preserve">
+    <value>CryptoSoft Configuration</value>
   </data>
-  <data name="PromptModifyId" xml:space="preserve">
-    <value>ID du travail à modifier :</value>
+  <data name="LabelCryptoPath" xml:space="preserve">
+    <value>Executable Path:</value>
   </data>
-  <data name="PromptNewDest" xml:space="preserve">
-    <value>Nouvelle Destination [{0}] :</value>
+  <data name="LabelCryptoKey" xml:space="preserve">
+    <value>Encryption Key:</value>
   </data>
-  <data name="PromptNewName" xml:space="preserve">
-    <value>Nouveau nom [{0}] :</value>
+  <data name="LabelExtensions" xml:space="preserve">
+    <value>Extensions to encrypt (e.g. .txt,.pdf):</value>
   </data>
-  <data name="PromptNewSource" xml:space="preserve">
-    <value>Nouvelle Source [{0}] :</value>
+  <data name="BtnBrowse" xml:space="preserve">
+    <value>...</value>
   </data>
-  <data name="PromptNewType" xml:space="preserve">
-    <value>Nouveau type [Actuel: {0}] :</value>
+  <data name="BtnSave" xml:space="preserve">
+    <value>💾 Save</value>
   </data>
-  <data name="PromptSource" xml:space="preserve">
-    <value>Chemin Source (ex: C:\Dossier) :</value>
+  <data name="HeaderID" xml:space="preserve">
+    <value>ID</value>
   </data>
-  <data name="PromptType" xml:space="preserve">
-    <value>Choisissez le type de sauvegarde :</value>
+  <data name="ExecuteTitle" xml:space="preserve">
+    <value>Save Execution</value>
   </data>
-  <data name="TitleCreate" xml:space="preserve">
-    <value>CRÉER UN NOUVEAU TRAVAIL</value>
+  <data name="GroupSpecific" xml:space="preserve">
+    <value>Individual Execution</value>
   </data>
-  <data name="TitleList" xml:space="preserve">
-    <value>LISTE DES TRAVAUX</value>
+  <data name="BtnRunOne" xml:space="preserve">
+    <value>▶️ Run this job</value>
   </data>
-  <data name="TitleModify" xml:space="preserve">
-    <value>Modification de : {0} (Laissez vide pour ne pas changer)</value>
+  <data name="GroupAll" xml:space="preserve">
+    <value>Global Execution</value>
   </data>
-  <data name="TypeDiff" xml:space="preserve">
-    <value>Différentielle (Differential)</value>
+  <data name="BtnRunAll" xml:space="preserve">
+    <value>🚀 Run ALL jobs</value>
   </data>
-  <data name="TypeFull" xml:space="preserve">
-    <value>Complète (Full)</value>
+  <data name="LabelProgress" xml:space="preserve">
+    <value>Progress:</value>
   </data>
-  <data name="MenuOption5" xml:space="preserve">
-    <value>5. Exécuter un travail de sauvegarde</value>
+  <data name="MsgError" xml:space="preserve">
+    <value>Error</value>
   </data>
-  <data name="MenuOption6" xml:space="preserve">
-    <value>6. Paramètres</value>
+  <data name="MsgSuccess" xml:space="preserve">
+    <value>Success</value>
   </data>
-  <data name="SettingMenuTitle" xml:space="preserve">
-    <value>Paramètres</value>
+  <data name="MsgWarning" xml:space="preserve">
+    <value>Warning</value>
   </data>
-  <data name="SettingOption1" xml:space="preserve">
-    <value>Chemin d'accès à CryptoSoft</value>
+  <data name="MsgConfirmation" xml:space="preserve">
+    <value>Confirmation</value>
   </data>
-  <data name="SettingOption2" xml:space="preserve">
-    <value>Clé de chiffrage</value>
+  <data name="MsgConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete this job?</value>
   </data>
-  <data name="SettingOption3" xml:space="preserve">
-    <value>Ajouter une extension à chiffrer</value>
+  <data name="MsgSelectJob" xml:space="preserve">
+    <value>Please select a job.</value>
   </data>
-  <data name="SettingOption6" xml:space="preserve">
-    <value>Application bloquée</value>
+  <data name="MsgJobDone" xml:space="preserve">
+    <value>Job finished successfully!</value>
   </data>
-  <data name="SettingMenuExit" xml:space="preserve">
-    <value>Quitter la vue paramètre </value>
+  <data name="MsgParamsSaved" xml:space="preserve">
+    <value>Settings saved!</value>
   </data>
-  <data name="SettingOption5" xml:space="preserve">
-    <value>Type de log (Json ou XML)</value>
+  <data name="MsgEmptyFields" xml:space="preserve">
+    <value>All fields are required.</value>
   </data>
-  <data name="SettingOption4" xml:space="preserve">
-    <value>Retirer une extension à chiffrer</value>
+  <data name="LblJobName" xml:space="preserve">
+    <value>Job Name:</value>
   </data>
-  <data name="Leave" xml:space="preserve">
-    <value>Quitter</value>
+  <data name="LblCancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="CryptoSoftPath" xml:space="preserve">
-    <value>Saisissez votre nouveau chemin pour CryptoSoft</value>
+  <data name="BtnValidate" xml:space="preserve">
+    <value>Validate</value>
   </data>
-  <data name="CryptoKey" xml:space="preserve">
-    <value>Saisissez votre clé cryptographique</value>
+  <data name="SettingsInfo" xml:space="preserve">
+    <value>Separate the extensions with commas.</value>
   </data>
-  <data name="ExtensionCryptAdd" xml:space="preserve">
-    <value>Saisissez l'extension que vous souhaitez chiffrer</value>
+  <data name="BusinessSoftwareError" xml:space="preserve">
+    <value>Unable to start save: The business software is running. Please close it and try again.</value>
   </data>
-  <data name="ExtensionCryptRemove" xml:space="preserve">
-    <value>Saisissez l'extension que vous souhaitez enlever</value>
+  <data name="ExecutionError" xml:space="preserve">
+    <value>An error occurred during execution:</value>
   </data>
-  <data name="LogFormat" xml:space="preserve">
-    <value>Sous quel format souhaitez-vous que vos rapports quotidiens soient présentés ? (XML ou JSON)</value>
+  <data name="BusinessSoftwareDetectedError" xml:space="preserve">
+    <value>Backup interrupted: Business software detected.</value>
   </data>
-  <data name="AppBlock" xml:space="preserve">
-    <value>Saisissez le nom de l'application que vous souhaitez bloquer</value>
-  </data>
-  <data name="InvalidInput" xml:space="preserve">
-    <value>Entrée invalide</value>
-  </data>
-  <data name="CurrentSetting" xml:space="preserve">
-    <value>Paramètre actuel</value>
-  </data>
-  <data name="ListcryptoKey" xml:space="preserve">
-    <value>Clé de chiffrage : </value>
-  </data>
-  <data name="ListExtensionsToEncrypt" xml:space="preserve">
-    <value>Exntension Chiffrée :  </value>
-  </data>
-  <data name="ListApplicationSoftware" xml:space="preserve">
-    <value>Application Bloquée : </value>
-  </data>
-  <data name="ListCryptoSoftPath" xml:space="preserve">
-    <value>Chemin d'accès CryptoSoft : </value>
-  </data>
-  <data name="ListLogType" xml:space="preserve">
-    <value>Type de log : </value>
+  <data name="ExecutionGlobalError" xml:space="preserve">
+    <value>Error during global execution:</value>
   </data>
   <data name="LoadingError" xml:space="preserve">
     <value>Error loading list:</value>
+  </data>
+  <data name="DisplayError" xml:space="preserve">
+    <value>List display error:</value>
+  </data>
+  <data name="CreateJobError" xml:space="preserve">
+    <value>Unable to create the job:</value>
+  </data>
+  <data name="EditJobError" xml:space="preserve">
+    <value>Unable to modify the work:</value>
+  </data>
+  <data name="DeleteJobError" xml:space="preserve">
+    <value>Unable to delete:</value>
   </data>
 </root>
