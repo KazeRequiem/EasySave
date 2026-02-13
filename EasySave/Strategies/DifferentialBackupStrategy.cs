@@ -30,7 +30,7 @@ namespace EasySave.Strategies
         /// The backup state is initialized before copying and updated after each copied file
         /// to reflect progress and current activity.
         /// </summary>  
-        public void Execute(string sourcePath, string destinationPath, BackupState state, BackupStateRepository stateRepo)
+        public double Execute(string sourcePath, string destinationPath, BackupState state, BackupStateRepository stateRepo)
         {
             var settingsRepo = new BackupSettingsRepository();
             Settings settings = settingsRepo.ReadSettings();
@@ -43,6 +43,8 @@ namespace EasySave.Strategies
             var allFiles = sourceDir.GetFiles("*", SearchOption.AllDirectories);
 
             var filesToCopy = new List<FileInfo>();
+
+            double encryptionTime = 0;
 
             foreach (var file in allFiles)
             {
@@ -84,7 +86,12 @@ namespace EasySave.Strategies
 
                     if (ShouldEncrypt(file.Extension, extensionsToEncrypt, cryptoPath))
                     {
-                        RunCryptoSoft(destFile, cryptoPath, cryptoKey);
+                        encryptionTime = RunCryptoSoft(destFile, cryptoPath, cryptoKey);
+                    }
+                    if (encryptionTime <= 0)
+                    {
+                        encryptionTime = -1;
+
                     }
                 }
                 catch { }
@@ -103,6 +110,8 @@ namespace EasySave.Strategies
 
                 stateRepo.UpdateState(state);
             }
+            return encryptionTime;
+
         }
         /// <summary>
         /// Verify if the extension is in the list and if CryptoSoft is loaded.

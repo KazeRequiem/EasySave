@@ -21,6 +21,6 @@ namespace EasySave.Strategies
         /// Updates the backup state during execution
         /// and persists state changes through the repository.
         /// </summary>
-        void Execute(string sourcePath, string destinationPath, BackupState state, BackupStateRepository stateRepo);
+        double Execute(string sourcePath, string destinationPath, BackupState state, BackupStateRepository stateRepo);
     }
 }
