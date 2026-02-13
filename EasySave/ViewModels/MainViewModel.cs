@@ -122,12 +122,19 @@ namespace EasySave.ViewModels
         /// </summary>
         public void ExecuteJob(int id)
         {
-            Console.WriteLine($"Job launch {id} in progress...");
-
+            BackupJob actualJob = backupService.backupJobs.Find(j => j.id == id);
+            if (actualJob == null)
+            {
+                throw new ArgumentException($"The job {id} doesn't exist");
+            }
+            if (!Directory.Exists(actualJob.sourcePath))
+            {
+                backupService.LogAction("Execute Job : " + id, actualJob.name, actualJob.sourcePath, actualJob.destinationPath, 0, 0, 0, "[Error] Source folder missing");
+                throw new DirectoryNotFoundException($"The source file could not be found :\n{actualJob.sourcePath}");
+            }
             try
             {
                 backupService.ExecuteJob(id);
-                Console.WriteLine($"Job {id} completed");
             }
             catch (Exception ex)
             {

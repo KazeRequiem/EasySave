@@ -151,7 +151,6 @@ namespace EasySave.Services
                 LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, 0, "[Error] Other process detected while running.");
                 throw new ArgumentException("Other process detected while running.");
             }
-
             IBackupStrategy strategy = BackupStrategyFactory.Create(job.type);
 
             var state = new BackupState
@@ -195,6 +194,18 @@ namespace EasySave.Services
             }
         }
 
+        public BackupJob GetJobById(int id)
+        {
+            for (int i = 0; i < backupJobs.Count; i++)
+            {
+                BackupJob job = backupJobs[i];
+                if (job.id == id)
+                {
+                    return job;
+                }
+            }
+            throw new Exception("Job not found");
+        }
         public void SetApplicationSoftware(string softwareName)
         {
             if (!softwareName.EndsWith(".exe"))
