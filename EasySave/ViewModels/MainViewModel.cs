@@ -171,13 +171,13 @@ namespace EasySave.ViewModels
         {
             if (logType.ToLower() == "json")
             {
-                backupService.LogAction("UpdateLogType : " + logType, "None", "None", "None", 0, 0, 0, "[Succes] log = Json");
+                backupService.LogAction("UpdateLogType : " + logType, "None", "None", "None", 0, 0, 0, "[Success] log = Json");
                 backupService.SetLogType(LogFormat.Json);
                 Console.WriteLine($"Log Type changed : {LogFormat.Json}");
             }
             else
             {
-                backupService.LogAction("UpdateLogType : " + logType, "None", "None", "None", 0, 0, 0, "[Succes] log = XML");
+                backupService.LogAction("UpdateLogType : " + logType, "None", "None", "None", 0, 0, 0, "[Success] log = XML");
                 backupService.SetLogType(LogFormat.Xml);
                 Console.WriteLine($"Log Type changed : {LogFormat.Xml}");
             }
@@ -187,7 +187,7 @@ namespace EasySave.ViewModels
         public void UpdateCryptKey(string key)
         {
             backupService.SetCryptoKey(key);
-            backupService.LogAction("Update Crypt Key : " + key, "None", "None", "None", 0, 0, 0, "[Succes] New crypt key");
+            backupService.LogAction("Update Crypt Key : " + key, "None", "None", "None", 0, 0, 0, "[Success] New crypt key");
             Console.WriteLine($"Key changed : {key}");
         }
 
@@ -195,7 +195,7 @@ namespace EasySave.ViewModels
         {
             backupService.SetCryptoPath(path);
             Console.WriteLine($"Path changed : {path}");
-            backupService.LogAction("Update Crypt Path : " + path, "None", "None", "None", 0, 0, 0, "[Succes] New crypto path");
+            backupService.LogAction("Update Crypt Path : " + path, "None", "None", "None", 0, 0, 0, "[Success] New crypto path");
         }
 
         public void AddEncryptionExtension(string extension)
