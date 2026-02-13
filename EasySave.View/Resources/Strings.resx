@@ -243,4 +243,31 @@
   <data name="SettingsInfo" xml:space="preserve">
     <value>Séparez les extensions par des virgules.</value>
   </data>
+  <data name="BusinessSoftwareError" xml:space="preserve">
+    <value>Impossible de lancer la sauvegarde : Le logiciel métier est en cours d'exécution.\nVeuillez le fermer et réessayer.</value>
+  </data>
+  <data name="ExecutionError" xml:space="preserve">
+    <value>Une erreur est survenue lors de l'exécution :</value>
+  </data>
+  <data name="BusinessSoftwareDetectedError" xml:space="preserve">
+    <value>Sauvegarde interrompue : Logiciel métier détecté.</value>
+  </data>
+  <data name="ExecutionGlobalError" xml:space="preserve">
+    <value>Erreur lors de l'exécution globale :</value>
+  </data>
+  <data name="LoadingError" xml:space="preserve">
+    <value>Erreur chargement liste :</value>
+  </data>
+  <data name="DisplayError" xml:space="preserve">
+    <value>Erreur affichage liste :</value>
+  </data>
+  <data name="CreateJobError" xml:space="preserve">
+    <value>Impossible de créer le travail :</value>
+  </data>
+  <data name="EditJobError" xml:space="preserve">
+    <value>Impossible de modifier le travail :</value>
+  </data>
+  <data name="DeleteJobError" xml:space="preserve">
+    <value>Impossible de supprimer :</value>
+  </data>
 </root>

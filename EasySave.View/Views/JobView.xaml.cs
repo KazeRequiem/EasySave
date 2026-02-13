@@ -27,7 +27,7 @@ namespace EasySave.View.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur affichage liste : " + ex.Message);
+                MessageBox.Show(Strings.DisplayError + ex.Message);
             }
         }
 
@@ -43,7 +43,7 @@ namespace EasySave.View.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Impossible de créer le travail :\n{ex.Message}", Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Strings.CreateJobError + ex.Message, Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace EasySave.View.Views
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Impossible de modifier le travail :\n{ex.Message}", Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Strings.EditJobError + ex.Message, Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -86,7 +86,7 @@ namespace EasySave.View.Views
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Impossible de supprimer :\n{ex.Message}", Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Strings.DeleteJobError + ex.Message, Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }

@@ -142,11 +142,83 @@ namespace EasySave.View.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sauvegarde interrompue : Logiciel métier détecté..
+        /// </summary>
+        public static string BusinessSoftwareDetectedError {
+            get {
+                return ResourceManager.GetString("BusinessSoftwareDetectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Impossible de lancer la sauvegarde : Le logiciel métier est en cours d&apos;exécution.\nVeuillez le fermer et réessayer..
+        /// </summary>
+        public static string BusinessSoftwareError {
+            get {
+                return ResourceManager.GetString("BusinessSoftwareError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Impossible de créer le travail :.
+        /// </summary>
+        public static string CreateJobError {
+            get {
+                return ResourceManager.GetString("CreateJobError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Impossible de supprimer :.
+        /// </summary>
+        public static string DeleteJobError {
+            get {
+                return ResourceManager.GetString("DeleteJobError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur affichage liste :.
+        /// </summary>
+        public static string DisplayError {
+            get {
+                return ResourceManager.GetString("DisplayError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Impossible de modifier le travail :.
+        /// </summary>
+        public static string EditJobError {
+            get {
+                return ResourceManager.GetString("EditJobError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Exécution des Sauvegardes.
         /// </summary>
         public static string ExecuteTitle {
             get {
                 return ResourceManager.GetString("ExecuteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Une erreur est survenue lors de l&apos;exécution :.
+        /// </summary>
+        public static string ExecutionError {
+            get {
+                return ResourceManager.GetString("ExecutionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur lors de l&apos;exécution globale :.
+        /// </summary>
+        public static string ExecutionGlobalError {
+            get {
+                return ResourceManager.GetString("ExecutionGlobalError", resourceCulture);
             }
         }
         
@@ -309,6 +381,15 @@ namespace EasySave.View.Resources {
         public static string LblJobName {
             get {
                 return ResourceManager.GetString("LblJobName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur chargement liste :.
+        /// </summary>
+        public static string LoadingError {
+            get {
+                return ResourceManager.GetString("LoadingError", resourceCulture);
             }
         }
         

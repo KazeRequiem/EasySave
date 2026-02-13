@@ -243,4 +243,31 @@
   <data name="SettingsInfo" xml:space="preserve">
     <value>Separate the extensions with commas.</value>
   </data>
+  <data name="BusinessSoftwareError" xml:space="preserve">
+    <value>Unable to start save: The business software is running. Please close it and try again.</value>
+  </data>
+  <data name="ExecutionError" xml:space="preserve">
+    <value>An error occurred during execution:</value>
+  </data>
+  <data name="BusinessSoftwareDetectedError" xml:space="preserve">
+    <value>Backup interrupted: Business software detected.</value>
+  </data>
+  <data name="ExecutionGlobalError" xml:space="preserve">
+    <value>Error during global execution:</value>
+  </data>
+  <data name="LoadingError" xml:space="preserve">
+    <value>Error loading list:</value>
+  </data>
+  <data name="DisplayError" xml:space="preserve">
+    <value>List display error:</value>
+  </data>
+  <data name="CreateJobError" xml:space="preserve">
+    <value>Unable to create the job:</value>
+  </data>
+  <data name="EditJobError" xml:space="preserve">
+    <value>Unable to modify the work:</value>
+  </data>
+  <data name="DeleteJobError" xml:space="preserve">
+    <value>Unable to delete:</value>
+  </data>
 </root>

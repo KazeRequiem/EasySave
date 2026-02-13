@@ -32,7 +32,7 @@ namespace EasySave.View.Views
             }
             catch (Exception ex)    
             {
-                MessageBox.Show("Erreur chargement liste : " + ex.Message);
+                MessageBox.Show(Strings.LoadingError + ex.Message);
             }
         }
 
@@ -52,7 +52,7 @@ namespace EasySave.View.Views
                 catch (ArgumentException ex) when (string.Equals(ex.Message, "Other process detected while running.", StringComparison.Ordinal))
                 {
                     MessageBox.Show(
-                        "Impossible de lancer la sauvegarde : Le logiciel métier est en cours d'exécution.\nVeuillez le fermer et réessayer.",
+                        Strings.BusinessSoftwareError,
                         Strings.MsgWarning,
                         MessageBoxButton.OK,
                         MessageBoxImage.Warning
@@ -61,7 +61,7 @@ namespace EasySave.View.Views
                 catch (Exception ex)
                 {
                     MessageBox.Show(
-                        $"Une erreur est survenue lors de l'exécution :\n{ex.Message}",
+                        Strings.ExecutionError + ex,
                         Strings.MsgError,
                         MessageBoxButton.OK,
                         MessageBoxImage.Error
@@ -103,11 +103,11 @@ namespace EasySave.View.Views
             }
             catch (ArgumentException ex) when (ex.Message.Contains("Other process detected"))
             {
-                MessageBox.Show("Sauvegarde interrompue : Logiciel métier détecté.", Strings.MsgWarning, MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Strings.BusinessSoftwareDetectedError, Strings.MsgWarning, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erreur lors de l'exécution globale :\n{ex.Message}", Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Strings.ExecutionGlobalError + ex.Message, Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
