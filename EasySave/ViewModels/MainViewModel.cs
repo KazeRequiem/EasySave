@@ -50,7 +50,7 @@ namespace EasySave.ViewModels
             {
                 Console.WriteLine("Error : The source folder doesn't exist.");
                 backupService.LogAction("Create Job : " + name, "None", source, dest, 0, 0, 0, "[Error] The source folder doesn't exist");
-                return;
+                throw new DirectoryNotFoundException("The source folder doesn't exist :\n" + source);
             }
 
             try
@@ -98,7 +98,7 @@ namespace EasySave.ViewModels
             {
                 Console.WriteLine("Error : The source folder could not be found.");
                 backupService.LogAction("Modify Job : " + name, "None", source, dest, 0, 0, 0, "[Error] The source folder could not be found");
-                return;
+                throw new DirectoryNotFoundException("Error : The source folder could not be found : \n" + source);
             }
 
             try

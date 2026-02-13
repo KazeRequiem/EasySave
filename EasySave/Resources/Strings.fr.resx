@@ -276,4 +276,7 @@
   <data name="ListLogType" xml:space="preserve">
     <value>Type de log : </value>
   </data>
+  <data name="LoadingError" xml:space="preserve">
+    <value>Error loading list:</value>
+  </data>
 </root>

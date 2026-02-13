@@ -214,6 +214,15 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur chargement liste :.
+        /// </summary>
+        public static string LoadingError {
+            get {
+                return ResourceManager.GetString("LoadingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à In what format would you like your daily reports to be presented ? (XML or Json).
         /// </summary>
         public static string LogFormat {
