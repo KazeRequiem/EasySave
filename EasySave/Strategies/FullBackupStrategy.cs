@@ -37,7 +37,7 @@ namespace EasySave.Strategies
             List<string> extensionsToEncrypt = settings.extensionsToEncrypt;
             string cryptoPath = settings.cryptoSoftPath;
             string cryptoKey = settings.cryptoKey;
-
+            
             var sourceDir = new DirectoryInfo(sourcePath);
             var allFiles = sourceDir.GetFiles("*", SearchOption.AllDirectories);
 
