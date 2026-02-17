@@ -222,9 +222,6 @@
   <data name="MsgSelectJob" xml:space="preserve">
     <value>Please select a job.</value>
   </data>
-  <data name="MsgJobDone" xml:space="preserve">
-    <value>Job finished successfully!</value>
-  </data>
   <data name="MsgParamsSaved" xml:space="preserve">
     <value>Settings saved!</value>
   </data>

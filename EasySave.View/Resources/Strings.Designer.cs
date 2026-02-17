@@ -457,15 +457,6 @@ namespace EasySave.View.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Travail terminé avec succès !.
-        /// </summary>
-        public static string MsgJobDone {
-            get {
-                return ResourceManager.GetString("MsgJobDone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Paramètres enregistrés !.
         /// </summary>
         public static string MsgParamsSaved {

@@ -20,6 +20,7 @@ namespace EasySave.ViewModels
     public class MainViewModel
     {
         private readonly BackupSettingsRepository settingsRepository;
+        private readonly BackupStateRepository stateRepository;
         private readonly Orchestrator orchestrator;
         private Settings settings;
         private BackupService backupService;
@@ -29,6 +30,7 @@ namespace EasySave.ViewModels
         public MainViewModel()
         {
             settingsRepository = new BackupSettingsRepository();
+            stateRepository = new BackupStateRepository();
             settings = settingsRepository.ReadSettings();
             orchestrator = new Orchestrator(
                 settings.maxFileSizeKo,
@@ -127,7 +129,7 @@ namespace EasySave.ViewModels
         /// Progress and execution errors are reported to the user
         /// and logged through the service layer.
         /// </summary>
-        public void ExecuteJob(int id)
+        public async Task ExecuteJob(int id)
         {
             BackupJob actualJob = backupService.backupJobs.Find(j => j.id == id);
             if (actualJob == null)
@@ -141,7 +143,7 @@ namespace EasySave.ViewModels
             }
             try
             {
-                backupService.ExecuteJob(id);
+                await backupService.ExecuteJob(id);
             }
             catch (Exception ex)
             {
@@ -242,6 +244,21 @@ namespace EasySave.ViewModels
             settings = backupService.GetSettings();
             return settings;
         }
+        public List<BackupState> GetCurrentStates()
+        {
+            return stateRepository.ReadStates();
+        }
 
+        public double GetGlobalProgress()
+        {
+            var states = GetCurrentStates();
+            if (states == null || states.Count == 0) return 0;
+            double totalProgress = 0;
+            foreach (var state in states)
+            {
+                totalProgress += state.progression;
+            }
+            return totalProgress / states.Count;
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using EasySave.Models;
 using EasySave.ViewModels;
 using EasySave.View.Resources;
@@ -11,6 +13,7 @@ namespace EasySave.View.Views
     public partial class ExecuteView : UserControl
     {
         private MainViewModel viewModel;
+        private DispatcherTimer progressTimer;
 
         public ExecuteView(MainViewModel sharedModel)
         {
@@ -19,6 +22,11 @@ namespace EasySave.View.Views
 
             CmbJobs.ItemsSource = viewModel.backupJobs;
             CmbJobs.DisplayMemberPath = "name";
+
+            progressTimer = new DispatcherTimer();
+            progressTimer.Interval = TimeSpan.FromMilliseconds(100);
+            progressTimer.Tick += ProgressTimer_Tick;
+
             this.Loaded += ExecuteView_Loaded;
         }
 
@@ -26,13 +34,35 @@ namespace EasySave.View.Views
         {
             try
             {
+                PbProgress.Value = 0;
+                isRunningAll = false;
+                progressTimer.Stop();
+                
                 CmbJobs.ItemsSource = null;
                 CmbJobs.ItemsSource = viewModel.backupJobs;
                 CmbJobs.DisplayMemberPath = "name";
             }
-            catch (Exception ex)    
+            catch (Exception ex)
             {
                 MessageBox.Show(Strings.LoadingError + ex.Message);
+            }
+        }
+
+        private bool isRunningAll = false;
+        private void ProgressTimer_Tick(object sender, EventArgs e)
+        {
+            if (isRunningAll)
+            {
+                PbProgress.Value = viewModel.GetGlobalProgress();
+            }
+            else if (CmbJobs.SelectedItem is BackupJob selectedJob)
+            {
+                var states = viewModel.GetCurrentStates();
+                var jobStatus = states.FirstOrDefault(s => s.name == selectedJob.name);
+                if (jobStatus != null)
+                {
+                    PbProgress.Value = jobStatus.progression;
+                }
             }
         }
 
@@ -40,36 +70,27 @@ namespace EasySave.View.Views
         {
             if (CmbJobs.SelectedItem is BackupJob selectedJob)
             {
-                PbProgress.IsIndeterminate = true;
+                PbProgress.IsIndeterminate = false;
                 PbProgress.Value = 0;
+
+                progressTimer.Start();
 
                 try
                 {
-                    await Task.Run(() => viewModel.ExecuteJob(selectedJob.id));
-
-                    MessageBox.Show(Strings.MsgJobDone, Strings.MsgSuccess, MessageBoxButton.OK, MessageBoxImage.Information);
+                    await viewModel.ExecuteJob(selectedJob.id);
                 }
                 catch (ArgumentException ex) when (string.Equals(ex.Message, "Other process detected while running.", StringComparison.Ordinal))
                 {
-                    MessageBox.Show(
-                        Strings.BusinessSoftwareError,
-                        Strings.MsgWarning,
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Warning
-                    );
+                    MessageBox.Show(Strings.BusinessSoftwareError, Strings.MsgWarning, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(
-                        Strings.ExecutionError + ex,
-                        Strings.MsgError,
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error
-                    );
+                    MessageBox.Show(Strings.ExecutionError + ex, Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
-                    PbProgress.IsIndeterminate = false;
+                    await Task.Delay(200);
+                    progressTimer.Stop();
                     PbProgress.Value = 100;
                 }
             }
@@ -87,19 +108,16 @@ namespace EasySave.View.Views
                 return;
             }
 
-            PbProgress.IsIndeterminate = true;
+            isRunningAll = true;
+            PbProgress.Value = 0;
+            progressTimer.Start();
 
             try
             {
-                await Task.Run(() =>
+                foreach (var job in viewModel.backupJobs)
                 {
-                    foreach (var job in viewModel.backupJobs)
-                    {
-                        viewModel.ExecuteJob(job.id);
-                    }
-                });
-
-                MessageBox.Show(Strings.MsgJobDone, Strings.MsgSuccess, MessageBoxButton.OK, MessageBoxImage.Information);
+                    await viewModel.ExecuteJob(job.id);
+                }
             }
             catch (ArgumentException ex) when (ex.Message.Contains("Other process detected"))
             {
@@ -111,8 +129,10 @@ namespace EasySave.View.Views
             }
             finally
             {
-                PbProgress.IsIndeterminate = false;
+                await Task.Delay(200);
+                progressTimer.Stop();
                 PbProgress.Value = 100;
+                isRunningAll = false;
             }
         }
     }
