@@ -1,5 +1,6 @@
 ﻿using EasyLog;
 using EasySave.Models;
+using EasySave.Orchestration;
 using EasySave.Repositories;
 using EasySave.Services;
 using System;
@@ -19,6 +20,7 @@ namespace EasySave.ViewModels
     public class MainViewModel
     {
         private readonly BackupSettingsRepository settingsRepository;
+        private readonly Orchestrator orchestrator;
         private Settings settings;
         private BackupService backupService;
         public List<BackupJob> backupJobs => backupService.backupJobs;
@@ -26,9 +28,14 @@ namespace EasySave.ViewModels
 
         public MainViewModel()
         {
-            backupService = new BackupService();
             settingsRepository = new BackupSettingsRepository();
             settings = settingsRepository.ReadSettings();
+            orchestrator = new Orchestrator(
+                settings.maxFileSizeKo,
+                settings.priorityExtensions
+            );
+
+            backupService = new BackupService(orchestrator);
         }
 
         /// <summary>
