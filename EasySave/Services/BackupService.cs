@@ -2,6 +2,7 @@
 using EasySave.Models;
 using EasySave.Repositories;
 using EasySave.Strategies;
+using EasySave.Orchestration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,10 +29,13 @@ namespace EasySave.Services
         private readonly BackupStateRepository stateRepository;
         private readonly BackupSettingsRepository settingsRepository;
         private readonly IProcessChecker processChecker;
+        private readonly Orchestrator orchestrator;
+        private Dictionary<int, CancellationTokenSource> runningJobs = new Dictionary<int, CancellationTokenSource>();
+
         public List<BackupJob> backupJobs { get; set; }
         private Settings settings;
 
-        public BackupService()
+        public BackupService(Orchestrator newOrchestrator)
         {
             repository = new BackupJobRepository();
             stateRepository = new BackupStateRepository();
@@ -39,6 +43,8 @@ namespace EasySave.Services
             processChecker = new ProcessChecker();
             settingsRepository = new BackupSettingsRepository();
             settings = settingsRepository.ReadSettings();
+
+            orchestrator = newOrchestrator;
         }
 
         /// <summary>
@@ -131,7 +137,7 @@ namespace EasySave.Services
         /// The appropriate backup strategy is selected based on the job type.
         /// Job state is updated during execution and logged accordingly.
         /// </summary>
-        public void ExecuteJob(int id)
+        public async Task ExecuteJob(int id)
         {
             Stopwatch chrono = new Stopwatch();
             chrono.Start();
@@ -143,15 +149,41 @@ namespace EasySave.Services
                 LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, 0, "[Error] No job found.");
                 throw new ArgumentException("No job found with the specified id.");
             }
+            var cts = new CancellationTokenSource();
+            if (runningJobs.ContainsKey(id))
+            {
+                runningJobs.Remove(id);
+            }
+            runningJobs.Add(id, cts);
 
             if (!string.IsNullOrWhiteSpace(settings.applicationSoftware) && processChecker.IsProcessRunning(settings.applicationSoftware))
             {
                 chrono.Stop();
                 double timeError = chrono.Elapsed.TotalMilliseconds;
                 LogAction("ExecuteJob : " + id, "None", "None", "None", 0, timeError, 0, "[Error] Other process detected while running.");
+                runningJobs.Remove(id);
                 throw new ArgumentException("Other process detected while running.");
             }
             IBackupStrategy strategy = BackupStrategyFactory.Create(job.type);
+
+            if (settings.priorityExtensions != null && settings.priorityExtensions.Count > 0 && Directory.Exists(job.sourcePath))
+            {
+                try
+                {
+                    DirectoryInfo dirInfo = new DirectoryInfo(job.sourcePath);
+                    foreach (var file in dirInfo.GetFiles("*", SearchOption.AllDirectories))
+                    {
+                        if (orchestrator.IsPriority(file.Extension))
+                        {
+                            orchestrator.RegisterPriorityFile();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning: Pre-scan failed for job {id}. Priority might not be optimal. {ex.Message}");
+                }
+            }
 
             var state = new BackupState
             {
@@ -163,9 +195,14 @@ namespace EasySave.Services
             job.state = "Active";
             repository.WriteToDisk(backupJobs);
 
+            double encryptionTimeMs = 0;
+
             try
             {
-                double encryptionTimeMs = strategy.Execute(job.sourcePath, job.destinationPath, state, stateRepository);
+                encryptionTimeMs = await Task.Run(async () =>
+                {
+                    return await strategy.Execute(job.sourcePath, job.destinationPath, state, stateRepository, cts.Token, orchestrator);
+                }, cts.Token);
                 state.state = "END";
                 state.nbFilesLeftToDo = 0;
                 state.progression = 100;
@@ -191,6 +228,14 @@ namespace EasySave.Services
             {
                 job.state = "Inactive";
                 repository.WriteToDisk(backupJobs);
+            }
+        }
+
+        public void StopJob(int id)
+        {
+            if (runningJobs.TryGetValue(id, out CancellationTokenSource? cts))
+            {
+                cts.Cancel();
             }
         }
 
@@ -255,6 +300,36 @@ namespace EasySave.Services
             if (settings.extensionsToEncrypt.Contains(extension))
             {
                 settings.extensionsToEncrypt.Remove(extension);
+                settingsRepository.WriteSettings(settings);
+            }
+        }
+
+        public void SetMaxFileSize(long sizeKo)
+        {
+            settings.maxFileSizeKo = sizeKo;
+            settingsRepository.WriteSettings(settings);
+        }
+
+        public void AddPriorityExtension(string extension)
+        {
+            if (!extension.StartsWith("."))
+                extension = "." + extension;
+
+            if (!settings.priorityExtensions.Contains(extension))
+            {
+                settings.priorityExtensions.Add(extension);
+                settingsRepository.WriteSettings(settings);
+            }
+        }
+
+        public void RemovePriorityExtension(string extension)
+        {
+            if (!extension.StartsWith("."))
+                extension = "." + extension;
+
+            if (settings.priorityExtensions.Contains(extension))
+            {
+                settings.priorityExtensions.Remove(extension);
                 settingsRepository.WriteSettings(settings);
             }
         }
