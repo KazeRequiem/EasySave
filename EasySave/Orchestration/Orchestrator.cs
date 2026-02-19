@@ -12,6 +12,10 @@ namespace EasySave.Orchestration
         private readonly SemaphoreSlim largeFileSemaphore;
         private int priorityFilesPendingCount = 0;
 
+        private ManualResetEventSlim pauseEvent = new ManualResetEventSlim(true);
+
+        private bool isStopped = false;
+
         public Orchestrator(long limitSizeKo, List<string> priorityExtensions)
         {
             this.limitSizeBytes = limitSizeKo * 1024;
@@ -22,6 +26,11 @@ namespace EasySave.Orchestration
             }
             this.largeFileSemaphore = new SemaphoreSlim(1, 1);
         }
+
+        public void GlobalPause() => pauseEvent.Reset();
+        public void GlobalResume() => pauseEvent.Set();
+        public void GlobalStop() => isStopped = true;
+        public bool IsPaused => !pauseEvent.IsSet;
 
         public void RegisterPriorityFile()
         {
@@ -42,9 +51,13 @@ namespace EasySave.Orchestration
 
         public async Task AcquirePermissionAsync(long fileSize, bool isPriority)
         {
+            if (isStopped) throw new OperationCanceledException("Backup stopped by user.");
+            pauseEvent.Wait();
+
             while (!isPriority && Interlocked.CompareExchange(ref priorityFilesPendingCount, 0, 0) > 0)
             {
                 await Task.Delay(50);
+                pauseEvent.Wait();
             }
             if (limitSizeBytes > 0 && fileSize > limitSizeBytes)
             {

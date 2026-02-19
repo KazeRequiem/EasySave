@@ -24,6 +24,7 @@ namespace EasySave.ViewModels
         private readonly Orchestrator orchestrator;
         private Settings settings;
         private BackupService backupService;
+        private readonly IProcessChecker processChecker;
         public List<BackupJob> backupJobs => backupService.backupJobs;
         public Settings CurrentSettings => backupService.GetSettings();
 
@@ -36,8 +37,40 @@ namespace EasySave.ViewModels
                 settings.maxFileSizeKo,
                 settings.priorityExtensions
             );
-
+            this.processChecker = new ProcessChecker();
             backupService = new BackupService(orchestrator);
+            StartBusinessSoftwareMonitoring();
+        }
+        private void StartBusinessSoftwareMonitoring()
+        {
+            Task.Run(async () =>
+            {
+                bool isPausedBySoftware = false;
+
+                while (true)
+                {
+                    string softwareName = CurrentSettings.applicationSoftware;
+
+                    if (!string.IsNullOrWhiteSpace(softwareName))
+                    {
+                        bool isRunning = processChecker.IsProcessRunning(softwareName);
+
+                        if (isRunning && !isPausedBySoftware)
+                        {
+                            orchestrator.GlobalPause();
+                            isPausedBySoftware = true;
+                            Console.WriteLine($"[MONITOR] {softwareName} détecté : Pause forcée.");
+                        }
+                        else if (!isRunning && isPausedBySoftware)
+                        {
+                            orchestrator.GlobalResume();
+                            isPausedBySoftware = false;
+                            Console.WriteLine($"[MONITOR] {softwareName} fermé : Reprise automatique.");
+                        }
+                    }
+                    await Task.Delay(1000);
+                }
+            });
         }
 
         /// <summary>
