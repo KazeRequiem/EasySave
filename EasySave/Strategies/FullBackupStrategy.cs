@@ -1,6 +1,7 @@
 ﻿using EasySave.Models;
 using EasySave.Orchestration;
 using EasySave.Repositories;
+using EasySave.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,6 +14,7 @@ namespace EasySave.Strategies
 {
     public class FullBackupStrategy : IBackupStrategy
     {
+        private BackupService backupService;
         private static readonly object _cryptoLock = new object();
 
         /// <summary>
@@ -27,6 +29,7 @@ namespace EasySave.Strategies
             List<string> extensionsToEncrypt = settings.extensionsToEncrypt;
             string cryptoPath = settings.cryptoSoftPath;
             string cryptoKey = settings.cryptoKey;
+            backupService = new BackupService(orchestrator);
 
             var sourceDir = new DirectoryInfo(sourcePath);
             if (!sourceDir.Exists) throw new DirectoryNotFoundException(sourcePath);
@@ -91,7 +94,7 @@ namespace EasySave.Strategies
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error processing file {file.Name}: {ex.Message}");
-                    // Quentin log Action
+                    backupService.LogAction("Full backup ", "None", "None", "None", 0, 0, 0, "[Error] : " + ex.Message);
                 }
                 finally
                 {

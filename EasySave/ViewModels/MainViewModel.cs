@@ -283,14 +283,14 @@ namespace EasySave.ViewModels
 
         public void SetMaxFileSize(int maxFileSize)
         {
-            if(maxFileSize < 0)
+            if(maxFileSize < 0 )
             {
-                //Log Quentin
+                backupService.LogAction("Set max file size ", "None", "None", "None", 0, 0, 0, "[Error] Max Size is < 0");
                 return;
             }
             backupService.SetMaxFileSize(maxFileSize);
             Console.WriteLine($"File size {maxFileSize} set");
-            //Log Quentin
+            backupService.LogAction("Set max file size : " + maxFileSize.ToString(), "None", "None", "None", 0, 0, 0, "[Succes] Max Size is update to :"+ maxFileSize.ToString());
         }
 
         public void AddPriorityExtension(string extension)
