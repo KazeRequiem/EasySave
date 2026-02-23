@@ -249,6 +249,16 @@ namespace EasySave.Services
             orchestrator.GlobalResume();
         }
 
+        public void PauseJob()
+        {
+            orchestrator.GlobalPause();
+        }
+
+        public void ResumeJob()
+        {
+            orchestrator.GlobalResume();
+        }
+
         public BackupJob GetJobById(int id)
         {
             for (int i = 0; i < backupJobs.Count; i++)
