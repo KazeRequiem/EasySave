@@ -188,26 +188,26 @@ namespace EasySave.ViewModels
 
         public void StopJob(int id)
         {
-            backupService.StopJob(id); 
-            //Log Quentin
+            backupService.StopJob(id);
+            backupService.LogAction("Stop Job : " + id, "None", "None", "None", 0, 0, 0, "[Success] Work has stopped");
         }
 
         public void StopAllJobs()
         {
-            backupService.StopAllJobs(); 
-            //Log Quentin
+            backupService.StopAllJobs();
+            backupService.LogAction("Stop All Job ", "None", "None", "None", 0, 0, 0, "[Success] All work has stopped.");
         }
 
         public void PauseJob()
         {
             backupService.PauseJob();
-            //Log Quentin
+            backupService.LogAction("Pause Job ", "None", "None", "None", 0, 0, 0, "[Success] Job paused.");
         }
 
         public void ResumeJob()
         {
             backupService.ResumeJob();
-            //Log Quentin
+            backupService.LogAction("Resume Job ", "None", "None", "None", 0, 0, 0, "[Success] Job resumed.");
         }
 
         public void UpdateApplicationSoftware(string softwareName)
