@@ -43,34 +43,21 @@ namespace EasySave.ViewModels
         }
         private void StartBusinessSoftwareMonitoring()
         {
-            Task.Run(async () =>
-            {
-                bool isPausedBySoftware = false;
+            string softwareName = CurrentSettings.applicationSoftware;
 
-                while (true)
+            processChecker.StartMonitoring(
+                softwareName,
+                onProcessStarted: () =>
                 {
-                    string softwareName = CurrentSettings.applicationSoftware;
-
-                    if (!string.IsNullOrWhiteSpace(softwareName))
-                    {
-                        bool isRunning = processChecker.IsProcessRunning(softwareName);
-
-                        if (isRunning && !isPausedBySoftware)
-                        {
-                            orchestrator.GlobalPause();
-                            isPausedBySoftware = true;
-                            Console.WriteLine($"[MONITOR] {softwareName} détecté : Pause forcée.");
-                        }
-                        else if (!isRunning && isPausedBySoftware)
-                        {
-                            orchestrator.GlobalResume();
-                            isPausedBySoftware = false;
-                            Console.WriteLine($"[MONITOR] {softwareName} fermé : Reprise automatique.");
-                        }
-                    }
-                    await Task.Delay(1000);
+                    orchestrator.GlobalPause();
+                    Console.WriteLine($"[MONITOR] {softwareName} detected : Pause forced.");
+                },
+                onProcessStopped: () =>
+                {
+                    orchestrator.GlobalResume();
+                    Console.WriteLine($"[MONITOR] {softwareName} closed : Restart.");
                 }
-            });
+            );
         }
 
         /// <summary>
@@ -220,6 +207,7 @@ namespace EasySave.ViewModels
             }
 
             backupService.SetApplicationSoftware(softwareName);
+            StartBusinessSoftwareMonitoring();
             Console.WriteLine($"SoftwareName changed : {softwareName}");
             backupService.LogAction("Update Application Software : " + softwareName, "None", "None", "None", 0, 0, 0, "[Success]");
         }
