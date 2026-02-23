@@ -198,19 +198,16 @@ namespace EasySave.ViewModels
             //Log Quentin
         }
 
-        public void EditSetting(int id)
+        public void PauseJob()
         {
-            Console.WriteLine($"Setting");
+            backupService.PauseJob();
+            //Log Quentin
+        }
 
-            try
-            {
-                Console.WriteLine(settings);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error during copying : {ex.Message}");
-                backupService.LogAction("Edit Setting : " + id, "None", "None", "None", 0, 0, 0, "[Error] " + ex.Message);
-            }
+        public void ResumeJob()
+        {
+            backupService.ResumeJob();
+            //Log Quentin
         }
 
         public void UpdateApplicationSoftware(string softwareName)
