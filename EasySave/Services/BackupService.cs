@@ -32,8 +32,8 @@ namespace EasySave.Services
         private readonly Orchestrator orchestrator;
         private Dictionary<int, CancellationTokenSource> runningJobs = new Dictionary<int, CancellationTokenSource>();
 
-        public List<BackupJob> backupJobs { get; set; }
         private Settings settings;
+        public List<BackupJob> backupJobs { get; set; }
 
         public BackupService(Orchestrator newOrchestrator)
         {
@@ -321,7 +321,7 @@ namespace EasySave.Services
                 settingsRepository.WriteSettings(settings);
             }
         }
-
+        
         public void RemovePriorityExtension(string extension)
         {
             if (!extension.StartsWith("."))

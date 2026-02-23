@@ -272,6 +272,44 @@ namespace EasySave.ViewModels
             Console.WriteLine($"Extension '{extension}' deleted.");
             backupService.LogAction("Remove Encryption Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Success] Extension is removed");
         }
+
+        public void SetMaxFileSize(int maxFileSize)
+        {
+            if(maxFileSize < 0)
+            {
+                //Log Quentin
+                return;
+            }
+            backupService.SetMaxFileSize(maxFileSize);
+            Console.WriteLine($"File size {maxFileSize} set");
+            //Log Quentin
+        }
+
+        public void AddPriorityExtension(string extension)
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                Console.WriteLine("Error : Invalid Extension .");
+                backupService.LogAction("Add Priority Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Error] New extension is empty");
+                return;
+            }
+            backupService.LogAction("Add Priority Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Success] New extension");
+            backupService.AddPriorityExtension(extension);
+            Console.WriteLine($"Extension '{extension}' added to the list.");
+        }
+
+        public void RemovePriorityExtension(string extension)
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                backupService.LogAction("Remove Priority Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Error] Extension is empty");
+                return;
+            }
+
+            backupService.RemovePriorityExtension(extension);
+            Console.WriteLine($"Extension '{extension}' deleted.");
+            backupService.LogAction("Remove Priority Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Success] Extension is removed");
+        }
         public Settings GetCurrentSetting()
         {
             settings = backupService.GetSettings();
