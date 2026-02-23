@@ -239,6 +239,16 @@ namespace EasySave.Services
             }
         }
 
+        public void StopAllJobs()
+        {
+            orchestrator.GlobalStop();
+            foreach (var job in backupJobs)
+            {
+                StopJob(job.id);
+            }
+            orchestrator.GlobalResume();
+        }
+
         public BackupJob GetJobById(int id)
         {
             for (int i = 0; i < backupJobs.Count; i++)

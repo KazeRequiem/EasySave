@@ -186,6 +186,17 @@ namespace EasySave.ViewModels
             }
         }
 
+        public void StopJob(int id)
+        {
+            backupService.StopJob(id); 
+            //Log Quentin
+        }
+
+        public void StopAllJobs()
+        {
+            backupService.StopAllJobs(); 
+            //Log Quentin
+        }
 
         public void EditSetting(int id)
         {
