@@ -1,12 +1,13 @@
-﻿using System;
+﻿using EasySave.Models;
+using EasySave.Services;
+using EasySave.View.Resources;
+using EasySave.ViewModels;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using EasySave.Models;
-using EasySave.ViewModels;
-using EasySave.View.Resources;
 
 namespace EasySave.View.Views
 {
@@ -66,6 +67,24 @@ namespace EasySave.View.Views
             }
         }
 
+        private void ResumeJob(object sender, EventArgs e)
+        {
+
+            viewModel.ResumeJob();
+        }
+
+        private void PauseJob (object sender, EventArgs e)
+        {
+
+           viewModel.PauseJob();
+            
+        }
+
+        private void StopAllJobs(object sender, EventArgs e) 
+        {  
+            viewModel.StopAllJobs();
+        }
+
         private async void BtnRunOne_Click(object sender, RoutedEventArgs e)
         {
             if (CmbJobs.SelectedItem is BackupJob selectedJob)
@@ -78,6 +97,10 @@ namespace EasySave.View.Views
                 try
                 {
                     await viewModel.ExecuteJob(selectedJob.id);
+                }
+                catch (OperationCanceledException)
+                {
+                    MessageBox.Show(Strings.BtnStop);
                 }
                 catch (ArgumentException ex) when (string.Equals(ex.Message, "Other process detected while running.", StringComparison.Ordinal))
                 {
