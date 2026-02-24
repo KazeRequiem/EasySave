@@ -30,6 +30,8 @@ namespace EasySave.Services
         private readonly BackupSettingsRepository settingsRepository;
         private readonly IProcessChecker processChecker;
         private readonly Orchestrator orchestrator;
+        private readonly IRemoteLogService remoteLogService;
+
         private Dictionary<int, CancellationTokenSource> runningJobs = new Dictionary<int, CancellationTokenSource>();
 
         private Settings settings;
@@ -43,8 +45,8 @@ namespace EasySave.Services
             processChecker = new ProcessChecker();
             settingsRepository = new BackupSettingsRepository();
             settings = settingsRepository.ReadSettings();
-
             orchestrator = newOrchestrator;
+            remoteLogService = new DockerLogService();
         }
 
         /// <summary>
@@ -389,7 +391,15 @@ namespace EasySave.Services
             };
             try
             {
-                Logger.Instance.WriteLog(logEntry);
+                if (settings.logLocation == LogLocation.local || settings.logLocation == LogLocation.localAndCentralized)
+                {
+                    Logger.Instance.WriteLog(logEntry);
+                }
+
+                if (settings.logLocation == LogLocation.centralized || settings.logLocation == LogLocation.localAndCentralized)
+                {
+                    _ = remoteLogService.SendLogAsync(logEntry);
+                }
             }
             catch (Exception ex)
             {
