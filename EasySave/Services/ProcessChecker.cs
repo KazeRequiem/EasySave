@@ -12,7 +12,7 @@ namespace EasySave.Services
         private bool isCurrentlyRunning = false;
 
         /// <summary>
-        /// Check if a process is running.
+        /// Check if a process  is running.
         /// Return true or false if the process is running or not.
         /// </summary>
         public bool IsProcessRunning(string processName)

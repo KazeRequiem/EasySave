@@ -98,10 +98,8 @@ namespace EasySave.View.Views
                     selectedLocationLog = "localAndCentralized";
                 }
 
-                Console.WriteLine(selectedLocationLog);
-
                 viewModel.UpdateLogType(selectedLog);
-                viewModel.UpdateLogType(selectedLog);
+                viewModel.SetLogLocation(selectedLocationLog);
 
                 var rawExtensionsPriority = TxtExtensionPriority.Text.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 var newExtensionsListPriority = new List<string>();
