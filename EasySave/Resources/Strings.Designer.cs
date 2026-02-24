@@ -97,6 +97,15 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Current Setting.
+        /// </summary>
+        public static string CurrentSetting {
+            get {
+                return ResourceManager.GetString("CurrentSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à ID not found..
         /// </summary>
         public static string ErrorIdNotFound {
@@ -142,6 +151,33 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Application Blocked :.
+        /// </summary>
+        public static string ListApplicationSoftware {
+            get {
+                return ResourceManager.GetString("ListApplicationSoftware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Crypt Key : .
+        /// </summary>
+        public static string ListcryptoKey {
+            get {
+                return ResourceManager.GetString("ListcryptoKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à CryptoSoft Path : .
+        /// </summary>
+        public static string ListCryptoSoftPath {
+            get {
+                return ResourceManager.GetString("ListCryptoSoftPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à No jobs registered yet..
         /// </summary>
         public static string ListEmpty {
@@ -151,11 +187,38 @@ namespace EasySave.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Extension Crypt : .
+        /// </summary>
+        public static string ListExtensionsToEncrypt {
+            get {
+                return ResourceManager.GetString("ListExtensionsToEncrypt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à ID | Name | Type | Source -&gt; Destination.
         /// </summary>
         public static string ListHeader {
             get {
                 return ResourceManager.GetString("ListHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à LogType : .
+        /// </summary>
+        public static string ListLogType {
+            get {
+                return ResourceManager.GetString("ListLogType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur chargement liste :.
+        /// </summary>
+        public static string LoadingError {
+            get {
+                return ResourceManager.GetString("LoadingError", resourceCulture);
             }
         }
         

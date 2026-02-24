@@ -29,7 +29,7 @@ namespace EasySave.Views
         /// 
         /// Returns the index of the selected menu option.
         /// </summary>
-        private int ShowInteractiveMenu(string title, string[] options)
+        private int ShowInteractiveMenu(string title, string[] options, bool isSettingmenu)
         {
             int selectedIndex = 0;
             ConsoleKey key;
@@ -38,7 +38,7 @@ namespace EasySave.Views
             {
                 Console.Clear();
                 Console.WriteLine($"=== {title} ===\n");
-
+                
                 for (int i = 0; i < options.Length; i++)
                 {
                     if (i == selectedIndex)
@@ -53,6 +53,21 @@ namespace EasySave.Views
                     }
                 }
 
+                
+            
+                if (isSettingmenu == true)
+                {
+                    Console.WriteLine($"\n--- {Strings.CurrentSetting} ---");
+                    Console.WriteLine("-----------------------");  
+                    Console.WriteLine($"\n{Strings.ListcryptoKey}{viewModel.GetCurrentSetting().cryptoKey}");
+                    Console.Write($"{Strings.ListExtensionsToEncrypt}|");
+                    foreach (var ext in viewModel.GetCurrentSetting().extensionsToEncrypt)
+                    {
+                        Console.Write($"  [{ext}]  |"); 
+                    }
+                    Console.WriteLine($"\n{ Strings.ListApplicationSoftware}{ viewModel.GetCurrentSetting().applicationSoftware}\n{ Strings.ListCryptoSoftPath}{ viewModel.GetCurrentSetting().cryptoSoftPath}\n{ Strings.ListLogType}{ viewModel.GetCurrentSetting().logType}");
+                    Console.WriteLine("-----------------------");
+                }
                 Console.WriteLine($"\n({Strings.NavigationHelp})");
 
                 key = Console.ReadKey(true).Key;
@@ -65,6 +80,7 @@ namespace EasySave.Views
                 {
                     selectedIndex = (selectedIndex == options.Length - 1) ? 0 : selectedIndex + 1;
                 }
+                
 
             } while (key != ConsoleKey.Enter);
 
@@ -93,7 +109,7 @@ namespace EasySave.Views
 
             while (keepRunning)
             {
-                int choice = ShowInteractiveMenu(Strings.MainMenuTitle, mainOptions);
+                int choice = ShowInteractiveMenu(Strings.MainMenuTitle, mainOptions,false);
                 Console.Clear();
 
                 switch (choice)
@@ -105,13 +121,16 @@ namespace EasySave.Views
                     case 4: ExecuteJobView(); break;
                     case 5: EditSetting(); break;
                     case 6: keepRunning = false; break;
-                }
 
+                    
+                }
+                
                 if (keepRunning)
                 {
                     Console.WriteLine($"\n{Strings.PressAnyKey}");
                     Console.ReadKey(true);
                 }
+                
             }
         }
 
@@ -135,7 +154,7 @@ namespace EasySave.Views
             string dest = Console.ReadLine();
 
             string[] typeOptions = { Strings.TypeFull, Strings.TypeDiff };
-            int typeChoice = ShowInteractiveMenu(Strings.PromptType, typeOptions);
+            int typeChoice = ShowInteractiveMenu(Strings.PromptType, typeOptions,false);
             BackupType type = (typeChoice == 0) ? BackupType.Full : BackupType.Differential;
 
             Console.Clear();
@@ -172,7 +191,7 @@ namespace EasySave.Views
                     if (string.IsNullOrWhiteSpace(newDest)) newDest = job.destinationPath;
 
                     string[] typeOptions = { Strings.TypeFull, Strings.TypeDiff };
-                    int typeChoice = ShowInteractiveMenu(string.Format(Strings.PromptNewType, job.type), typeOptions);
+                    int typeChoice = ShowInteractiveMenu(string.Format(Strings.PromptNewType, job.type), typeOptions,false);
                     BackupType newType = (typeChoice == 0) ? BackupType.Full : BackupType.Differential;
 
                     Console.Clear();
@@ -269,7 +288,7 @@ namespace EasySave.Views
 
             while (keepRunningsetting)
             {
-                int choice = ShowInteractiveMenu(Strings.SettingMenuTitle, settingOption);
+                int choice = ShowInteractiveMenu(Strings.SettingMenuTitle, settingOption,true);
                 Console.Clear();
 
                 switch (choice)
@@ -330,7 +349,7 @@ namespace EasySave.Views
 
             while (keepRunningsettinglog)
             {
-                int choice = ShowInteractiveMenu("LOG", settingOptionlog);
+                int choice = ShowInteractiveMenu("LOG", settingOptionlog,false);
                 Console.Clear();
 
                 switch (choice)

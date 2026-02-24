@@ -23,6 +23,8 @@ namespace EasyLog
         public long sizeFile { get; set; }
 
         public double timeTransfer { get; set; }
+        
+        public double encryptionTimeMs { get; set; }
 
         public string success_Error { get; set; }
 

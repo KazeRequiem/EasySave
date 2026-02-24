@@ -107,6 +107,7 @@ namespace EasyLog
                             new XElement("destinationPath", entry.destinationPath),
                             new XElement("sizeFile", entry.sizeFile),
                             new XElement("timeTransfer", entry.timeTransfer),
+                            new XElement("encryptionTimeMs", entry.encryptionTimeMs),
                             new XElement("success_Error", entry.success_Error)
                         );
                         doc.Root?.Add(newEntry);
