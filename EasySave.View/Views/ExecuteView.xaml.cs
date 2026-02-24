@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace EasySave.View.Views
@@ -35,6 +36,9 @@ namespace EasySave.View.Views
         {
             try
             {
+                StatusDisplay.Text = Strings.ProgressReady;
+                StatusDisplay.Foreground = (Brush)new BrushConverter().ConvertFrom("#28a745");
+
                 PbProgress.Value = 0;
                 isRunningAll = false;
                 progressTimer.Stop();
@@ -71,24 +75,32 @@ namespace EasySave.View.Views
         {
 
             viewModel.ResumeJob();
+            StatusDisplay.Text = Strings.ProgressExecution;
+            StatusDisplay.Foreground = (Brush)new BrushConverter().ConvertFrom("#28a745");
         }
 
         private void PauseJob (object sender, EventArgs e)
         {
 
            viewModel.PauseJob();
-            
+           StatusDisplay.Text = Strings.ProgressPause;
+           StatusDisplay.Foreground = (Brush)new BrushConverter().ConvertFrom("#E3993D");
+
         }
 
         private void StopAllJobs(object sender, EventArgs e) 
         {  
             viewModel.StopAllJobs();
+            StatusDisplay.Text = Strings.ProgressStop;
+            StatusDisplay.Foreground = (Brush)new BrushConverter().ConvertFrom("#CF2508"); 
         }
 
         private async void BtnRunOne_Click(object sender, RoutedEventArgs e)
         {
             if (CmbJobs.SelectedItem is BackupJob selectedJob)
             {
+                StatusDisplay.Text = Strings.ProgressExecution;
+                StatusDisplay.Foreground = (Brush)new BrushConverter().ConvertFrom("#28a745");
                 PbProgress.IsIndeterminate = false;
                 PbProgress.Value = 0;
 
@@ -97,6 +109,8 @@ namespace EasySave.View.Views
                 try
                 {
                     await viewModel.ExecuteJob(selectedJob.id);
+                    StatusDisplay.Text = Strings.ProgressFinished;
+                    StatusDisplay.Foreground = (Brush)new BrushConverter().ConvertFrom("#28a745");
                 }
                 catch (OperationCanceledException)
                 {
@@ -109,6 +123,8 @@ namespace EasySave.View.Views
                 catch (Exception ex)
                 {
                     MessageBox.Show(Strings.ExecutionError + ex, Strings.MsgError, MessageBoxButton.OK, MessageBoxImage.Error);
+                    StatusDisplay.Text = "Error";
+                    StatusDisplay.Foreground = (Brush)new BrushConverter().ConvertFrom("#CF2508");
                 }
                 finally
                 {

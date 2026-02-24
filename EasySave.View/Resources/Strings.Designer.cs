@@ -556,6 +556,51 @@ namespace EasySave.View.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Exécution....
+        /// </summary>
+        public static string ProgressExecution {
+            get {
+                return ResourceManager.GetString("ProgressExecution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Terminé.
+        /// </summary>
+        public static string ProgressFinished {
+            get {
+                return ResourceManager.GetString("ProgressFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Pause.
+        /// </summary>
+        public static string ProgressPause {
+            get {
+                return ResourceManager.GetString("ProgressPause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Prêt.
+        /// </summary>
+        public static string ProgressReady {
+            get {
+                return ResourceManager.GetString("ProgressReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Arrêté.
+        /// </summary>
+        public static string ProgressStop {
+            get {
+                return ResourceManager.GetString("ProgressStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Séparez les extensions par des virgules..
         /// </summary>
         public static string SettingsInfo {
