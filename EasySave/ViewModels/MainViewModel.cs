@@ -226,7 +226,6 @@ namespace EasySave.ViewModels
                 backupService.SetLogType(LogFormat.Xml);
                 Console.WriteLine($"Log Type changed : {LogFormat.Xml}");
             }
-
         }
 
         public void UpdateCryptKey(string key)
@@ -306,6 +305,29 @@ namespace EasySave.ViewModels
             Console.WriteLine($"Extension '{extension}' deleted.");
             backupService.LogAction("Remove Priority Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Success] Extension is removed");
         }
+
+        public void SetLogLocation(string logLocation)
+        {
+            if (logLocation.ToLower() == "local")
+            {
+                backupService.LogAction("UpdateLogLocation : " + logLocation, "None", "None", "None", 0, 0, 0, "[Success] log = local");
+                backupService.SetLogLocation(LogLocation.local);
+                Console.WriteLine($"Log Type changed : {LogLocation.local}");
+            }
+            else if(logLocation.ToLower() == "centralized")
+            {
+                backupService.LogAction("UpdateLogLocation : " + logLocation, "None", "None", "None", 0, 0, 0, "[Success] log = centralized");
+                backupService.SetLogLocation(LogLocation.centralized);
+                Console.WriteLine($"Log Type changed : {LogLocation.centralized}");
+            }
+            else
+            {
+                backupService.LogAction("UpdateLogLocation : " + logLocation, "None", "None", "None", 0, 0, 0, "[Success] log = local and centralized");
+                backupService.SetLogLocation(LogLocation.localAndCentralized);
+                Console.WriteLine($"Log Type changed : {LogLocation.localAndCentralized}");
+            }
+        }
+
         public Settings GetCurrentSetting()
         {
             settings = backupService.GetSettings();

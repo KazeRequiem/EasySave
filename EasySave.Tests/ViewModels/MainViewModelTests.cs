@@ -248,5 +248,41 @@ namespace EasySave.Tests
 
             Assert.AreEqual(0, progress);
         }
+
+        [TestMethod]
+        public void SetLogLocation_ShouldUpdateToLocal_WhenInputIsLocal()
+        {
+            var viewModel = new MainViewModel();
+            viewModel.SetLogLocation("local");
+            var settings = viewModel.GetCurrentSetting();
+            Assert.AreEqual(LogLocation.local, settings.logLocation);
+        }
+
+        [TestMethod]
+        public void SetLogLocation_ShouldBeCaseInsensitive_WhenInputIsLocal()
+        {
+            var viewModel = new MainViewModel();
+            viewModel.SetLogLocation("LOCAL");
+            var settings = viewModel.GetCurrentSetting();
+            Assert.AreEqual(LogLocation.local, settings.logLocation);
+        }
+
+        [TestMethod]
+        public void SetLogLocation_ShouldUpdateToCentralized_WhenInputIsCentralized()
+        {
+            var viewModel = new MainViewModel();
+            viewModel.SetLogLocation("centralized");
+            var settings = viewModel.GetCurrentSetting();
+            Assert.AreEqual(LogLocation.centralized, settings.logLocation);
+        }
+
+        [TestMethod]
+        public void SetLogLocation_ShouldUpdateToLocalAndCentralized_WhenInputIsFallback()
+        {
+            var viewModel = new MainViewModel();
+            viewModel.SetLogLocation("random");
+            var settings = viewModel.GetCurrentSetting();
+            Assert.AreEqual(LogLocation.localAndCentralized, settings.logLocation);
+        }
     }
 }
