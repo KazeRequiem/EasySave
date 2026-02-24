@@ -133,6 +133,15 @@ namespace EasySave.View.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Arrêt demandé.
+        /// </summary>
+        public static string BtnStop {
+            get {
+                return ResourceManager.GetString("BtnStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Valider.
         /// </summary>
         public static string BtnValidate {
@@ -394,6 +403,51 @@ namespace EasySave.View.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Centralisé.
+        /// </summary>
+        public static string LogCentralize {
+            get {
+                return ResourceManager.GetString("LogCentralize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Local et Centralisé.
+        /// </summary>
+        public static string LogLocalAndCentralize {
+            get {
+                return ResourceManager.GetString("LogLocalAndCentralize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Localisation des logs :.
+        /// </summary>
+        public static string LogLocation {
+            get {
+                return ResourceManager.GetString("LogLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Taille maximum de fichier pour le transfert (en Ko).
+        /// </summary>
+        public static string MaxFileSize {
+            get {
+                return ResourceManager.GetString("MaxFileSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Si un fichier a une taille super à la limite, alors la sauvegarde séquentielle se lance aussi, non parallèle.
+        /// </summary>
+        public static string MaxFileSizecomment {
+            get {
+                return ResourceManager.GetString("MaxFileSizecomment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à 🚀 Lancer.
         /// </summary>
         public static string MenuExecute {
@@ -489,6 +543,15 @@ namespace EasySave.View.Resources {
         public static string MsgWarning {
             get {
                 return ResourceManager.GetString("MsgWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Extensions à prioriser (ex: .txt,.pdf) :.
+        /// </summary>
+        public static string PriorityExtensions {
+            get {
+                return ResourceManager.GetString("PriorityExtensions", resourceCulture);
             }
         }
         

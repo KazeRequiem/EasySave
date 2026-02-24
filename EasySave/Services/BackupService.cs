@@ -139,6 +139,7 @@ namespace EasySave.Services
         /// </summary>
         public async Task ExecuteJob(int id)
         {
+            orchestrator.UndoStop();
             Stopwatch chrono = new Stopwatch();
             chrono.Start();
             BackupJob? job = backupJobs.Find(j => j.id == id);

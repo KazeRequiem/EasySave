@@ -267,4 +267,25 @@
   <data name="DeleteJobError" xml:space="preserve">
     <value>Unable to delete:</value>
   </data>
+  <data name="PriorityExtensions" xml:space="preserve">
+    <value>Extensions to prioritize (e.g. .txt,.pdf):</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>Maximum file size for transfer (in Kb)</value>
+  </data>
+  <data name="MaxFileSizecomment" xml:space="preserve">
+    <value>If a file exceeds the size limit, sequential saving will start; otherwise, parallel saving will begin.</value>
+  </data>
+  <data name="BtnStop" xml:space="preserve">
+    <value>Stop requested</value>
+  </data>
+  <data name="LogLocalAndCentralize" xml:space="preserve">
+    <value>Local And Centralized</value>
+  </data>
+  <data name="LogCentralize" xml:space="preserve">
+    <value>Centralized</value>
+  </data>
+  <data name="LogLocation" xml:space="preserve">
+    <value>Log location : </value>
+  </data>
 </root>
