@@ -354,6 +354,12 @@ namespace EasySave.Services
             }
         }
 
+        public void SetLogLocation(LogLocation logLocation)
+        {
+            settings.logLocation = logLocation;
+            settingsRepository.WriteSettings(settings);
+        }
+
         public Settings GetSettings()
         {
             return settings;

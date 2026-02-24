@@ -13,6 +13,7 @@ namespace EasySave.Models
         public string applicationSoftware { get; set; }
         public List<string> priorityExtensions { get; set; }
         public long maxFileSizeKo { get; set; }
+        public LogLocation logLocation { get; set; }
 
         public Settings()
         {
@@ -23,6 +24,7 @@ namespace EasySave.Models
             applicationSoftware = "";
             priorityExtensions = new List<string>();
             maxFileSizeKo = 10000;
+            logLocation = LogLocation.local;
         }
     }
 }

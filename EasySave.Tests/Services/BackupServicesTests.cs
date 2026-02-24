@@ -282,5 +282,34 @@ namespace EasySave.Tests
                 Assert.Fail($"Une méthode de contrôle a levé une exception inattendue : {ex.Message}");
             }
         }
+
+        [TestMethod]
+        public void SetLogLocation_ShouldUpdateLocation_AndPersistToSettingsFile()
+        {
+            var service = new BackupService(orchestrator);
+
+            LogLocation expectedLocation = LogLocation.centralized;
+            service.SetLogLocation(expectedLocation);
+            var currentSettings = service.GetSettings();
+            Assert.AreEqual(expectedLocation, currentSettings.logLocation, "La localisation des logs n'a pas été mise à jour en mémoire.");
+            var newService = new BackupService(orchestrator);
+            var persistedSettings = newService.GetSettings();
+
+            Assert.AreEqual(expectedLocation, persistedSettings.logLocation, "La localisation des logs n'a pas été sauvegardée sur le disque.");
+        }
+
+        [TestMethod]
+        public void SetLogLocation_ShouldUpdateToLocalAndCentralized_AndPersist()
+        {
+            var service = new BackupService(orchestrator);
+            LogLocation expectedLocation = LogLocation.localAndCentralized;
+            service.SetLogLocation(expectedLocation);
+            var currentSettings = service.GetSettings();
+            Assert.AreEqual(expectedLocation, currentSettings.logLocation);
+            var newService = new BackupService(orchestrator);
+            var persistedSettings = newService.GetSettings();
+
+            Assert.AreEqual(expectedLocation, persistedSettings.logLocation);
+        }
     }
 }
