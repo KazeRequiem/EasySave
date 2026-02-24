@@ -1,10 +1,11 @@
-﻿using System;
+﻿using EasyLog;
+using EasySave.Models;
+using EasySave.View.Resources;
+using EasySave.ViewModels;
+using Microsoft.Win32;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Win32;
-using EasySave.ViewModels;
-using EasySave.View.Resources;
-using EasyLog;
 
 namespace EasySave.View.Views
 {
@@ -29,11 +30,23 @@ namespace EasySave.View.Views
                     TxtCryptoPath.Text = settings.cryptoSoftPath;
                     TxtCryptoKey.Text = settings.cryptoKey;
 
+                    if (string.IsNullOrWhiteSpace(TxtFileSizeMax.Text) && !TxtFileSizeMax.Text.All(char.IsDigit))
+                    {
+
+                        long longFileSizeMax = long.Parse(TxtFileSizeMax.Text);
+                        longFileSizeMax = settings.maxFileSizeKo;
+                    }
+
                     CmbLogType.SelectedIndex = (settings.logType == LogFormat.Json) ? 0 : 1;
 
                     if (settings.extensionsToEncrypt != null)
                     {
                         TxtExtensions.Text = string.Join(", ", settings.extensionsToEncrypt);
+                    }
+
+                    if (settings.priorityExtensions != null)
+                    {
+                        TxtExtensionPriority.Text = string.Join(", ", settings.priorityExtensions);
                     }
                 }
             }
@@ -61,14 +74,66 @@ namespace EasySave.View.Views
             try
             {
                 viewModel.UpdateApplicationSoftware(TxtBusinessSoft.Text);
-
+                if (string.IsNullOrWhiteSpace(TxtFileSizeMax.Text) == false && TxtFileSizeMax.Text.All(char.IsDigit) == true)
+                {
+                    long longFileSizeMax = long.Parse(TxtFileSizeMax.Text);
+                    viewModel.SetMaxFileSize(longFileSizeMax);
+                }
+           
                 viewModel.UpdateCryptPath(TxtCryptoPath.Text);
                 viewModel.UpdateCryptKey(TxtCryptoKey.Text);
                 string selectedLog = (CmbLogType.SelectedIndex == 0) ? "json" : "xml";
+                string selectedLocationLog;
+
+                if (CmbLogSave.SelectedIndex == 0)
+                {
+                    selectedLocationLog = "local";
+                }
+                else if (CmbLogSave.SelectedIndex == 1)
+                {
+                    selectedLocationLog = "centralized";
+                }
+                else
+                {
+                    selectedLocationLog = "localAndCentralized";
+                }
+
+                Console.WriteLine(selectedLocationLog);
+
                 viewModel.UpdateLogType(selectedLog);
+                viewModel.UpdateLogType(selectedLog);
+
+                var rawExtensionsPriority = TxtExtensionPriority.Text.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var newExtensionsListPriority = new List<string>();
 
                 var rawExtensions = TxtExtensions.Text.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 var newExtensionsList = new List<string>();
+
+                foreach (var ext in rawExtensionsPriority)
+                {
+                    string cleanExt = ext.Trim();
+                    if (!string.IsNullOrWhiteSpace(cleanExt))
+                    {
+                        if (!cleanExt.StartsWith(".")) cleanExt = "." + cleanExt;
+                        newExtensionsListPriority.Add(cleanExt);
+                    }
+                }
+                var currentSavedExtensionsPriority = new List<string>(viewModel.CurrentSettings.priorityExtensions);
+
+
+                foreach (var existingExt in currentSavedExtensionsPriority)
+                {
+                    if (!newExtensionsListPriority.Contains(existingExt))
+                    {
+                        viewModel.RemovePriorityExtension(existingExt);
+                    }
+                }
+
+                foreach (var newExt in newExtensionsListPriority)
+                {
+                    viewModel.AddPriorityExtension(newExt);
+                }
+
 
                 foreach (var ext in rawExtensions)
                 {

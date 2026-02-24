@@ -267,4 +267,25 @@
   <data name="DeleteJobError" xml:space="preserve">
     <value>Impossible de supprimer :</value>
   </data>
+  <data name="PriorityExtensions" xml:space="preserve">
+    <value>Extensions à prioriser (ex: .txt,.pdf) :</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>Taille maximum de fichier pour le transfert (en Ko)</value>
+  </data>
+  <data name="MaxFileSizecomment" xml:space="preserve">
+    <value>Si un fichier a une taille super à la limite, alors la sauvegarde séquentielle se lance aussi, non parallèle</value>
+  </data>
+  <data name="BtnStop" xml:space="preserve">
+    <value>Arrêt demandé</value>
+  </data>
+  <data name="LogLocalAndCentralize" xml:space="preserve">
+    <value>Local et Centralisé</value>
+  </data>
+  <data name="LogCentralize" xml:space="preserve">
+    <value>Centralisé</value>
+  </data>
+  <data name="LogLocation" xml:space="preserve">
+    <value>Localisation des logs :</value>
+  </data>
 </root>

@@ -281,7 +281,7 @@ namespace EasySave.ViewModels
             backupService.LogAction("Remove Encryption Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Success] Extension is removed");
         }
 
-        public void SetMaxFileSize(int maxFileSize)
+        public void SetMaxFileSize(long maxFileSize)
         {
             if(maxFileSize < 0 )
             {

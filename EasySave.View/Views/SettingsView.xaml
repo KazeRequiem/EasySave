@@ -23,10 +23,27 @@
                             <ComboBoxItem Content="XML"/>
                         </ComboBox>
                     </StackPanel>
-
+                    <StackPanel>
+                        <TextBlock Text="{x:Static resx:Strings.LogLocation}" Margin="0,0,0,5" FontWeight="Medium"/>
+                        <ComboBox x:Name="CmbLogSave" HorizontalAlignment="Left" Width="200" Height="30" SelectedIndex="0">
+                            <ComboBoxItem Content="Local"/>
+                            <ComboBoxItem Content="{x:Static resx:Strings.LogCentralize}"/>
+                            <ComboBoxItem Content="{x:Static resx:Strings.LogLocalAndCentralize}"/>
+                        </ComboBox>
+                    </StackPanel>
                     <StackPanel>
                         <TextBlock Text="{x:Static resx:Strings.LabelBusiness}" Margin="0,0,0,5" FontWeight="Medium"/>
                         <TextBox x:Name="TxtBusinessSoft" Height="30" Padding="5" ToolTip="Ex: Calculator.exe"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="{x:Static resx:Strings.PriorityExtensions}" Margin="0,0,0,5" FontWeight="Medium"/>
+                        <TextBox x:Name="TxtExtensionPriority" Height="30" Padding="5" ToolTip=".txt,.json,.docx"/>
+                        <TextBlock Text="{x:Static resx:Strings.SettingsInfo}" FontSize="11" Foreground="Gray" Margin="0,2,0,0"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="{x:Static resx:Strings.MaxFileSize}" Margin="0,0,0,5" FontWeight="Medium"/>
+                        <TextBox x:Name="TxtFileSizeMax" Height="30" Padding="5" ToolTip="50"/>
+                        <TextBlock Text="{x:Static resx:Strings.MaxFileSizecomment}" FontSize="11" Foreground="Gray" Margin="0,2,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>

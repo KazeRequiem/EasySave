@@ -30,6 +30,7 @@ namespace EasySave.Orchestration
         public void GlobalPause() => pauseEvent.Reset();
         public void GlobalResume() => pauseEvent.Set();
         public void GlobalStop() => isStopped = true;
+        public void UndoStop() => isStopped = false;
         public bool IsPaused => !pauseEvent.IsSet;
 
         public void RegisterPriorityFile()
