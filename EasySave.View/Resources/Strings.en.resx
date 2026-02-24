@@ -288,4 +288,19 @@
   <data name="LogLocation" xml:space="preserve">
     <value>Log location : </value>
   </data>
+  <data name="ProgressReady" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="ProgressPause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="ProgressStop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="ProgressExecution" xml:space="preserve">
+    <value>Execution...</value>
+  </data>
+  <data name="ProgressFinished" xml:space="preserve">
+    <value>Finished</value>
+  </data>
 </root>
