@@ -84,22 +84,18 @@ namespace EasyLog
             {
                 lock (_lock)
                 {
-                    // 1. Définition du nom de fichier propre
                     string extension = entry.formatJsonOrXml == LogFormat.Json ? "json" : "xml";
                     string fileName = $"{DateTime.Now:yyyy-MM-dd}.{extension}";
                     string filePath = Path.Combine(_directoryPath, fileName);
 
-                    // 2. ÉCRITURE LOCALE : On choisit le format
                     if (entry.formatJsonOrXml == LogFormat.Json)
                     {
-                        // On n'écrit le JSON qu'une seule fois ici
                         var options = new JsonSerializerOptions { WriteIndented = true };
                         string jsonString = JsonSerializer.Serialize(entry, options);
                         File.AppendAllText(filePath, jsonString + Environment.NewLine);
                     }
                     else if (entry.formatJsonOrXml == LogFormat.Xml)
                     {
-                        // Gestion du XML
                         XDocument doc = File.Exists(filePath) ? XDocument.Load(filePath) : new XDocument(new XElement("Logs"));
                         XElement newEntry = new XElement("LogEntry",
                             new XElement("time", entry.time),
@@ -117,8 +113,6 @@ namespace EasyLog
                     }
                 }
 
-                // 3. ENVOI DOCKER : Toujours exécuté après l'écriture locale
-                // Utilise l'IP statique 10.162.129.111 configurée dans SendToDocker
                 _ = SendToDocker(entry);
             }
             catch (Exception ex)
@@ -133,8 +127,6 @@ namespace EasyLog
                 using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(2) };
                 var json = JsonSerializer.Serialize(entry);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                // Utilisation de ta nouvelle IP Wi-Fi : 10.122.225.227
                 var response = await client.PostAsync("http://localhost:5000/api/logs", content);
 
                 if (response.IsSuccessStatusCode)
@@ -144,7 +136,6 @@ namespace EasyLog
             }
             catch (Exception)
             {
-                // On ne bloque pas l'utilisateur si le serveur est éteint ou l'IP a changé
                 Console.WriteLine("[Docker Warning] Serveur distant injoignable. Backup local uniquement.");
             }
         }
