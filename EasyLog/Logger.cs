@@ -135,7 +135,7 @@ namespace EasyLog
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 // Utilisation de ta nouvelle IP Wi-Fi : 10.122.225.227
-                var response = await client.PostAsync("http://10.122.225.227:5000/api/logs", content);
+                var response = await client.PostAsync("http://localhost:5000/api/logs", content);
 
                 if (response.IsSuccessStatusCode)
                 {
