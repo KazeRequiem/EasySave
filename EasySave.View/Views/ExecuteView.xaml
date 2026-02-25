@@ -46,7 +46,7 @@
                         </Button.Resources> 
                     </Button>
 
-                    <Button Content="⏸" Width="40" Height="40" Margin="5" Background="#E3993D" Foreground="White" BorderThickness="0" FontSize="10" Click="PauseJob">
+                    <Button Content="⏸" Width="40" Height="40" Margin="5" Background="#ffc107" Foreground="White" BorderThickness="0" FontSize="10" Click="PauseJob">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
@@ -60,9 +60,9 @@
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </Button.Resources>
-                    </Button>--> 
+                    </Button>-->
 
-                    <Button Content="❌" Width="40" Height="40" Margin="5" Background="#CF2508" Foreground="White" BorderThickness="0" FontSize="10" Click="StopAllJobs">
+                    <Button Content="❌" Width="40" Height="40" Margin="5" Background="#dc3545" Foreground="White" BorderThickness="0" FontSize="10" Click="StopAllJobs">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
