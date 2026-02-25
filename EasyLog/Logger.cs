@@ -1,10 +1,5 @@
-using System;
-using System.IO;
 using System.Text.Json;
-using EasyLog;
-using System.Net.Http; 
-using System.Text;     
-using System.Threading.Tasks;
+using System.Text;
 using System.Xml.Linq;
 
 
@@ -78,42 +73,52 @@ namespace EasyLog
         /// This operation is thread-safe.
         /// </summary>
 
+        // Remplace ta fonction par celle-ci dans Logger.cs
         public void WriteLog(LogEntry entry)
         {
+            string extension = entry.formatJsonOrXml == LogFormat.Json ? "json" : "xml";
+            string fileName = $"{DateTime.Now:yyyy-MM-dd}.{extension}";
+            string filePath = Path.Combine(_directoryPath, fileName);
+
             try
             {
-                lock (_lock)
+                // --- CORRECTION ICI : On vérifie si on doit écrire en LOCAL ---
+                // 0 = local, 2 = localAndCentralized
+                if (entry.location == LogLocation.local || entry.location == LogLocation.localAndCentralized)
                 {
-                    string extension = entry.formatJsonOrXml == LogFormat.Json ? "json" : "xml";
-                    string fileName = $"{DateTime.Now:yyyy-MM-dd}.{extension}";
-                    string filePath = Path.Combine(_directoryPath, fileName);
-
-                    if (entry.formatJsonOrXml == LogFormat.Json)
+                    lock (_lock)
                     {
-                        var options = new JsonSerializerOptions { WriteIndented = true };
-                        string jsonString = JsonSerializer.Serialize(entry, options);
-                        File.AppendAllText(filePath, jsonString + Environment.NewLine);
-                    }
-                    else if (entry.formatJsonOrXml == LogFormat.Xml)
-                    {
-                        XDocument doc = File.Exists(filePath) ? XDocument.Load(filePath) : new XDocument(new XElement("Logs"));
-                        XElement newEntry = new XElement("LogEntry",
-                            new XElement("time", entry.time),
-                            new XElement("operationName", entry.operationName),
-                            new XElement("savetype", entry.savetype),
-                            new XElement("sourcePath", entry.sourcePath),
-                            new XElement("destinationPath", entry.destinationPath),
-                            new XElement("sizeFile", entry.sizeFile),
-                            new XElement("timeTransfer", entry.timeTransfer),
-                            new XElement("encryptionTimeMs", entry.encryptionTimeMs),
-                            new XElement("success_Error", entry.success_Error)
-                        );
-                        doc.Root?.Add(newEntry);
-                        doc.Save(filePath);
+                        if (entry.formatJsonOrXml == LogFormat.Json)
+                        {
+                            string jsonLine = JsonSerializer.Serialize(entry);
+                            File.AppendAllText(filePath, jsonLine + Environment.NewLine);
+                        }
+                        else if (entry.formatJsonOrXml == LogFormat.Xml)
+                        {
+                            XDocument doc = File.Exists(filePath) ? XDocument.Load(filePath) : new XDocument(new XElement("Logs"));
+                            XElement newEntry = new XElement("LogEntry",
+                                new XElement("time", entry.time),
+                                new XElement("operationName", entry.operationName),
+                                new XElement("savetype", entry.savetype),
+                                new XElement("sourcePath", entry.sourcePath),
+                                new XElement("destinationPath", entry.destinationPath),
+                                new XElement("sizeFile", entry.sizeFile),
+                                new XElement("timeTransfer", entry.timeTransfer),
+                                new XElement("encryptionTimeMs", entry.encryptionTimeMs),
+                                new XElement("success_Error", entry.success_Error)
+                            );
+                            doc.Root?.Add(newEntry);
+                            doc.Save(filePath);
+                        }
                     }
                 }
 
-                _ = SendToDocker(entry);
+                // --- ON VÉRIFIE SI ON DOIT ENVOYER AU DOCKER ---
+                // 1 = centralized, 2 = localAndCentralized
+                if (entry.location == LogLocation.centralized || entry.location == LogLocation.localAndCentralized)
+                {
+                    _ = SendToDocker(entry);
+                }
             }
             catch (Exception ex)
             {
