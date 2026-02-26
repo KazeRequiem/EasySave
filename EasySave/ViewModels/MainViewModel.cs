@@ -1,5 +1,6 @@
 ﻿using EasyLog;
 using EasySave.Models;
+using EasySave.Orchestration;
 using EasySave.Repositories;
 using EasySave.Services;
 using System;
@@ -19,16 +20,44 @@ namespace EasySave.ViewModels
     public class MainViewModel
     {
         private readonly BackupSettingsRepository settingsRepository;
+        private readonly BackupStateRepository stateRepository;
+        private readonly Orchestrator orchestrator;
         private Settings settings;
         private BackupService backupService;
+        private readonly IProcessChecker processChecker;
         public List<BackupJob> backupJobs => backupService.backupJobs;
         public Settings CurrentSettings => backupService.GetSettings();
 
         public MainViewModel()
         {
-            backupService = new BackupService();
             settingsRepository = new BackupSettingsRepository();
+            stateRepository = new BackupStateRepository();
             settings = settingsRepository.ReadSettings();
+            orchestrator = new Orchestrator(
+                settings.maxFileSizeKo,
+                settings.priorityExtensions
+            );
+            this.processChecker = new ProcessChecker();
+            backupService = new BackupService(orchestrator);
+            StartBusinessSoftwareMonitoring();
+        }
+        private void StartBusinessSoftwareMonitoring()
+        {
+            string softwareName = CurrentSettings.applicationSoftware;
+
+            processChecker.StartMonitoring(
+                softwareName,
+                onProcessStarted: () =>
+                {
+                    orchestrator.GlobalPause();
+                    Console.WriteLine($"[MONITOR] {softwareName} detected : Pause forced.");
+                },
+                onProcessStopped: () =>
+                {
+                    orchestrator.GlobalResume();
+                    Console.WriteLine($"[MONITOR] {softwareName} closed : Restart.");
+                }
+            );
         }
 
         /// <summary>
@@ -120,7 +149,7 @@ namespace EasySave.ViewModels
         /// Progress and execution errors are reported to the user
         /// and logged through the service layer.
         /// </summary>
-        public void ExecuteJob(int id)
+        public async Task ExecuteJob(int id)
         {
             BackupJob actualJob = backupService.backupJobs.Find(j => j.id == id);
             if (actualJob == null)
@@ -134,7 +163,7 @@ namespace EasySave.ViewModels
             }
             try
             {
-                backupService.ExecuteJob(id);
+                await backupService.ExecuteJob(id);
             }
             catch (Exception ex)
             {
@@ -144,20 +173,28 @@ namespace EasySave.ViewModels
             }
         }
 
-
-        public void EditSetting(int id)
+        public void StopJob(int id)
         {
-            Console.WriteLine($"Setting");
+            backupService.StopJob(id);
+            backupService.LogAction("Stop Job : " + id, "None", "None", "None", 0, 0, 0, "[Success] Work has stopped");
+        }
 
-            try
-            {
-                Console.WriteLine(settings);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error during copying : {ex.Message}");
-                backupService.LogAction("Edit Setting : " + id, "None", "None", "None", 0, 0, 0, "[Error] " + ex.Message);
-            }
+        public void StopAllJobs()
+        {
+            backupService.StopAllJobs();
+            backupService.LogAction("Stop All Job ", "None", "None", "None", 0, 0, 0, "[Success] All work has stopped.");
+        }
+
+        public void PauseJob()
+        {
+            backupService.PauseJob();
+            backupService.LogAction("Pause Job ", "None", "None", "None", 0, 0, 0, "[Success] Job paused.");
+        }
+
+        public void ResumeJob()
+        {
+            backupService.ResumeJob();
+            backupService.LogAction("Resume Job ", "None", "None", "None", 0, 0, 0, "[Success] Job resumed.");
         }
 
         public void UpdateApplicationSoftware(string softwareName)
@@ -170,6 +207,7 @@ namespace EasySave.ViewModels
             }
 
             backupService.SetApplicationSoftware(softwareName);
+            StartBusinessSoftwareMonitoring();
             Console.WriteLine($"SoftwareName changed : {softwareName}");
             backupService.LogAction("Update Application Software : " + softwareName, "None", "None", "None", 0, 0, 0, "[Success]");
         }
@@ -188,7 +226,6 @@ namespace EasySave.ViewModels
                 backupService.SetLogType(LogFormat.Xml);
                 Console.WriteLine($"Log Type changed : {LogFormat.Xml}");
             }
-
         }
 
         public void UpdateCryptKey(string key)
@@ -230,11 +267,87 @@ namespace EasySave.ViewModels
             Console.WriteLine($"Extension '{extension}' deleted.");
             backupService.LogAction("Remove Encryption Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Success] Extension is removed");
         }
+
+        public void SetMaxFileSize(long maxFileSize)
+        {
+            if(maxFileSize < 0 )
+            {
+                backupService.LogAction("Set max file size ", "None", "None", "None", 0, 0, 0, "[Error] Max Size is < 0");
+                return;
+            }
+            backupService.SetMaxFileSize(maxFileSize);
+            Console.WriteLine($"File size {maxFileSize} set");
+            backupService.LogAction("Set max file size : " + maxFileSize.ToString(), "None", "None", "None", 0, 0, 0, "[Succes] Max Size is update to :"+ maxFileSize.ToString());
+        }
+
+        public void AddPriorityExtension(string extension)
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                Console.WriteLine("Error : Invalid Extension .");
+                backupService.LogAction("Add Priority Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Error] New extension is empty");
+                return;
+            }
+            backupService.LogAction("Add Priority Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Success] New extension");
+            backupService.AddPriorityExtension(extension);
+            Console.WriteLine($"Extension '{extension}' added to the list.");
+        }
+
+        public void RemovePriorityExtension(string extension)
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                backupService.LogAction("Remove Priority Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Error] Extension is empty");
+                return;
+            }
+
+            backupService.RemovePriorityExtension(extension);
+            Console.WriteLine($"Extension '{extension}' deleted.");
+            backupService.LogAction("Remove Priority Extension : " + extension, "None", "None", "None", 0, 0, 0, "[Success] Extension is removed");
+        }
+
+        public void SetLogLocation(string logLocation)
+        {
+            if (logLocation.ToLower() == "local")
+            {
+                backupService.LogAction("UpdateLogLocation : " + logLocation, "None", "None", "None", 0, 0, 0, "[Success] log = local");
+                backupService.SetLogLocation(LogLocation.local);
+                Console.WriteLine($"Log Type changed : {LogLocation.local}");
+            }
+            else if(logLocation.ToLower() == "centralized")
+            {
+                backupService.LogAction("UpdateLogLocation : " + logLocation, "None", "None", "None", 0, 0, 0, "[Success] log = centralized");
+                backupService.SetLogLocation(LogLocation.centralized);
+                Console.WriteLine($"Log Type changed : {LogLocation.centralized}");
+            }
+            else
+            {
+                backupService.LogAction("UpdateLogLocation : " + logLocation, "None", "None", "None", 0, 0, 0, "[Success] log = local and centralized");
+                backupService.SetLogLocation(LogLocation.localAndCentralized);
+                Console.WriteLine($"Log Type changed : {LogLocation.localAndCentralized}");
+            }
+        }
+
         public Settings GetCurrentSetting()
         {
             settings = backupService.GetSettings();
             return settings;
         }
+        public List<BackupState> GetCurrentStates()
+        {
+            return stateRepository.ReadStates();
+        }
 
+        public double GetGlobalProgress()
+        {
+            var states = GetCurrentStates();
+            if (states == null || states.Count == 0) return 0;
+            double totalProgress = 0;
+            foreach (var state in states)
+            {
+                totalProgress += state.progression;
+            }
+            return totalProgress / states.Count;
+        }
     }
 }

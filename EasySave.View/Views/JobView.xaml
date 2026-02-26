@@ -14,26 +14,46 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,15">
             <Button Content="{x:Static resx:Strings.BtnCreate}" 
-            Click="BtnCreate_Click" 
-            Width="100" Height="30" Margin="0,0,10,0" Background="#28a745" Foreground="White"/>
+                    Click="BtnCreate_Click" 
+                    Width="100" Height="30" Margin="0,0,10,0" Background="#28a745" Foreground="White" BorderThickness="0" Cursor="Hand"/>
 
             <Button Content="{x:Static resx:Strings.BtnModify}" 
-            Click="BtnModify_Click" 
-            Width="100" Height="30" Margin="0,0,10,0" Background="#ffc107"/>
+                    Click="BtnModify_Click" 
+                    Width="100" Height="30" Margin="0,0,10,0" Background="#ffc107" Foreground="White" BorderThickness="0" Cursor="Hand"/>
 
             <Button Content="{x:Static resx:Strings.BtnDelete}" 
-            Click="BtnDelete_Click" 
-            Width="100" Height="30" Background="#dc3545" Foreground="White"/>
+                    Click="BtnDelete_Click" 
+                    Width="100" Height="30" Background="#dc3545" Foreground="White" BorderThickness="0" Cursor="Hand"/>
         </StackPanel>
 
         <DataGrid x:Name="DgdJobs" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" 
-                  BorderThickness="1" BorderBrush="#DDD" Background="WhiteSmoke">
+                  BorderThickness="1" BorderBrush="#E0E0E0" Background="White"
+                  RowHeight="38" HeadersVisibility="Column" 
+                  GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#EEEEEE"
+                  AlternatingRowBackground="#F9F9F9" SelectionMode="Single">
+
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#F0F4F8"/>
+                    <Setter Property="Foreground" Value="#2D3E50"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Padding" Value="15,10"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="BorderBrush" Value="#D0D7DE"/>
+                </Style>
+
+                <Style TargetType="TextBlock" x:Key="CellPaddingStyle">
+                    <Setter Property="Margin" Value="15,0,15,0"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderID}" Width="50" Binding="{Binding id}"/>
-                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderName}" Width="150" Binding="{Binding name}"/>
-                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderSource}" Width="*" Binding="{Binding sourcePath}"/>
-                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderDest}" Width="*" Binding="{Binding destinationPath}"/>
-                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderType}" Width="100" Binding="{Binding type}"/>
+                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderID}" Width="60" Binding="{Binding id}" ElementStyle="{StaticResource CellPaddingStyle}"/>
+                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderName}" Width="180" Binding="{Binding name}" ElementStyle="{StaticResource CellPaddingStyle}"/>
+                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderSource}" Width="*" Binding="{Binding sourcePath}" ElementStyle="{StaticResource CellPaddingStyle}"/>
+                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderDest}" Width="*" Binding="{Binding destinationPath}" ElementStyle="{StaticResource CellPaddingStyle}"/>
+                <DataGridTextColumn Header="{x:Static resx:Strings.HeaderType}" Width="120" Binding="{Binding type}" ElementStyle="{StaticResource CellPaddingStyle}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

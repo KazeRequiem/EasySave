@@ -11,6 +11,9 @@ namespace EasySave.Models
         public List<string> extensionsToEncrypt { get; set; }
         public LogFormat logType { get; set; }
         public string applicationSoftware { get; set; }
+        public List<string> priorityExtensions { get; set; }
+        public long maxFileSizeKo { get; set; }
+        public LogLocation logLocation { get; set; }
 
         public Settings()
         {
@@ -19,6 +22,9 @@ namespace EasySave.Models
             extensionsToEncrypt = new List<string>();
             logType = LogFormat.Json;
             applicationSoftware = "";
+            priorityExtensions = new List<string>();
+            maxFileSizeKo = 10000;
+            logLocation = LogLocation.local;
         }
     }
 }

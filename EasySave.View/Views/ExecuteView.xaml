@@ -27,8 +27,50 @@
                 <Button Content="{x:Static resx:Strings.BtnRunAll}" Click="BtnRunAll_Click" Height="40" Background="#28a745" Foreground="White" FontWeight="Bold"/>
             </GroupBox>
 
-            <TextBlock Text="{x:Static resx:Strings.LabelProgress}" FontWeight="Bold" Margin="0,10,0,5"/>
-            <ProgressBar x:Name="PbProgress" Height="20" Margin="0,5,0,0" Minimum="0" Maximum="100" Value="0"/>
+            <TextBlock FontWeight="Bold" Margin="0,10,0,5">
+                <Run Text="{x:Static resx:Strings.LabelProgress}" />
+                <Run x:Name="StatusDisplay" Text="Prêt" />
+            </TextBlock>
+            <ProgressBar x:Name="PbProgress" 
+             Minimum="0" 
+             Maximum="100" 
+             Value="0" 
+             Height="20" />
+            <GroupBox>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="▶" Width="40" Height="40" Margin="5" Background="#28a745" Foreground="White" BorderThickness="0" FontSize="10" Click="ResumeJob">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources> 
+                    </Button>
+
+                    <Button Content="⏸" Width="40" Height="40" Margin="5" Background="#ffc107" Foreground="White" BorderThickness="0" FontSize="10" Click="PauseJob">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <!--<Button Content="❌¹" Width="40" Height="40" Margin="5" Background="#F74F2F" Foreground="White" BorderThickness="0" FontSize="10">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>-->
+
+                    <Button Content="❌" Width="40" Height="40" Margin="5" Background="#dc3545" Foreground="White" BorderThickness="0" FontSize="10" Click="StopAllJobs">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
     </Grid>
 </UserControl>

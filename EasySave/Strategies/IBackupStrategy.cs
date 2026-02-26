@@ -1,4 +1,5 @@
 ﻿using EasySave.Models;
+using EasySave.Orchestration;
 using EasySave.Repositories;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,6 @@ namespace EasySave.Strategies
         /// Updates the backup state during execution
         /// and persists state changes through the repository.
         /// </summary>
-        double Execute(string sourcePath, string destinationPath, BackupState state, BackupStateRepository stateRepo);
+        Task<double> Execute(string sourcePath, string destinationPath, BackupState state, BackupStateRepository stateRepo, CancellationToken token, Orchestrator orchestrator);
     }
 }
