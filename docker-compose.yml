@@ -1,0 +1,6 @@
+services:
+  easysave.centralserver:
+    image: ${DOCKER_REGISTRY-}easysavecentralserver
+    build:
+      context: EasySave.CentralServer
+      dockerfile: Dockerfile
