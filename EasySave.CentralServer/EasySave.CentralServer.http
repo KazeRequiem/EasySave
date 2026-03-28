@@ -1,0 +1,6 @@
+@EasySave.CentralServer_HostAddress = http://localhost:5042
+
+GET {{EasySave.CentralServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

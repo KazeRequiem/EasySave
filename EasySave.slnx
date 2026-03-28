@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Éléments de solution/" />
   <Project Path="EasyLog/EasyLog.csproj" />
+  <Project Path="EasySave.CentralServer/EasySave.CentralServer.csproj" />
   <Project Path="EasySave.Tests/EasySave.Tests.csproj" />
   <Project Path="EasySave.View/EasySave.View.csproj" Id="2deb92fb-93bf-4714-97da-52b97b9ec0f9" />
   <Project Path="EasySave/EasySave.csproj" />

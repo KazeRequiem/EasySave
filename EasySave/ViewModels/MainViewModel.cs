@@ -216,14 +216,14 @@ namespace EasySave.ViewModels
         {
             if (logType.ToLower() == "json")
             {
-                backupService.LogAction("UpdateLogType : " + logType, "None", "None", "None", 0, 0, 0, "[Success] log = Json");
                 backupService.SetLogType(LogFormat.Json);
+                backupService.LogAction("UpdateLogType : " + logType, "None", "None", "None", 0, 0, 0, "[Success] log = Json");
                 Console.WriteLine($"Log Type changed : {LogFormat.Json}");
             }
             else
             {
-                backupService.LogAction("UpdateLogType : " + logType, "None", "None", "None", 0, 0, 0, "[Success] log = XML");
                 backupService.SetLogType(LogFormat.Xml);
+                backupService.LogAction("UpdateLogType : " + logType, "None", "None", "None", 0, 0, 0, "[Success] log = XML");
                 Console.WriteLine($"Log Type changed : {LogFormat.Xml}");
             }
         }
@@ -308,24 +308,23 @@ namespace EasySave.ViewModels
 
         public void SetLogLocation(string logLocation)
         {
+            // 1. On met d'abord à jour la valeur technique
             if (logLocation.ToLower() == "local")
             {
-                backupService.LogAction("UpdateLogLocation : " + logLocation, "None", "None", "None", 0, 0, 0, "[Success] log = local");
                 backupService.SetLogLocation(LogLocation.local);
-                Console.WriteLine($"Log Type changed : {LogLocation.local}");
             }
-            else if(logLocation.ToLower() == "centralized")
+            else if (logLocation.ToLower() == "centralized")
             {
-                backupService.LogAction("UpdateLogLocation : " + logLocation, "None", "None", "None", 0, 0, 0, "[Success] log = centralized");
                 backupService.SetLogLocation(LogLocation.centralized);
-                Console.WriteLine($"Log Type changed : {LogLocation.centralized}");
             }
             else
             {
-                backupService.LogAction("UpdateLogLocation : " + logLocation, "None", "None", "None", 0, 0, 0, "[Success] log = local and centralized");
                 backupService.SetLogLocation(LogLocation.localAndCentralized);
-                Console.WriteLine($"Log Type changed : {LogLocation.localAndCentralized}");
             }
+
+            // 2. On logge ENSUITE. Maintenant, le service a la nouvelle valeur en mémoire.
+            backupService.LogAction("UpdateLogLocation : " + logLocation, "None", "None", "None", 0, 0, 0, "[Success] log = " + logLocation);
+            Console.WriteLine($"Log Type changed : {logLocation}");
         }
 
         public Settings GetCurrentSetting()

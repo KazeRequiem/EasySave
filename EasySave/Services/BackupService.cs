@@ -387,7 +387,8 @@ namespace EasySave.Services
                 timeTransfer = time,
                 encryptionTimeMs = crypttime,
                 success_Error = successOrError,
-                formatJsonOrXml = formatToUse
+                formatJsonOrXml = formatToUse,
+                location = settings.logLocation
             };
             try
             {
